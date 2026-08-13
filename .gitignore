@@ -1,0 +1,12 @@
+# Signaturschluessel und Passwoerter gehoeren nie ins Repository
+*.keystore
+*.jks
+local.properties
+
+# Build-Ausgaben
+node_modules/
+android/
+www/
+*.apk
+build/
+.gradle/

@@ -1,0 +1,2500 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Daily English — 10 Minuten</title>
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --bg:#EDF0F4;
+  --sheet:#FFFFFF;
+  --sheet-2:#F5F8FC;
+  --sheet-3:#E5EBF3;
+  --ink:#111A2B;
+  --ink-2:#47536A;
+  --ink-3:#7B889E;
+  --line:#DAE1EB;
+  --line-2:#C4CFDE;
+  --accent:#1D3E77;
+  --accent-2:#345E9F;
+  --accent-soft:#E2EAF7;
+  --wrong:#BE3A21;
+  --wrong-soft:#FAE6E1;
+  --right:#12664C;
+  --right-soft:#DDF0E8;
+  --amber:#8F630A;
+  --amber-soft:#F7EEDA;
+  --shadow-1:0 1px 2px rgba(17,26,43,.07);
+  --shadow-2:0 1px 2px rgba(17,26,43,.06), 0 10px 26px -14px rgba(17,26,43,.30);
+
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Noto Serif","Times New Roman",serif;
+
+  --r-s:6px; --r-m:10px; --r-l:14px;
+  --pad:18px;
+}
+
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0B1017;
+    --sheet:#141B25;
+    --sheet-2:#1A222E;
+    --sheet-3:#212B39;
+    --ink:#E9EEF5;
+    --ink-2:#A0AEC1;
+    --ink-3:#6C7B90;
+    --line:#232E3C;
+    --line-2:#31404F;
+    --accent:#7CA6ED;
+    --accent-2:#9CBCF3;
+    --accent-soft:#182640;
+    --wrong:#EE7053;
+    --wrong-soft:#2E1A15;
+    --right:#4FC79A;
+    --right-soft:#102A22;
+    --amber:#D9A441;
+    --amber-soft:#2A2011;
+    --shadow-1:0 1px 2px rgba(0,0,0,.45);
+    --shadow-2:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1017; --sheet:#141B25; --sheet-2:#1A222E; --sheet-3:#212B39;
+  --ink:#E9EEF5; --ink-2:#A0AEC1; --ink-3:#6C7B90;
+  --line:#232E3C; --line-2:#31404F;
+  --accent:#7CA6ED; --accent-2:#9CBCF3; --accent-soft:#182640;
+  --wrong:#EE7053; --wrong-soft:#2E1A15;
+  --right:#4FC79A; --right-soft:#102A22;
+  --amber:#D9A441; --amber-soft:#2A2011;
+  --shadow-1:0 1px 2px rgba(0,0,0,.45);
+  --shadow-2:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -16px rgba(0,0,0,.85);
+}
+:root[data-theme="light"]{
+  --bg:#EDF0F4; --sheet:#FFFFFF; --sheet-2:#F5F8FC; --sheet-3:#E5EBF3;
+  --ink:#111A2B; --ink-2:#47536A; --ink-3:#7B889E;
+  --line:#DAE1EB; --line-2:#C4CFDE;
+  --accent:#1D3E77; --accent-2:#345E9F; --accent-soft:#E2EAF7;
+  --wrong:#BE3A21; --wrong-soft:#FAE6E1;
+  --right:#12664C; --right-soft:#DDF0E8;
+  --amber:#8F630A; --amber-soft:#F7EEDA;
+  --shadow-1:0 1px 2px rgba(17,26,43,.07);
+  --shadow-2:0 1px 2px rgba(17,26,43,.06), 0 10px 26px -14px rgba(17,26,43,.30);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16.5px; line-height:1.5;
+  -webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased;
+}
+button,input,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px; border-radius:4px}
+
+.app{
+  max-width:33rem; margin:0 auto; min-height:100dvh;
+  display:flex; flex-direction:column;
+  background:var(--bg);
+}
+
+/* --- top bar --- */
+.topbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; min-height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.iconbtn{
+  flex:0 0 auto; width:34px; height:34px; display:grid; place-items:center;
+  background:none; border:1px solid transparent; border-radius:var(--r-m);
+  color:var(--ink-2); cursor:pointer;
+}
+.iconbtn:hover{background:var(--sheet-3); color:var(--ink)}
+.topbar-mid{flex:1 1 auto; min-width:0; display:flex; align-items:baseline; gap:9px}
+.daytag{
+  flex:0 0 auto; font-size:.68rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft);
+  padding:3px 8px; border-radius:100px; font-variant-numeric:tabular-nums;
+}
+.topbar-title{
+  flex:1 1 auto; min-width:0; font-size:.86rem; font-weight:600; color:var(--ink-2);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.clock{
+  flex:0 0 auto; font-size:.78rem; color:var(--ink-3);
+  font-variant-numeric:tabular-nums; letter-spacing:.02em;
+}
+
+/* --- progress rail --- */
+.rail{display:flex; gap:4px; padding:10px 14px 0}
+.seg{flex:1 1 0; min-width:0}
+.seg-bar{height:3px; border-radius:2px; background:var(--line-2); transition:background .25s}
+.seg-label{
+  display:block; margin-top:5px; font-size:.62rem; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.seg.done .seg-bar{background:var(--accent)}
+.seg.now .seg-bar{background:var(--accent)}
+.seg.now .seg-label{color:var(--accent); font-weight:700}
+
+/* --- main --- */
+main{flex:1 1 auto; padding:16px 14px 8px; display:flex; flex-direction:column; gap:14px}
+
+/* --- dock --- */
+.dock{
+  position:sticky; bottom:0; z-index:20;
+  display:flex; gap:9px; padding:12px 14px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top, var(--bg) 62%, transparent);
+}
+.dock:empty{display:none}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+.btn{
+  flex:1 1 auto; min-height:50px; padding:12px 16px;
+  border:1px solid var(--line-2); border-radius:var(--r-m);
+  background:var(--sheet); color:var(--ink);
+  font-size:.95rem; font-weight:600; cursor:pointer;
+  box-shadow:var(--shadow-1);
+  transition:transform .08s ease, background .15s;
+}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:#FFFFFF}
+@media (prefers-color-scheme:dark){ .btn.primary{color:#0B1017} }
+:root[data-theme="dark"] .btn.primary{color:#0B1017}
+:root[data-theme="light"] .btn.primary{color:#FFFFFF}
+.btn.ghost{background:transparent; box-shadow:none; color:var(--ink-2); border-color:var(--line)}
+.btn.ok{background:var(--right-soft); border-color:transparent; color:var(--right)}
+.btn.no{background:var(--wrong-soft); border-color:transparent; color:var(--wrong)}
+.btn[disabled]{opacity:.45; cursor:default}
+
+.card{
+  background:var(--sheet); border:1px solid var(--line);
+  border-radius:var(--r-l); padding:var(--pad);
+  box-shadow:var(--shadow-1);
+}
+.card.raised{box-shadow:var(--shadow-2)}
+/* the "margin rule" of a page — subject cue, used only on English content */
+.card.marked{border-left:3px solid var(--accent); border-radius:4px var(--r-l) var(--r-l) 4px}
+
+.label{
+  font-size:.64rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-3); display:block; margin-bottom:9px;
+}
+.label.accent{color:var(--accent)}
+.label.wrong{color:var(--wrong)}
+.label.right{color:var(--right)}
+
+h1,h2,h3{margin:0; text-wrap:balance; line-height:1.25}
+h1{font-size:1.5rem; font-weight:700; letter-spacing:-.015em}
+h2{font-size:1.12rem; font-weight:700; letter-spacing:-.01em}
+h3{font-size:.95rem; font-weight:700}
+p{margin:0}
+.stack{display:flex; flex-direction:column; gap:12px}
+.stack.tight{gap:8px}
+.muted{color:var(--ink-2); font-size:.9rem}
+.small{font-size:.82rem; color:var(--ink-3)}
+
+/* English content is set in serif — that is how you tell target language from scaffolding */
+.en{font-family:var(--serif); font-size:1.16rem; line-height:1.55; color:var(--ink)}
+.en.big{font-size:1.28rem}
+.de{font-family:var(--sans)}
+
+/* proofreader marks */
+.strike{color:var(--wrong); text-decoration:line-through; text-decoration-thickness:2px}
+.ins{color:var(--right); font-weight:600}
+
+/* ============================================================
+   WORD CHIPS (fix-it)
+   ============================================================ */
+.words{display:flex; flex-wrap:wrap; gap:5px 3px; font-family:var(--serif)}
+.w{
+  font-family:var(--serif); font-size:1.16rem; line-height:1.3;
+  padding:6px 5px; border:1px solid transparent; border-radius:var(--r-s);
+  background:none; cursor:pointer; color:var(--ink);
+  border-bottom:2px dotted var(--line-2);
+}
+.w:hover{background:var(--sheet-3)}
+.w.sel{background:var(--accent-soft); border-color:var(--accent); border-bottom-style:solid; color:var(--accent); font-weight:600}
+/* the actual error in the sentence — proofreader's strike */
+.w.miss{background:var(--wrong-soft); border-color:var(--wrong); color:var(--wrong); text-decoration:line-through; text-decoration-thickness:2px}
+/* you found it */
+.w.found::after{content:"✓"; margin-left:5px; color:var(--right); font-weight:700; font-family:var(--sans); font-size:.72em; text-decoration:none; display:inline-block}
+/* where you pointed instead — not an error, just your guess */
+.w.picked{background:var(--sheet-3); border-color:var(--line-2); border-style:dashed; border-bottom-style:dashed; color:var(--ink-3)}
+.w.locked{cursor:default; border-bottom-color:transparent}
+.w.locked:hover{background:none}
+.w.locked.miss:hover{background:var(--wrong-soft)}
+.w.locked.picked:hover{background:var(--sheet-3)}
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+textarea{
+  width:100%; background:var(--sheet-2); color:var(--ink);
+  border:1px solid var(--line-2); border-radius:var(--r-m);
+  padding:12px 13px; resize:vertical;
+  font-family:var(--serif); font-size:1.08rem; line-height:1.6;
+}
+textarea::placeholder{font-family:var(--sans); font-size:.92rem; color:var(--ink-3)}
+textarea:focus{border-color:var(--accent); outline:none; background:var(--sheet)}
+
+.meterrow{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:9px}
+.meter{flex:1 1 auto; height:4px; background:var(--sheet-3); border-radius:2px; overflow:hidden}
+.meter > i{display:block; height:100%; background:var(--accent); width:0; transition:width .3s}
+.count{font-size:.75rem; color:var(--ink-3); font-variant-numeric:tabular-nums; white-space:nowrap}
+.count strong{color:var(--ink); font-weight:700}
+
+/* ============================================================
+   LISTS / PHRASES
+   ============================================================ */
+.phrases{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px}
+.phrases li{
+  display:flex; gap:9px; font-family:var(--serif); font-size:1rem; line-height:1.45;
+  padding-bottom:7px; border-bottom:1px solid var(--line);
+}
+.phrases li:last-child{border-bottom:none; padding-bottom:0}
+.phrases li em{
+  flex:0 0 auto; font-family:var(--sans); font-style:normal; font-size:.72rem;
+  color:var(--ink-3); align-self:flex-start; padding-top:3px; width:2ch;
+  font-variant-numeric:tabular-nums;
+}
+.checks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px}
+.checks li{display:flex; gap:10px; align-items:flex-start; font-size:.88rem; color:var(--ink-2)}
+.checks li::before{
+  content:""; flex:0 0 auto; width:7px; height:7px; margin-top:7px;
+  border-radius:2px; background:var(--accent); opacity:.55;
+}
+
+/* ============================================================
+   HOME / STATS
+   ============================================================ */
+.hero{
+  background:var(--sheet); border:1px solid var(--line); border-radius:var(--r-l);
+  padding:22px var(--pad); box-shadow:var(--shadow-2);
+  display:flex; flex-direction:column; gap:14px;
+}
+.streakrow{display:flex; gap:8px; align-items:stretch}
+.stat{
+  flex:1 1 0; background:var(--sheet-2); border:1px solid var(--line);
+  border-radius:var(--r-m); padding:11px 12px; min-width:0;
+}
+.stat b{display:block; font-size:1.4rem; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.1}
+.stat span{display:block; margin-top:2px; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3)}
+.stat.hot b{color:var(--amber)}
+.stat.hot{background:var(--amber-soft); border-color:transparent}
+
+.rowlink{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  width:100%; text-align:left; padding:13px 15px;
+  background:var(--sheet); border:1px solid var(--line); border-radius:var(--r-m);
+  cursor:pointer; color:var(--ink); font-size:.92rem; font-weight:600;
+}
+.rowlink:hover{background:var(--sheet-2)}
+.rowlink .chev{color:var(--ink-3); font-size:1.1rem; line-height:1}
+.rowlink .sub{display:block; font-size:.76rem; font-weight:400; color:var(--ink-3); margin-top:1px}
+
+/* topic index */
+.topics{display:flex; flex-direction:column; gap:6px}
+.topic{
+  display:flex; gap:11px; align-items:flex-start; width:100%; text-align:left;
+  padding:11px 13px; background:var(--sheet); border:1px solid var(--line);
+  border-radius:var(--r-m); cursor:pointer; color:var(--ink);
+}
+.topic:hover{background:var(--sheet-2)}
+.topic .tt{flex:1 1 auto; min-width:0; font-size:.9rem; font-weight:600; line-height:1.35}
+.topic .tt small{display:block; font-weight:400; font-size:.75rem; color:var(--ink-3); margin-top:1px}
+/* wie gut das Thema sitzt — nicht wann es dran war */
+.topic .str{
+  flex:0 0 auto; align-self:center; font-size:.68rem; font-weight:700;
+  font-variant-numeric:tabular-nums; padding:4px 9px; border-radius:100px;
+  background:var(--sheet-3); color:var(--ink-3); white-space:nowrap;
+}
+.topic .str.good{background:var(--right-soft); color:var(--right)}
+.topic .str.mid{background:var(--amber-soft); color:var(--amber)}
+.topic .str.low{background:var(--wrong-soft); color:var(--wrong)}
+.topic.cur{border-color:var(--accent); background:var(--accent-soft)}
+.topic.cur .tt{color:var(--accent)}
+.blockhead{
+  font-size:.64rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-3); padding:14px 2px 4px;
+}
+
+/* archive */
+.entry{background:var(--sheet); border:1px solid var(--line); border-radius:var(--r-m); overflow:hidden}
+.entry > summary{
+  padding:12px 14px; cursor:pointer; list-style:none; display:flex; gap:10px;
+  align-items:baseline; justify-content:space-between;
+}
+.entry > summary::-webkit-details-marker{display:none}
+.entry .etitle{font-size:.88rem; font-weight:600; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.entry .edate{flex:0 0 auto; font-size:.72rem; color:var(--ink-3); font-variant-numeric:tabular-nums}
+.entry .ebody{padding:0 14px 14px; display:flex; flex-direction:column; gap:11px}
+.entry .etext{
+  font-family:var(--serif); font-size:1.02rem; line-height:1.6; white-space:pre-wrap;
+  padding:12px 13px; background:var(--sheet-2); border-radius:var(--r-m); border:1px solid var(--line);
+}
+.entry .eprompt{font-size:.8rem; color:var(--ink-3); font-style:italic}
+
+/* ---- Sprech-Modus ---- */
+.bigtimer{
+  display:block; text-align:center; font-size:3.6rem; font-weight:700;
+  letter-spacing:-.03em; font-variant-numeric:tabular-nums; line-height:1;
+  color:var(--accent); margin:4px 0 2px;
+}
+.bigtimer.prep{color:var(--amber)}
+.bigtimer.over{color:var(--wrong)}
+.timerlabel{
+  display:block; text-align:center; font-size:.66rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
+}
+.ring{height:5px; border-radius:3px; background:var(--sheet-3); overflow:hidden; margin-top:14px}
+.ring > i{display:block; height:100%; background:var(--accent); width:100%}
+.ring.prep > i{background:var(--amber)}
+.phgroup{margin-bottom:11px}
+.phgroup:last-child{margin-bottom:0}
+.phgroup > b{
+  display:block; font-size:.64rem; font-weight:700; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:5px;
+}
+.phgroup > span{display:block; font-family:var(--serif); font-size:1rem; line-height:1.5; color:var(--ink)}
+.selfcheck{display:flex; flex-direction:column; gap:8px}
+.selfcheck button{
+  display:flex; align-items:center; gap:11px; width:100%; text-align:left;
+  padding:12px 14px; background:var(--sheet); border:1px solid var(--line);
+  border-radius:var(--r-m); cursor:pointer; color:var(--ink-2); font-size:.88rem;
+}
+.selfcheck button .box{
+  flex:0 0 auto; width:20px; height:20px; border-radius:5px;
+  border:2px solid var(--line-2); display:grid; place-items:center;
+  font-size:.72rem; font-weight:700; color:transparent;
+}
+.selfcheck button.on{border-color:var(--right); color:var(--ink)}
+.selfcheck button.on .box{background:var(--right); border-color:var(--right); color:#fff}
+
+.note{
+  background:var(--amber-soft); border-radius:var(--r-m); padding:12px 14px;
+  font-size:.86rem; color:var(--ink-2); line-height:1.5;
+}
+.note b{color:var(--amber)}
+.trap{
+  background:var(--wrong-soft); border-radius:var(--r-m); padding:12px 14px;
+  font-size:.88rem; line-height:1.5; color:var(--ink-2);
+}
+.reveal{background:var(--right-soft); border-radius:var(--r-m); padding:13px 14px}
+
+.toast{
+  position:fixed; left:50%; bottom:88px; transform:translateX(-50%);
+  background:var(--ink); color:var(--bg); padding:10px 16px; border-radius:100px;
+  font-size:.84rem; font-weight:600; z-index:60; box-shadow:var(--shadow-2);
+  opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;
+  max-width:88vw; text-align:center;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(-4px)}
+
+.copybox{width:100%; min-height:130px; font-size:.8rem; font-family:var(--sans)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important}
+}
+@media (min-width:600px){
+  body{font-size:17px}
+  main{padding:20px 18px 10px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <button class="iconbtn" id="backBtn" aria-label="Zurück" hidden>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="topbar-mid">
+      <span class="daytag" id="dayTag">Tag 1</span>
+      <span class="topbar-title" id="topTitle">Daily English</span>
+    </div>
+    <span class="clock" id="clock" hidden>0:00</span>
+  </header>
+  <div class="rail" id="rail" hidden></div>
+  <main id="main"></main>
+  <footer class="dock" id="dock"></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   INHALT — 40 Einheiten
+   Reihenfolge: erst typische Deutsch-Englisch-Fehler,
+   dann Satzbau, dann M3W-Prüfungsgrammatik, dann Business-Produktion.
+   ============================================================ */
+const BLOCKS = [
+  {from:1,  to:18, short:"Fehler",   name:"Zeiten & typische Deutsch-Englisch-Fehler"},
+  {from:19, to:29, short:"Satzbau",  name:"Satzbau & Struktur"},
+  {from:30, to:37, short:"Prüfung",  name:"Prüfungsgrammatik M3W"},
+  {from:38, to:47, short:"Business", name:"Business schreiben & sprechen"}
+];
+const blockOf = i => BLOCKS.find(b => i + 1 >= b.from && i + 1 <= b.to) || BLOCKS[0];
+const areaOf = i => blockOf(i).short;
+
+const UNITS = [
+/* ---------- BLOCK A · Fundament & typische Deutsch-Fehler ---------- */
+{t:"Wortstellung: erst Subjekt, dann Verb",
+ g:"Im Englischen steht das Verb direkt hinter dem Subjekt und bleibt dort. Eine Zeit- oder Ortsangabe am Satzanfang schiebt es nicht weg, wie sie es im Deutschen tut.",
+ ex:["Last week we signed the contract.","Every Monday the team meets at nine."],
+ err:"„Gestern hatten wir …\" wird nicht zu <b>Yesterday had we …</b> Nach der Zeitangabe kommt trotzdem zuerst das Subjekt: <b>Yesterday we had …</b>",
+ fix:[
+  {s:"Yesterday had we a long meeting with the supplier.", i:1, fix:"", mv:true, full:"Yesterday we had a long meeting with the supplier.",
+   why:"Deutsch dreht nach der Zeitangabe Verb und Subjekt um. Englisch nicht: nach <b>Yesterday</b> kommt <b>we</b>, dann erst <b>had</b>."},
+  {s:"I sent yesterday the invoice to the customer.", i:2, fix:"", mv:true, full:"I sent the invoice to the customer yesterday.",
+   why:"Zwischen Verb und Objekt passt nichts. Zeitangaben stehen am Satzende: <b>… to the customer yesterday.</b>"},
+  {s:"In our company works everybody from home on Fridays.", i:3, fix:"", mv:true, full:"In our company everybody works from home on Fridays.",
+   why:"Auch nach einer Ortsangabe gilt: Subjekt vor Verb. <b>everybody works</b>, nicht <b>works everybody</b>."}],
+ tr:[
+  {de:"Letzte Woche haben wir den Vertrag unterschrieben.", en:"Last week we signed the contract.",
+   tip:"Nach <b>Last week</b> sofort <b>we</b>. Und weil eine feste Zeit dabeisteht: Past Simple, kein Present Perfect."},
+  {de:"Jeden Morgen prüft die Buchhaltung die Rechnungen.", en:"Every morning the accounting department checks the invoices.",
+   tip:"Subjekt <b>the accounting department</b> vor Verb <b>checks</b> — auch wenn der Satz mit der Zeit beginnt."},
+  {de:"Heute Nachmittag treffe ich den neuen Lieferanten.", en:"This afternoon I am meeting the new supplier.",
+   tip:"<b>I am meeting</b>, weil der Termin feststeht. <b>I meet</b> wäre eine Gewohnheit."}],
+ wr:{p:"Beschreib deinen gestrigen Tag. Fang mindestens drei Sätze mit einer Zeitangabe an — und pass auf, dass danach das Subjekt kommt.",
+  short:"Drei Sätze über gestern, jeder mit einer Zeitangabe am Anfang.",
+  ph:["Yesterday morning I …","After lunch we …","At around four o'clock …","In the afternoon the team …","Later that evening I …","By the end of the day I was …"],
+  ck:["Steht nach jeder Zeitangabe zuerst das Subjekt?","Sitzt keine Zeitangabe zwischen Verb und Objekt?","Past Simple genommen, weil es um gestern geht?"]}},
+
+{t:"Wo always und usually stehen",
+ g:"Häufigkeitsadverbien stehen vor dem Vollverb, aber hinter am, is und are. Im Deutschen wandern sie frei durch den Satz, im Englischen haben sie einen festen Platz.",
+ ex:["She always checks the figures twice.","He is never late for a meeting."],
+ err:"<b>I go always by train</b> ❌ → <b>I always go by train</b> ✅. Vor dem Vollverb, aber hinter <b>be</b>.",
+ fix:[
+  {s:"We check always the invoices before we pay.", i:2, fix:"", mv:true, full:"We always check the invoices before we pay.",
+   why:"Vor dem Vollverb: <b>we always check</b>. Zwischen Verb und Objekt passt nichts."},
+  {s:"She never is available before nine.", i:1, fix:"", mv:true, full:"She is never available before nine.",
+   why:"Nach <b>am, is, are, was, were</b> steht das Adverb dahinter: <b>She is never …</b>"},
+  {s:"I have usually a coffee before the meeting.", i:2, fix:"", mv:true, full:"I usually have a coffee before the meeting.",
+   why:"<b>have</b> ist hier ein Vollverb, also steht <b>usually</b> davor."}],
+ tr:[
+  {de:"Sie prüft die Zahlen immer zweimal.", en:"She always checks the figures twice.",
+   tip:"Vor dem Vollverb — und das <b>-s</b> bei <b>checks</b> nicht vergessen."},
+  {de:"Er kommt nie zu spät zu einer Besprechung.", en:"He is never late for a meeting.",
+   tip:"Nach <b>is</b> steht <b>never</b> dahinter."},
+  {de:"Wir arbeiten normalerweise bis fünf.", en:"We usually work until five.",
+   tip:"<b>usually</b> vor dem Vollverb."}],
+ wr:{p:"Beschreib deinen normalen Tag mit Häufigkeitsangaben: was du immer, oft, manchmal und nie machst. Mindestens sechs Adverbien.",
+  short:"Drei Sätze mit always, usually und never.",
+  ph:["I always start the day with …","We usually meet on …","I often have to …","She is never …","I sometimes forget to …","We rarely …"],
+  ck:["Adverb vor dem Vollverb?","Hinter am / is / are / was / were?","Nichts zwischen Verb und Objekt geschoben?"]}},
+
+{t:"Present Simple oder Progressive",
+ g:"Present Simple für Gewohnheiten, Fakten und Abläufe. Present Progressive für das, was gerade oder in dieser Phase läuft. Deutsch macht diesen Unterschied nicht, deshalb fällt er beim Schreiben leicht unter den Tisch.",
+ ex:["We usually order from two suppliers.","At the moment we are looking for a third one."],
+ err:"„Ich arbeite gerade am Bericht\" ist nicht <b>I work on the report</b>, sondern <b>I am working on the report</b>. Ohne <b>am</b> klingt es, als wäre das dein Beruf.",
+ fix:[
+  {s:"Sorry, I can't talk right now — I work on the quarterly report.", i:8, fix:"am working",
+   why:"Es passiert genau jetzt → Present Progressive. <b>I work on reports</b> hieße: das ist generell mein Job."},
+  {s:"Every day our warehouse is closing at six.", i:5, fix:"closes", full:"Every day our warehouse closes at six.",
+   why:"<b>Every day</b> ist eine Gewohnheit → Present Simple. Das <b>is</b> fällt komplett weg."},
+  {s:"I am knowing the answer to that question.", i:2, fix:"know", full:"I know the answer to that question.",
+   why:"<b>know, understand, want, need, like, believe</b> beschreiben Zustände. Sie stehen nie in der -ing-Form."}],
+ tr:[
+  {de:"Wir suchen im Moment einen neuen Lieferanten.", en:"At the moment we are looking for a new supplier.",
+   tip:"<b>At the moment</b> ist das klarste Signalwort für Progressive."},
+  {de:"Die Firma stellt jedes Jahr ungefähr zwanzig Leute ein.", en:"The company hires about twenty people every year.",
+   tip:"<b>every year</b> = Gewohnheit, also Simple. Und das <b>-s</b> bei <b>hires</b> nicht vergessen."},
+  {de:"Ich brauche die Zahlen bis Freitag.", en:"I need the figures by Friday.",
+   tip:"<b>need</b> ist ein Zustandsverb — <b>I am needing</b> gibt es nicht."}],
+ wr:{p:"Beschreib deinen Job oder dein Studium: drei Sätze darüber, was normalerweise abläuft, und drei darüber, woran du gerade in diesen Wochen sitzt.",
+  short:"Zwei Sätze mit „normalerweise\", zwei mit „gerade jetzt\".",
+  ph:["I usually work on …","Once a week we …","At the moment I am …","This month we are trying to …","Normally the team meets …","Right now I am dealing with …"],
+  ck:["Alles Regelmäßige im Simple?","Alles, was gerade läuft, mit am/is/are + -ing?","Kein know / want / need in der -ing-Form?"]}},
+
+{t:"Das -s in der dritten Person",
+ g:"Bei he, she, it und jedem einzelnen Ding oder Namen bekommt das Verb im Present Simple ein -s. Das ist der Fehler, der einem Muttersprachler sofort ins Ohr springt.",
+ ex:["The department sends the report every Monday.","She works in purchasing, he works in sales."],
+ err:"<b>She work</b> ❌ → <b>She works</b> ✅. Aber nach <b>does</b> fällt das -s wieder weg: <b>She doesn't works</b> ❌ → <b>She doesn't work</b> ✅.",
+ fix:[
+  {s:"Our supplier deliver on Tuesdays and Fridays.", i:2, fix:"delivers",
+   why:"<b>Our supplier</b> ist einer, zählt also als he/she/it. Das Verb braucht das <b>-s</b>."},
+  {s:"He doesn't works in the head office anymore.", i:2, fix:"work",
+   why:"Das <b>-s</b> steckt schon in <b>doesn't</b>. Danach kommt immer die Grundform."},
+  {s:"The manager go to Vienna twice a month.", i:2, fix:"goes",
+   why:"Nach <b>-o</b> wird das -s zu <b>-es</b>: go → goes, do → does, watch → watches."}],
+ tr:[
+  {de:"Sie arbeitet in der Personalabteilung.", en:"She works in the human resources department.",
+   tip:"<b>works</b>, nicht <b>work</b>. Der häufigste Fehler überhaupt — und der billigste Punktverlust."},
+  {de:"Die Firma zahlt keine Provision.", en:"The company doesn't pay a commission.",
+   tip:"<b>doesn't</b> trägt das -s schon. Danach <b>pay</b>, nicht <b>pays</b>."},
+  {de:"Wer kümmert sich um die Beschwerden?", en:"Who deals with the complaints?",
+   tip:"<b>Who</b> zählt als dritte Person Einzahl: <b>deals</b>."}],
+ wr:{p:"Stell drei Leute aus deinem Umfeld vor — Kollegen, Freunde, Familie. Je zwei Sätze: was diese Person macht und was sie nicht macht.",
+  short:"Drei Sätze über eine Person: was sie macht, nicht macht, und wie oft.",
+  ph:["He works as a …","She is responsible for …","He doesn't like …","She deals with …","He usually starts at …","She never …"],
+  ck:["Hat jedes Verb nach he/she/it ein -s?","Nach doesn't wieder die Grundform?","go → goes, do → does, watch → watches beachtet?"]}},
+
+{t:"Past Simple oder Present Perfect",
+ g:"Past Simple, wenn klar ist wann. Present Perfect, wenn nur das Ergebnis zählt und der Zeitpunkt offen bleibt. Das deutsche Perfekt deckt beides ab, deshalb ist das ein Dauerfehler.",
+ ex:["We launched the product in March.","We have already launched the new product."],
+ err:"„Ich habe ihn gestern getroffen\" ist <b>I met him yesterday</b>, nicht <b>I have met him yesterday</b>. Sobald eine feste Zeitangabe im Satz steht, muss Past Simple her.",
+ fix:[
+  {s:"I have spoken to the supplier last Thursday.", i:1, fix:"", full:"I spoke to the supplier last Thursday.",
+   why:"<b>last Thursday</b> ist ein fester Zeitpunkt → Past Simple. <b>have</b> fällt weg und <b>spoken</b> wird zu <b>spoke</b>."},
+  {s:"Have you worked there in 2019?", i:0, fix:"Did", full:"Did you work there in 2019?",
+   why:"<b>in 2019</b> ist abgeschlossen → Past Simple. Nach <b>Did</b> steht die Grundform: <b>work</b>."},
+  {s:"We didn't received your invoice yet.", i:1, fix:"haven't", full:"We haven't received your invoice yet.",
+   why:"<b>yet</b> gehört zum Present Perfect. Es geht um den Stand jetzt, nicht um einen Zeitpunkt."}],
+ tr:[
+  {de:"Wir haben den Vertrag letzten Monat gekündigt.", en:"We cancelled the contract last month.",
+   tip:"<b>last month</b> → Past Simple, ganz ohne <b>have</b>."},
+  {de:"Ich habe noch nie in England gearbeitet.", en:"I have never worked in England.",
+   tip:"Erfahrung ohne Zeitpunkt → Present Perfect. <b>never, ever, already, yet</b> sind die Signalwörter."},
+  {de:"Die Preise sind dieses Jahr dreimal gestiegen.", en:"Prices have risen three times this year.",
+   tip:"<b>this year</b> läuft noch → Present Perfect. Bei <b>last year</b> müsste Past Simple stehen."}],
+ wr:{p:"Schreib über eine Aufgabe, die du wirklich erledigt hast: erst was wann passiert ist, dann was bis heute daraus geworden ist.",
+  short:"Zwei Sätze mit fester Zeitangabe, zwei mit already, yet oder never.",
+  ph:["Two weeks ago I started …","In the end we decided to …","Since then the situation has …","I have already finished …","We haven't solved … yet.","It has been a useful experience."],
+  ck:["Steht bei jeder festen Zeitangabe Past Simple?","Present Perfect nur da, wo kein Zeitpunkt genannt ist?","already / yet / never / ever richtig eingebaut?"]}},
+
+{t:"since, for und ago",
+ g:"since nennt den Startpunkt, for die Dauer, ago den Abstand zu heute. Deutsch benutzt für alle drei gern „seit\" — im Englischen sind das drei verschiedene Sätze.",
+ ex:["I have worked here since 2021.","I have worked here for four years.","I started here four years ago."],
+ err:"<b>I work here since 2021</b> ❌ — mit <b>since</b> und <b>for</b> muss Present Perfect her: <b>I have worked here since 2021</b> ✅.",
+ fix:[
+  {s:"We are waiting for an answer since Monday.", i:1, fix:"have been", full:"We have been waiting for an answer since Monday.",
+   why:"<b>since</b> zwingt zum Perfect: <b>have been waiting</b>. Present Progressive allein reicht nicht."},
+  {s:"She has been with the company since five years.", i:6, fix:"for",
+   why:"<b>five years</b> ist eine Dauer, kein Startpunkt → <b>for</b>. <b>since</b> nur bei 2019, Monday, last week."},
+  {s:"I have handed in my notice three weeks ago.", i:1, fix:"", full:"I handed in my notice three weeks ago.",
+   why:"<b>ago</b> verlangt immer Past Simple. <b>have … ago</b> gibt es nicht."}],
+ tr:[
+  {de:"Ich lerne seit acht Monaten Englisch.", en:"I have been learning English for eight months.",
+   tip:"Dauer → <b>for</b>, und Perfect Progressive, weil es noch läuft."},
+  {de:"Wir kennen den Lieferanten seit 2019.", en:"We have known the supplier since 2019.",
+   tip:"Startpunkt → <b>since</b>. <b>know</b> nie mit -ing, deshalb <b>have known</b>."},
+  {de:"Sie hat vor zwei Jahren gekündigt.", en:"She resigned two years ago.",
+   tip:"<b>ago</b> → Past Simple, kein <b>have</b>."}],
+ wr:{p:"Wie lange machst du die Dinge in deinem Leben schon? Schreib über Job, Wohnort, Hobbys und eine Sache, die du aufgehört hast — mit since, for und ago.",
+  short:"Je ein Satz mit since, for und ago.",
+  ph:["I have lived in … since …","I have been doing … for … years.","I started … about … years ago.","Until two years ago I …","It has been a while since I …","I have known … since school."],
+  ck:["since + Zeitpunkt, for + Dauer?","Bei since und for: have/has + dritte Form?","ago immer mit Past Simple, nie mit have?"]}},
+
+{t:"Present Perfect Progressive",
+ g:"have oder has been plus Verb-ing. Es geht um die Dauer einer Sache, die angefangen hat und noch läuft oder gerade eben erst aufgehört hat.",
+ ex:["We have been negotiating for three hours.","She has been working here since April."],
+ err:"Der Unterschied: <b>I have written three emails</b> zählt Ergebnisse. <b>I have been writing emails all morning</b> betont die Zeit, die draufgegangen ist.",
+ fix:[
+  {s:"I have been knowing him for years.", i:3, fix:"known", full:"I have known him for years.",
+   why:"Zustandsverben wie <b>know, be, own, believe</b> gehen nicht in die Progressive-Form."},
+  {s:"How long are you working on this proposal?", i:2, fix:"have", full:"How long have you been working on this proposal?",
+   why:"<b>How long …?</b> fragt nach der Dauer bis jetzt → <b>have you been working</b>."},
+  {s:"She has been finished the report.", i:2, fix:"", full:"She has finished the report.",
+   why:"<b>finish</b> ist ein Ergebnis, keine Dauer → normales Present Perfect: <b>has finished</b>."}],
+ tr:[
+  {de:"Wir verhandeln seit zwei Wochen über den Preis.", en:"We have been negotiating the price for two weeks.",
+   tip:"Dauer, läuft noch → <b>have been</b> plus -ing."},
+  {de:"Sie sitzt schon den ganzen Vormittag an der Präsentation.", en:"She has been working on the presentation all morning.",
+   tip:"<b>all morning</b> betont, wie viel Zeit draufging."},
+  {de:"Wie lange arbeitest du schon in dieser Branche?", en:"How long have you been working in this industry?",
+   tip:"Klassische Interviewfrage. Nie <b>How long are you working</b>."}],
+ wr:{p:"Was beschäftigt dich gerade schon länger? Schreib über zwei Dinge, an denen du seit Wochen dran bist, und was bisher dabei rausgekommen ist.",
+  short:"Zwei Sätze mit have been + -ing, einer mit dem Ergebnis.",
+  ph:["I have been working on … for …","We have been trying to … since …","It has been taking longer than expected.","So far I have finished …","I have been thinking about …","Lately I have been …"],
+  ck:["have/has been + Verb-ing sauber gebaut?","Kein know / be / want in der -ing-Form?","Ergebnisse im normalen Perfect, Dauer in der Progressive?"]}},
+
+{t:"Past Perfect",
+ g:"had plus dritte Verbform. Für das, was vor einer anderen Vergangenheitshandlung schon passiert war. Man braucht es nur da, wo die Reihenfolge sonst unklar wäre.",
+ ex:["When we arrived, the meeting had already started.","They had signed the contract before the prices went up."],
+ err:"Nicht überall Past Perfect reinstreuen. Erzählst du der Reihe nach, reicht Past Simple: <b>I came in, sat down and opened my laptop.</b>",
+ fix:[
+  {s:"When I arrived, the client already left.", i:6, fix:"had left.", full:"When I arrived, the client had already left.",
+   why:"Der Kunde war schon weg, <b>bevor</b> du ankamst. Die frühere Handlung geht eine Stufe zurück: <b>had left</b> — und <b>already</b> rutscht dabei zwischen <b>had</b> und <b>left</b>."},
+  {s:"She told me that she has finished the training.", i:5, fix:"had",
+   why:"Der Rahmensatz steht in der Vergangenheit (<b>told</b>), also rutscht der Nebensatz mit zurück."},
+  {s:"After we have checked the figures, we sent the report.", i:2, fix:"had",
+   why:"<b>After, before, by the time</b> plus Vergangenheit → <b>had checked</b>."}],
+ tr:[
+  {de:"Als wir ankamen, hatte die Besprechung schon angefangen.", en:"When we arrived, the meeting had already started.",
+   tip:"Zwei Vergangenheiten in einem Satz: die frühere bekommt <b>had</b>."},
+  {de:"Er sagte, er habe die Rechnung nie bekommen.", en:"He said he had never received the invoice.",
+   tip:"Indirekte Rede in der Vergangenheit → alles eine Stufe zurück."},
+  {de:"Bevor sie die Stelle annahm, hatte sie in Irland gearbeitet.", en:"Before she took the job, she had worked in Ireland.",
+   tip:"Der spätere Satz steht im Past Simple, der frühere im Past Perfect."}],
+ wr:{p:"Erzähl von einer Situation, in der etwas schiefging: was war vorher schon passiert, und was ist am Ende daraus geworden? Mindestens zweimal had plus dritte Form.",
+  short:"Drei Sätze über etwas, das schiefging — mindestens einer mit had.",
+  ph:["By the time I arrived, the … had already …","We had planned to …, but then …","Before that happened, I had …","It turned out that someone had …","In the end everything worked out.","Looking back, I should have …"],
+  ck:["Steht die frühere Handlung im Past Perfect?","had + dritte Form, nicht had + Grundform?","Nicht überall had — nur wo die Reihenfolge zählt?"]}},
+
+{t:"Past Perfect Progressive",
+ g:"had been plus Verb-ing. Für das, was vor einem Punkt in der Vergangenheit schon eine Weile gelaufen war. Es betont die Dauer davor.",
+ ex:["We had been waiting for two hours when the delivery finally arrived.","She had been working there for five years before she resigned."],
+ err:"Unterschied zum Past Perfect: <b>I had written three emails</b> zählt das Ergebnis, <b>I had been writing emails all morning</b> betont die Zeit, die vorher draufging.",
+ fix:[
+  {s:"We had waiting for two hours when the goods arrived.", i:2, fix:"been waiting",
+   why:"Nach <b>had</b> fehlt das <b>been</b>: <b>had been waiting</b>."},
+  {s:"She had been work there for five years before she left.", i:3, fix:"working",
+   why:"Nach <b>had been</b> kommt die -ing-Form: <b>had been working</b>."},
+  {s:"He had been knowing the client for years before the deal.", i:3, fix:"known", full:"He had known the client for years before the deal.",
+   why:"Zustandsverben wie <b>know</b> gehen auch hier nicht in die Progressive-Form: <b>had known</b>."}],
+ tr:[
+  {de:"Wir hatten zwei Stunden gewartet, als die Lieferung endlich kam.", en:"We had been waiting for two hours when the delivery finally arrived.",
+   tip:"Dauer vor einem Punkt in der Vergangenheit."},
+  {de:"Sie hatte fünf Jahre dort gearbeitet, bevor sie kündigte.", en:"She had been working there for five years before she resigned.",
+   tip:"<b>for five years</b> ist eine Dauer, also Progressive."},
+  {de:"Ich war müde, weil ich den ganzen Tag telefoniert hatte.", en:"I was tired because I had been making calls all day.",
+   tip:"Der Grund lag davor und hat gedauert."}],
+ wr:{p:"Erzähl von etwas, das lange lief, bevor es endlich klappte oder scheiterte: Wie lange ging es schon, und was kam dann? Mindestens drei Sätze mit had been.",
+  short:"Drei Sätze: wie lange etwas lief, bevor etwas passierte.",
+  ph:["I had been … for … when …","We had been trying to … before …","She had been working on … all week.","By that time I had been …","That was because I had been …","After that, everything changed."],
+  ck:["had been plus Verb-ing vollständig gebaut?","Dauer gemeint, nicht nur das Ergebnis?","Kein know / be / want in der -ing-Form?"]}},
+
+{t:"Past Progressive",
+ g:"was oder were plus Verb-ing. Für das, was in der Vergangenheit gerade lief — meist als Hintergrund für etwas, das dazwischenkam.",
+ ex:["I was working on the report when she called.","While we were discussing the price, the client left."],
+ err:"Der Trick ist das Zusammenspiel: die lange Handlung im Past Progressive, die kurze im Past Simple. <b>I was driving when the phone rang.</b>",
+ fix:[
+  {s:"I worked on the report when the phone rang.", i:1, fix:"was working",
+   why:"Die längere Handlung im Hintergrund steht im Past Progressive: <b>I was working</b>."},
+  {s:"While we were discuss the contract, he arrived.", i:3, fix:"discussing",
+   why:"Nach <b>were</b> kommt die -ing-Form: <b>were discussing</b>."},
+  {s:"They were wanting a discount at that time.", i:2, fix:"", full:"They wanted a discount at that time.",
+   why:"Zustandsverben wie <b>want, know, need</b> gehen nicht in die Progressive-Form: <b>They wanted</b>."}],
+ tr:[
+  {de:"Ich arbeitete gerade am Bericht, als sie anrief.", en:"I was working on the report when she called.",
+   tip:"Lange Handlung Progressive, kurze Unterbrechung Simple."},
+  {de:"Während wir über den Preis sprachen, ging der Kunde.", en:"While we were talking about the price, the client left.",
+   tip:"<b>While</b> zieht fast immer die Progressive-Form nach sich."},
+  {de:"Was hast du gestern um drei gemacht?", en:"What were you doing yesterday at three?",
+   tip:"Uhrzeit in der Vergangenheit → Past Progressive."}],
+ wr:{p:"Erzähl von einem Tag, an dem etwas dazwischenkam: was lief gerade, was hat es unterbrochen, wie ging es aus? Mindestens drei Past-Progressive-Sätze.",
+  short:"Drei Sätze: was gerade lief, was dazwischenkam.",
+  ph:["I was … when …","While we were …, …","At that moment I was …","Suddenly the phone rang.","It was raining, so we …","In the end everything was fine."],
+  ck:["Lange Handlung mit was / were + -ing?","Kurze Unterbrechung im Past Simple?","Kein want / know / need in der -ing-Form?"]}},
+
+{t:"used to: wie es früher war",
+ g:"used to plus Grundform beschreibt, was früher regelmäßig so war und heute nicht mehr ist. In Frage und Verneinung fällt das -d weg.",
+ ex:["We used to order everything by fax.","He didn't use to work in sales."],
+ err:"<b>I am used to work here</b> heißt etwas anderes, nämlich daran gewöhnt sein. Die Früher-Gewohnheit ist <b>I used to work here</b>, ohne <b>am</b>.",
+ fix:[
+  {s:"We use to have a bigger warehouse in Hamburg.", i:1, fix:"used",
+   why:"In der Aussage steht <b>used to</b> mit <b>-d</b>."},
+  {s:"He didn't used to work in sales.", i:2, fix:"use",
+   why:"Nach <b>didn't</b> kommt die Grundform: <b>didn't use to</b>, ohne <b>-d</b>."},
+  {s:"I am used to order everything online.", i:4, fix:"ordering",
+   why:"<b>be used to</b> heißt „gewöhnt an\" und nimmt die -ing-Form. Meinst du „früher\", dann <b>I used to order</b>."}],
+ tr:[
+  {de:"Früher haben wir alles per Fax bestellt.", en:"We used to order everything by fax.",
+   tip:"Früher ja, heute nicht mehr → <b>used to</b>."},
+  {de:"Er hat früher nicht im Vertrieb gearbeitet.", en:"He didn't use to work in sales.",
+   tip:"Nach <b>didn't</b> ohne <b>-d</b>."},
+  {de:"Ich bin daran gewöhnt, auf Englisch zu telefonieren.", en:"I am used to speaking English on the phone.",
+   tip:"<b>be used to</b> plus -ing — ein völlig anderer Sinn als <b>used to</b>."}],
+ wr:{p:"Wie war es früher bei dir — in der Schule, im alten Job, als Kind? Was hat sich geändert? Mindestens vier Sätze mit used to.",
+  short:"Drei Sätze: was früher war und heute nicht mehr ist.",
+  ph:["I used to …, but now I …","We used to have …","I didn't use to like …","These days I …","Things have changed since …","I am used to … ing now."],
+  ck:["Aussage mit used to, Verneinung mit didn't use to?","be used to plus -ing nur für „gewöhnt an\"?","Klarer Kontrast zwischen früher und heute?"]}},
+
+{t:"Zukunft: will, going to, Progressive",
+ g:"will für spontane Entscheidungen, Versprechen und Vorhersagen. going to für Pläne und für das, was sich sichtbar abzeichnet. Present Progressive für feste Termine, Present Simple für Fahrpläne und feste Abläufe.",
+ ex:["I'll send you the figures right away.","We are going to open a second branch.","I am meeting the auditor on Thursday.","The train leaves at 6.15."],
+ err:"Deutsch hat nur „werden\". Englisch trennt sauber: <b>I'm meeting him at three</b> (Termin steht) ist etwas anderes als <b>I'll meet him</b> (gerade entschieden).",
+ fix:[
+  {s:"Look at the clouds — it will rain.", i:6, fix:"is going to",
+   why:"Es gibt sichtbare Anzeichen → <b>going to</b>. <b>will</b> wäre eine reine Vermutung ohne Beleg."},
+  {s:"Don't worry, I am going to help you with that.", i:3, fix:"will", full:"Don't worry, I will help you with that.",
+   why:"Spontan angeboten, gerade in diesem Moment entschieden → <b>will</b>. <b>going to</b> wäre ein Plan von vorher."},
+  {s:"I will meet the supplier tomorrow at ten, it's in my calendar.", i:1, fix:"am meeting", full:"I am meeting the supplier tomorrow at ten, it's in my calendar.",
+   why:"Fester Termin mit Uhrzeit → Present Progressive. So redet man über den Kalender."}],
+ tr:[
+  {de:"Ich schicke Ihnen die Unterlagen sofort.", en:"I'll send you the documents right away.",
+   tip:"Spontan zugesagt → <b>will</b>. Einer der häufigsten Sätze in Business-Mails."},
+  {de:"Wir werden nächstes Jahr eine zweite Filiale eröffnen.", en:"We are going to open a second branch next year.",
+   tip:"Fester Plan, schon beschlossen → <b>going to</b>."},
+  {de:"Ich treffe den Wirtschaftsprüfer am Donnerstag um neun.", en:"I am meeting the auditor on Thursday at nine.",
+   tip:"Termin steht im Kalender → Present Progressive."}],
+ wr:{p:"Wie sieht deine nächste Woche aus? Schreib feste Termine, Pläne und eine Vorhersage — und benutz alle drei Zukunftsformen mindestens einmal.",
+  short:"Ein Termin, ein Plan, eine Vorhersage — je ein Satz.",
+  ph:["On Monday I am …","We are going to …","I think prices will …","I'll probably …","The meeting starts at …","By the end of the week I will have …"],
+  ck:["Feste Termine im Present Progressive?","Pläne mit going to?","Spontanes und Vorhersagen mit will?"]}},
+
+{t:"will have und will be doing",
+ g:"will have plus dritte Form sagt, was bis zu einem Zeitpunkt fertig sein wird. will be plus Verb-ing sagt, was zu einem Zeitpunkt gerade läuft. Beides brauchst du für Prognosen und Planungen.",
+ ex:["By 2028 we will have doubled our turnover.","This time next week I will be working in Dublin."],
+ err:"Es gibt auch <b>will have been working</b>, das Future Perfect Progressive. Korrekt, aber in der Praxis fast nie nötig — merk dir die zwei oben.",
+ fix:[
+  {s:"By the end of the year we will finish the project.", i:8, fix:"have finished",
+   why:"<b>By …</b> fragt, was bis dahin fertig ist → <b>will have finished</b>."},
+  {s:"By 2028 we will have double our turnover.", i:5, fix:"doubled",
+   why:"Nach <b>will have</b> kommt die dritte Form: <b>will have doubled</b>."},
+  {s:"This time next week I will work in Dublin.", i:6, fix:"be working",
+   why:"Zu diesem Zeitpunkt läuft es gerade → <b>will be working</b>."}],
+ tr:[
+  {de:"Bis 2028 werden wir unseren Umsatz verdoppelt haben.", en:"By 2028 we will have doubled our turnover.",
+   tip:"<b>By</b> plus <b>will have</b> plus dritte Form. Standardsatz in jeder Prognose."},
+  {de:"Nächste Woche um diese Zeit sitze ich schon in Dublin.", en:"This time next week I will be working in Dublin.",
+   tip:"<b>will be</b> plus -ing für das, was dann gerade läuft."},
+  {de:"Bis Freitag werde ich den Bericht fertig haben.", en:"I will have finished the report by Friday.",
+   tip:"<b>by Friday</b> heißt: bis dahin fertig → Future Perfect."}],
+ wr:{p:"Schreib eine Prognose: Wo stehst du oder deine Firma in drei Jahren? Was wird bis dahin erledigt sein, und was wird dann gerade laufen?",
+  short:"Zwei Sätze mit will have, einer mit will be doing.",
+  ph:["By 2029 I will have …","In three years we will have …","This time next year I will be …","By then the company will be …","I hope I will have finished …","We will still be working on …"],
+  ck:["will have plus dritte Form für alles Fertige?","will be plus -ing für alles Laufende?","by plus Zeitpunkt beim Future Perfect?"]}},
+
+{t:"Artikel: a, an, the oder gar nichts",
+ g:"a und an bei etwas Neuem oder Unbestimmtem, the wenn beide Seiten wissen welches, und gar kein Artikel bei allgemeinen Aussagen im Plural und bei nicht zählbaren Sachen.",
+ ex:["We need a new supplier. The supplier we have is too slow.","Prices are rising. Inflation is a serious problem."],
+ err:"Deutsch sagt „Die Preise steigen\". Englisch lässt den Artikel weg, wenn es allgemein gemeint ist: <b>Prices are rising</b>, nicht <b>The prices are rising</b>.",
+ fix:[
+  {s:"The unemployment is rising in most European countries.", i:0, fix:"", full:"Unemployment is rising in most European countries.",
+   why:"Allgemeiner Begriff → kein Artikel. Genauso bei <b>inflation, business, money, advice</b>."},
+  {s:"She works as accountant in a small firm.", i:3, fix:"an accountant",
+   why:"Berufe brauchen im Englischen einen Artikel: <b>as an accountant</b>."},
+  {s:"I have an information about the new procedure.", i:2, fix:"some", full:"I have some information about the new procedure.",
+   why:"<b>information</b> ist nicht zählbar — kein <b>an</b>, kein Plural. Genau wie <b>advice, news, equipment, feedback</b>."}],
+ tr:[
+  {de:"Die Zinsen sind in diesem Jahr gestiegen.", en:"Interest rates have risen this year.",
+   tip:"Allgemein → kein <b>the</b>. Wären ganz bestimmte Zinsen gemeint, ginge <b>the interest rates</b>."},
+  {de:"Er ist Geschäftsführer eines mittelständischen Unternehmens.", en:"He is the managing director of a medium-sized company.",
+   tip:"Nur einer im Betrieb → <b>the</b>. Bei <b>a manager</b> wäre er einer von vielen."},
+  {de:"Können Sie mir einen Rat geben?", en:"Can you give me some advice?",
+   tip:"<b>advice</b> ist nicht zählbar. <b>An advice</b> gibt es nicht — notfalls <b>a piece of advice</b>."}],
+ wr:{p:"Schreib über eine allgemeine Entwicklung, die dir auffällt — Preise, Mieten, Arbeitsmarkt, Technik. Prüf bei jedem Nomen bewusst, ob ein Artikel hingehört.",
+  short:"Drei Sätze über eine Entwicklung, die dir auffällt.",
+  ph:["Prices for … have gone up.","Unemployment in my region is …","A lot of companies are …","The company I work for …","In general, people …","This is a problem for …"],
+  ck:["Allgemeine Plural-Aussagen ohne the?","Berufe mit a oder an?","Kein a/an bei information, advice, news, money?"]}},
+
+{t:"there is und there are",
+ g:"„Es gibt\" heißt there is bei Einzahl und there are bei Mehrzahl. Es heißt nie it gives — das ist wörtlich aus dem Deutschen und fällt sofort auf.",
+ ex:["There is a problem with the delivery.","There are three options on the table."],
+ err:"<b>It gives a problem</b> ❌ ist eine direkte Übersetzung von „es gibt\". Richtig ist <b>There is a problem</b>.",
+ fix:[
+  {s:"It gives two ways to solve this problem.", i:0, fix:"There", full:"There are two ways to solve this problem.",
+   why:"„Es gibt\" ist <b>there is</b> oder <b>there are</b>, nie <b>it gives</b>. Bei <b>two ways</b> steht <b>are</b>."},
+  {s:"There is many complaints about the new system.", i:1, fix:"are",
+   why:"<b>complaints</b> ist Mehrzahl → <b>There are</b>."},
+  {s:"There are a lot of information on the website.", i:1, fix:"is",
+   why:"<b>information</b> ist nicht zählbar und zählt als Einzahl → <b>There is a lot of information</b>."}],
+ tr:[
+  {de:"Es gibt ein Problem mit der Lieferung.", en:"There is a problem with the delivery.",
+   tip:"Einzahl → <b>There is</b>."},
+  {de:"Es gibt drei Möglichkeiten.", en:"There are three options.",
+   tip:"Mehrzahl → <b>There are</b>."},
+  {de:"Letztes Jahr gab es keine Beschwerden.", en:"There were no complaints last year.",
+   tip:"In der Vergangenheit: <b>there was</b> und <b>there were</b>."}],
+ wr:{p:"Beschreib deinen Arbeitsplatz, deine Stadt oder deine Firma: was es dort gibt und was nicht. Mindestens sechs Sätze mit there is oder there are.",
+  short:"Drei Sätze mit there is und there are.",
+  ph:["There is a … in our office.","There are about … people in my team.","There isn't enough …","There are no … at the moment.","There used to be …","There will be … next year."],
+  ck:["Einzahl there is, Mehrzahl there are?","Nirgends it gives?","Bei information, advice und money die Einzahl?"]}},
+
+{t:"False Friends",
+ g:"Wörter, die aussehen wie ein deutsches Wort, aber etwas ganz anderes heißen. Sie fallen besonders auf, weil der Satz drumherum meistens richtig ist.",
+ ex:["I received the parcel this morning.","Our current supplier is based in Poland."],
+ err:"<b>become</b> heißt werden, nicht bekommen. <b>I become a package</b> heißt wörtlich: Ich verwandle mich in ein Paket.",
+ fix:[
+  {s:"I hope I will become the job in Munich.", i:4, fix:"get",
+   why:"<b>become</b> = werden. Bekommen heißt <b>get</b> oder <b>receive</b>."},
+  {s:"Please send me the actual price list.", i:4, fix:"current",
+   why:"<b>actual</b> = tatsächlich. Aktuell heißt <b>current</b> oder <b>up-to-date</b>."},
+  {s:"We eventually need a bigger warehouse next year.", i:1, fix:"may", full:"We may need a bigger warehouse next year.",
+   why:"<b>eventually</b> = schließlich, am Ende. Eventuell heißt <b>maybe, possibly</b> oder <b>may</b>."}],
+ tr:[
+  {de:"Ich habe gestern Ihre E-Mail bekommen.", en:"I received your email yesterday.",
+   tip:"bekommen = <b>receive</b> oder <b>get</b>, niemals <b>become</b>."},
+  {de:"Unser aktueller Chef kommt aus Hamburg.", en:"Our current boss is from Hamburg.",
+   tip:"Zwei Fallen: <b>current</b> statt actual, und <b>boss</b> statt <b>chef</b> — ein chef ist der Koch."},
+  {de:"Wir haben eventuell nächste Woche einen Termin frei.", en:"We may have a free slot next week.",
+   tip:"eventuell = <b>may</b> oder <b>might</b>. <b>Eventually</b> hieße: irgendwann am Ende doch."}],
+ wr:{p:"Schreib eine kurze Mail an einen Lieferanten: Du hast die Lieferung bekommen, brauchst die aktuelle Preisliste und willst eventuell mehr bestellen. Genau die drei Fallen von heute.",
+  short:"Drei Sätze mit receive, current und may.",
+  ph:["Thank you for your email of 3 June.","We received the delivery on Monday.","Could you send us your current price list?","We may increase our order next month.","I would be grateful if you could …","I look forward to hearing from you."],
+  ck:["bekommen = get / receive, nicht become?","aktuell = current, nicht actual?","eventuell = may / might, nicht eventually?"]}},
+
+{t:"Großschreibung und Kommas",
+ g:"Englisch schreibt Nomen klein. Groß werden nur Satzanfänge, Namen, Länder, Sprachen, Nationalitäten, Monate und Wochentage. Und vor that steht kein Komma.",
+ ex:["On Monday I met our German supplier in Vienna.","I think that the price is too high."],
+ err:"Deutsche Kommaregeln gelten hier nicht. <b>I think, that …</b> ❌ → <b>I think that …</b> ✅. Vor <b>that, if, because, when</b> steht normalerweise kein Komma.",
+ fix:[
+  {s:"We hope, that the delivery arrives on time.", i:1, fix:"hope",
+   why:"Vor <b>that</b> steht im Englischen kein Komma. Das ist reine deutsche Gewohnheit."},
+  {s:"Our new colleague speaks french very well.", i:4, fix:"French",
+   why:"Sprachen und Nationalitäten werden groß geschrieben: <b>French, German, Italian, Dutch</b>."},
+  {s:"I sent the Invoice to the accounting department.", i:3, fix:"invoice",
+   why:"Nomen bleiben klein. Groß sind nur Namen, Länder, Sprachen, Monate und Wochentage."}],
+ tr:[
+  {de:"Ich glaube, dass die Preise nächstes Jahr steigen.", en:"I think that prices will rise next year.",
+   tip:"Kein Komma vor <b>that</b>. Und <b>prices</b> allgemein, also ohne Artikel."},
+  {de:"Am Montag treffe ich unseren französischen Lieferanten.", en:"On Monday I am meeting our French supplier.",
+   tip:"<b>Monday</b> und <b>French</b> groß, <b>supplier</b> klein."},
+  {de:"Wir haben die Rechnung im Januar bezahlt.", en:"We paid the invoice in January.",
+   tip:"<b>January</b> groß, <b>invoice</b> klein. Monate sind im Englischen immer groß."}],
+ wr:{p:"Schreib fünf Sätze über deine letzte Woche, in denen Wochentage, Monate, Länder oder Sprachen vorkommen. Danach nochmal drüber und jede Großschreibung prüfen.",
+  short:"Drei Sätze mit Wochentag, Land und Sprache.",
+  ph:["On Tuesday I …","In September we …","My English is getting …","We work with a Dutch company.","I think that …","Last Friday I had to …"],
+  ck:["Alle normalen Nomen klein geschrieben?","Wochentage, Monate, Länder, Sprachen groß?","Kein Komma vor that, if, because?"]}},
+
+{t:"Fragen und Verneinung mit do",
+ g:"Vollverben brauchen für Frage und Verneinung ein Hilfsverb: do, does oder did. Ohne geht es nur bei be, have got und den Modalverben.",
+ ex:["Do you work in the same department?","We didn't receive the confirmation."],
+ err:"<b>Work you here?</b> ❌ — das ist deutsche Wortstellung. Richtig ist <b>Do you work here?</b>",
+ fix:[
+  {s:"Where works your brother at the moment?", i:1, fix:"does", full:"Where does your brother work at the moment?",
+   why:"Frage mit Vollverb → <b>does</b>, und das Verb rutscht hinter das Subjekt: <b>does your brother work</b>."},
+  {s:"I not agree with this proposal.", i:1, fix:"don't", full:"I don't agree with this proposal.",
+   why:"Vollverben verneint man mit <b>don't</b> oder <b>doesn't</b>. Ein blankes <b>not</b> geht nur bei <b>be</b> und Modalverben."},
+  {s:"Did you sent the confirmation yesterday?", i:2, fix:"send",
+   why:"<b>Did</b> trägt die Vergangenheit schon. Danach kommt immer die Grundform."}],
+ tr:[
+  {de:"Arbeiten Sie mit diesem Lieferanten zusammen?", en:"Do you work with this supplier?",
+   tip:"Frage mit Vollverb → <b>Do</b> ganz nach vorn."},
+  {de:"Wir haben die Bestätigung nicht bekommen.", en:"We didn't receive the confirmation.",
+   tip:"Nach <b>didn't</b> die Grundform <b>receive</b>, nicht <b>received</b>."},
+  {de:"Warum hat sie gekündigt?", en:"Why did she resign?",
+   tip:"<b>did</b> plus Grundform. <b>Why resigned she</b> gibt es nicht."}],
+ wr:{p:"Schreib zehn Fragen, die du einem neuen Kollegen am ersten Tag stellen würdest — gemischt aus Gegenwart und Vergangenheit.",
+  short:"Fünf Fragen an einen neuen Kollegen.",
+  ph:["Where do you come from?","What did you do before?","Do you know …?","How long have you been …?","Did you find the office easily?","Have you met the team yet?"],
+  ck:["Frage mit Vollverb: do / does / did am Anfang?","Nach do / does / did die Grundform?","Verneinung mit don't / doesn't / didn't?"]}},
+
+/* ---------- BLOCK B · Satzbau & Struktur ---------- */
+{t:"Modalverben",
+ g:"can, could, may, might, should, must und will bekommen nie ein -s und werden immer von der nackten Grundform gefolgt. Sie bestimmen den Ton eines ganzen Satzes.",
+ ex:["We should check the figures again.","Could you send me the contract, please?"],
+ err:"<b>She can to help</b> ❌ und <b>He cans</b> ❌. Nach einem Modalverb kommt die Grundform ohne to: <b>She can help.</b>",
+ fix:[
+  {s:"He must to sign the contract before Friday.", i:2, fix:"",
+   why:"Nach Modalverben steht die Grundform ohne <b>to</b>: <b>must sign</b>."},
+  {s:"She cans speak three languages fluently.", i:1, fix:"can",
+   why:"Modalverben bekommen nie ein <b>-s</b>, auch nicht bei he, she und it."},
+  {s:"Can you please to explain the procedure?", i:3, fix:"",
+   why:"Wieder kein <b>to</b> nach <b>can</b>. Höflicher wäre ohnehin <b>Could you explain …?</b>"}],
+ tr:[
+  {de:"Könnten Sie mir bitte den Vertrag schicken?", en:"Could you send me the contract, please?",
+   tip:"<b>Could</b> klingt höflicher als <b>can</b> — Standard in Geschäftsmails."},
+  {de:"Wir sollten die Zahlen noch einmal prüfen.", en:"We should check the figures again.",
+   tip:"<b>should</b> plus Grundform, kein <b>to</b>."},
+  {de:"Sie kann fließend Spanisch.", en:"She can speak Spanish fluently.",
+   tip:"Kein <b>-s</b> bei <b>can</b>, und <b>Spanish</b> groß."}],
+ wr:{p:"Schreib fünf Ratschläge für jemanden, der in deiner Firma oder an deiner Schule neu anfängt. Benutz should, could, must und can.",
+  short:"Drei Ratschläge mit should, could und must.",
+  ph:["You should always …","You could try to …","You must not …","You can ask … if …","It might be a good idea to …","You don't have to …"],
+  ck:["Nach jedem Modalverb die Grundform ohne to?","Kein -s bei can, must, should?","Verneinung als can't, shouldn't, mustn't?"]}},
+
+{t:"must not oder don't have to",
+ g:"mustn't heißt: das ist verboten. don't have to heißt: das ist nicht nötig. Zwei völlig verschiedene Aussagen, die im Deutschen beide mit „müssen\" gebaut werden.",
+ ex:["You mustn't share these figures with anyone.","You don't have to come to the meeting, it's optional."],
+ err:"„Du musst nicht kommen\" heißt <b>You don't have to come</b>. <b>You mustn't come</b> hieße: Du darfst nicht kommen. Das ist ein Bedeutungsfehler, kein Stilfehler.",
+ fix:[
+  {s:"You mustn't fill in this field, it's optional.", i:1, fix:"don't have to",
+   why:"<b>optional</b> heißt nicht nötig → <b>don't have to</b>. <b>mustn't</b> wäre ein Verbot."},
+  {s:"Employees don't have to smoke inside the building.", i:1, fix:"must not", full:"Employees must not smoke inside the building.",
+   why:"Ein Rauchverbot ist ein Verbot → <b>must not</b>. So gelesen wäre Rauchen bloß freiwillig."},
+  {s:"We must not to disclose the client's name.", i:3, fix:"",
+   why:"Auch nach <b>must not</b> kommt die Grundform ohne <b>to</b>."}],
+ tr:[
+  {de:"Sie müssen nicht am Freitag kommen, es ist freiwillig.", en:"You don't have to come on Friday, it's optional.",
+   tip:"Nicht nötig → <b>don't have to</b>."},
+  {de:"Diese Zahlen dürfen Sie an niemanden weitergeben.", en:"You must not share these figures with anyone.",
+   tip:"Verbot → <b>must not</b>."},
+  {de:"Wir mussten letzte Woche Überstunden machen.", en:"We had to work overtime last week.",
+   tip:"<b>must</b> hat keine Vergangenheit. Dafür nimmt man <b>had to</b>."}],
+ wr:{p:"Schreib die wichtigsten Regeln deines Arbeitsplatzes oder deiner Schule auf: drei echte Verbote und drei Dinge, die nur freiwillig sind.",
+  short:"Zwei Verbote und zwei freiwillige Sachen.",
+  ph:["You must not …","You are not allowed to …","You don't have to …, but it helps.","It's up to you whether …","Everyone has to …","We are required to …"],
+  ck:["Echte Verbote mit must not?","Freiwilliges mit don't have to?","Vergangenheit von must als had to?"]}},
+
+{t:"Gerund oder Infinitiv",
+ g:"Manche Verben verlangen die -ing-Form, andere to plus Grundform. Nach jeder Präposition steht immer die -ing-Form. Einen Teil davon muss man schlicht auswendig können.",
+ ex:["We look forward to hearing from you.","I would like to arrange a meeting."],
+ err:"<b>I look forward to hear from you</b> ❌ — das <b>to</b> in <b>look forward to</b> ist eine Präposition, kein Infinitiv. Danach steht <b>hearing</b>.",
+ fix:[
+  {s:"We look forward to hear from you soon.", i:4, fix:"hearing",
+   why:"Das <b>to</b> gehört zu <b>look forward to</b> und ist eine Präposition. Danach immer <b>-ing</b>."},
+  {s:"She enjoys to work with international clients.", i:2, fix:"", full:"She enjoys working with international clients.",
+   why:"<b>enjoy, avoid, suggest, mind, finish, practise</b> nehmen die -ing-Form: <b>enjoys working</b>."},
+  {s:"We decided postponing the launch until March.", i:2, fix:"to postpone",
+   why:"<b>decide, want, hope, plan, agree, offer</b> nehmen <b>to</b> plus Grundform."}],
+ tr:[
+  {de:"Wir freuen uns darauf, von Ihnen zu hören.", en:"We look forward to hearing from you.",
+   tip:"Der Standardschluss jeder Geschäftsmail. <b>hearing</b>, niemals <b>hear</b>."},
+  {de:"Sie schlug vor, den Termin zu verschieben.", en:"She suggested postponing the meeting.",
+   tip:"<b>suggest</b> nimmt die -ing-Form. <b>suggested to postpone</b> ist falsch."},
+  {de:"Ich möchte einen Termin für nächste Woche vereinbaren.", en:"I would like to arrange a meeting for next week.",
+   tip:"<b>would like</b> nimmt <b>to</b> plus Grundform."}],
+ wr:{p:"Schreib eine kurze Mail, in der du einen Termin vorschlägst, verschiebst oder absagst. Bau look forward to, suggest und would like ein.",
+  short:"Drei Sätze mit look forward to, suggest und would like.",
+  ph:["I would like to arrange a meeting.","Would you mind moving it to Thursday?","I suggest meeting at ten.","We look forward to hearing from you.","I am interested in discussing …","Thank you for offering to help."],
+  ck:["Nach Präpositionen (to, in, of, about) die -ing-Form?","enjoy / suggest / avoid / mind mit -ing?","decide / want / hope / plan mit to plus Grundform?"]}},
+
+{t:"in, on, at bei Zeit und Ort",
+ g:"at für Punkte, on für Tage und Flächen, in für Räume und längere Zeiträume. Die deutschen Präpositionen helfen hier überhaupt nicht weiter.",
+ ex:["The meeting is on Monday at nine in the morning.","She works at head office in Hamburg."],
+ err:"„Am Montag\" ist <b>on Monday</b>, nicht <b>at Monday</b>. „Im Januar\" ist <b>in January</b>, „um neun\" ist <b>at nine</b>.",
+ fix:[
+  {s:"The presentation starts in nine o'clock.", i:3, fix:"at",
+   why:"Uhrzeiten sind Punkte → <b>at</b>: at nine, at noon, at midnight."},
+  {s:"We are moving to the new office at March.", i:7, fix:"in",
+   why:"Monate, Jahre und Jahreszeiten sind Zeiträume → <b>in March, in 2026, in summer</b>."},
+  {s:"I will call you in Friday morning.", i:4, fix:"on",
+   why:"Tage und Daten → <b>on</b>. Steht ein Tag dabei, schlägt er die Tageszeit: <b>on Friday morning</b>."}],
+ tr:[
+  {de:"Die Besprechung ist am Dienstag um zehn.", en:"The meeting is on Tuesday at ten.",
+   tip:"Tag → <b>on</b>, Uhrzeit → <b>at</b>."},
+  {de:"Sie fängt im September in der Zentrale an.", en:"She is starting at head office in September.",
+   tip:"<b>at head office</b> als Institution, <b>in September</b> als Zeitraum."},
+  {de:"Ich bin am Wochenende nicht im Büro.", en:"I am not in the office at the weekend.",
+   tip:"Britisch <b>at the weekend</b>, amerikanisch <b>on the weekend</b>. Im Büro ist man <b>in</b>."}],
+ wr:{p:"Schreib deinen Terminplan für die kommende Woche auf — mit Wochentagen, Uhrzeiten, Orten und Monaten. Mindestens acht Präpositionen.",
+  short:"Drei Termine mit Tag, Uhrzeit und Ort.",
+  ph:["On Monday at nine I have …","In the afternoon I will be at …","The deadline is on 15 March.","I am usually in the office from … to …","At the end of the month we …","In two weeks we are going to …"],
+  ck:["Uhrzeiten mit at?","Tage und Daten mit on?","Monate, Jahre, Jahreszeiten mit in?"]}},
+
+{t:"Feste Präpositionen",
+ g:"Viele Verben und Adjektive ziehen eine feste Präposition nach sich, die mit der deutschen nichts zu tun hat. Man lernt sie als Paar, nie einzeln.",
+ ex:["It depends on the delivery date.","She is responsible for purchasing."],
+ err:"<b>depend of</b> ❌ → <b>depend on</b>. <b>interested on</b> ❌ → <b>interested in</b>. Das deutsche „abhängig von\" führt direkt in die Falle.",
+ fix:[
+  {s:"It depends of the delivery date.", i:2, fix:"on",
+   why:"<b>depend on</b>, immer — trotz des deutschen „abhängig von\"."},
+  {s:"She is responsible of the whole department.", i:3, fix:"for",
+   why:"<b>responsible for</b> heißt verantwortlich für. <b>responsible to</b> hieße: jemandem unterstellt."},
+  {s:"We are very interested on your latest offer.", i:4, fix:"in",
+   why:"<b>interested in</b>. Folgt ein Verb, dann in der -ing-Form: <b>interested in buying</b>."}],
+ tr:[
+  {de:"Das hängt vom Liefertermin ab.", en:"It depends on the delivery date.",
+   tip:"<b>depend on</b> — nie <b>depend from</b> oder <b>of</b>."},
+  {de:"Wir sind an Ihrem Angebot interessiert.", en:"We are interested in your offer.",
+   tip:"<b>interested in</b>. Mit Verb: <b>interested in working with you</b>."},
+  {de:"Sie ist für den Einkauf zuständig.", en:"She is responsible for purchasing.",
+   tip:"<b>responsible for</b>, und danach die -ing-Form."}],
+ wr:{p:"Beschreib, wer in deiner Firma oder Klasse wofür zuständig ist und wovon eure Arbeit abhängt. Mindestens sechs feste Präpositionen.",
+  short:"Drei Sätze mit responsible for, depend on und interested in.",
+  ph:["I am responsible for …","This depends on …","We are interested in …","She deals with …","He is good at …","We finally agreed on …"],
+  ck:["depend on, nicht of oder from?","responsible for, nicht of?","interested in, und danach -ing?"]}},
+
+{t:"Phrasal Verbs im Business",
+ g:"Verb plus kleines Wörtchen ergibt oft eine ganz neue Bedeutung: set up, carry out, take over, look into. Im Geschäftsenglisch stecken sie überall drin.",
+ ex:["We set up a new branch in Poland.","The committee is looking into the complaint."],
+ err:"Bei vielen Phrasal Verbs darf ein Pronomen nicht hinten stehen: <b>fill out it</b> ❌ → <b>fill it out</b> ✅.",
+ fix:[
+  {s:"Could you please fill out it before Friday?", i:4, fix:"", mv:true, full:"Could you please fill it out before Friday?",
+   why:"Ein Pronomen wie <b>it</b> rutscht zwischen Verb und Partikel: <b>fill it out</b>."},
+  {s:"The new manager will take on the department in June.", i:5, fix:"over",
+   why:"<b>take over</b> heißt übernehmen. <b>take on</b> heißt einstellen oder annehmen."},
+  {s:"We are looking in the delay at the moment.", i:3, fix:"into",
+   why:"<b>look into</b> heißt untersuchen. <b>look in</b> gibt es in dieser Bedeutung nicht."}],
+ tr:[
+  {de:"Wir haben letztes Jahr eine Filiale in Polen eröffnet.", en:"We set up a branch in Poland last year.",
+   tip:"<b>set up</b> heißt aufbauen oder gründen."},
+  {de:"Können Sie das bitte bis Freitag ausfüllen?", en:"Could you fill it in by Friday?",
+   tip:"<b>fill in</b> oder <b>fill out</b> — und <b>it</b> gehört in die Mitte."},
+  {de:"Wer übernimmt die Abteilung?", en:"Who is taking over the department?",
+   tip:"<b>take over</b> = übernehmen."}],
+ wr:{p:"Beschreib eine Veränderung in deiner Firma oder deinem Leben mit Phrasal Verbs: was wurde aufgebaut, übernommen, abgesagt, geprüft?",
+  short:"Drei Sätze mit set up, take over und look into.",
+  ph:["We set up …","She took over …","They called off the meeting.","We are looking into …","The project was carried out by …","I had to deal with …"],
+  ck:["Pronomen zwischen Verb und Partikel (fill it in)?","take over statt take on, wenn übernehmen gemeint ist?","look into statt look in?"]}},
+
+{t:"Zählbar, nicht zählbar, much und many",
+ g:"Nicht zählbare Nomen haben keinen Plural und kein a: information, advice, news, money, equipment, staff. Bei ihnen steht much und a little, bei zählbaren many und a few.",
+ ex:["We don't have much information yet.","There were only a few complaints last month."],
+ err:"<b>informations</b>, <b>advices</b> und <b>an equipment</b> gibt es nicht. Und <b>The news are good</b> ❌ → <b>The news is good</b> ✅.",
+ fix:[
+  {s:"I need some more informations about the product.", i:4, fix:"information",
+   why:"<b>information</b> hat keinen Plural. Für Einzelstücke sagt man <b>a piece of information</b>."},
+  {s:"There weren't many feedback from the customers.", i:2, fix:"much", full:"There wasn't much feedback from the customers.",
+   why:"<b>feedback</b> ist nicht zählbar → <b>much</b>, und das Verb wird zu <b>wasn't</b>."},
+  {s:"The news about the merger are very positive.", i:5, fix:"is",
+   why:"<b>news</b> sieht aus wie ein Plural, ist aber Einzahl: <b>the news is</b>."}],
+ tr:[
+  {de:"Wir haben noch nicht viele Informationen.", en:"We don't have much information yet.",
+   tip:"<b>much information</b>, nie <b>many informations</b>."},
+  {de:"Es gab letzten Monat nur wenige Beschwerden.", en:"There were only a few complaints last month.",
+   tip:"<b>complaints</b> sind zählbar → <b>a few</b>."},
+  {de:"Wie viel Geld haben wir dafür ausgegeben?", en:"How much money did we spend on that?",
+   tip:"<b>money</b> ist nicht zählbar → <b>how much</b>."}],
+ wr:{p:"Schreib einen kurzen Lagebericht: Was habt ihr an Informationen, Geld, Personal und Ausrüstung, und wovon zu wenig? Achte auf much und many.",
+  short:"Drei Sätze mit much, many und a few.",
+  ph:["We don't have much …","There are only a few …","We need more information about …","How much … do we need?","There is very little …","A lot of people think that …"],
+  ck:["Kein Plural-s bei information, advice, news, feedback?","much bei nicht zählbar, many bei zählbar?","news, staff und advice mit Verb in der Einzahl?"]}},
+
+{t:"Komparativ und Superlativ",
+ g:"Kurze Wörter bekommen -er und -est, lange nehmen more und most. Nach dem Komparativ steht than, nicht as.",
+ ex:["This supplier is cheaper than the last one.","It was the most expensive option on the list."],
+ err:"<b>more cheaper</b> ❌ — entweder <b>-er</b> oder <b>more</b>, nie beides. Und „billiger als\" heißt <b>cheaper than</b>, nicht <b>cheaper as</b>.",
+ fix:[
+  {s:"This offer is more cheaper than the other one.", i:3, fix:"",
+   why:"Entweder <b>-er</b> oder <b>more</b>. Doppelt geht nicht: <b>cheaper than</b>."},
+  {s:"Our new warehouse is bigger as the old one.", i:5, fix:"than",
+   why:"Nach dem Komparativ steht immer <b>than</b>. <b>as … as</b> gibt es nur bei Gleichheit."},
+  {s:"That was the most cheap solution we found.", i:3, fix:"cheapest", full:"That was the cheapest solution we found.",
+   why:"Einsilbige Wörter nehmen <b>-est</b>: <b>the cheapest</b>. <b>most</b> nur bei langen Wörtern."}],
+ tr:[
+  {de:"Dieser Lieferant ist billiger als der letzte.", en:"This supplier is cheaper than the last one.",
+   tip:"<b>cheaper than</b>, nie <b>as</b>."},
+  {de:"Es war die teuerste Option auf der Liste.", en:"It was the most expensive option on the list.",
+   tip:"<b>expensive</b> ist lang → <b>most expensive</b>."},
+  {de:"Der Umsatz ist genauso hoch wie letztes Jahr.", en:"Turnover is as high as last year.",
+   tip:"Gleichheit → <b>as … as</b>. Und Umsatz heißt <b>turnover</b>."}],
+ wr:{p:"Vergleich zwei Firmen, zwei Produkte oder zwei Städte. Mindestens drei Komparative, ein Superlativ und ein as … as.",
+  short:"Zwei Vergleiche und ein Superlativ.",
+  ph:["… is cheaper than …","… is much more expensive than …","The biggest advantage is …","It is not as good as …","The most important difference is …","… is by far the best option."],
+  ck:["Entweder -er oder more, nie beides?","Nach dem Komparativ than, nicht as?","Kurze Wörter mit -est, lange mit most?"]}},
+
+{t:"Relativsätze: who, which, whose",
+ g:"who für Personen, which für Sachen, that für beides. whose zeigt Besitz. Ohne Komma bestimmt der Relativsatz, welches Ding oder welche Person gemeint ist.",
+ ex:["The supplier who called yesterday wants an answer.","The product which sold best was discontinued."],
+ err:"Das Objekt nicht doppelt setzen: <b>The report which I sent it yesterday</b> ❌ → <b>The report which I sent yesterday</b> ✅.",
+ fix:[
+  {s:"The colleague which called you is from Vienna.", i:2, fix:"who",
+   why:"<b>which</b> ist für Sachen. Bei Personen steht <b>who</b> oder <b>that</b>."},
+  {s:"That's the manager who's team won the award.", i:3, fix:"whose",
+   why:"<b>whose</b> zeigt Besitz. <b>who's</b> ist nur die Kurzform von <b>who is</b>."},
+  {s:"The invoice which I sent it last week is still open.", i:5, fix:"",
+   why:"<b>which</b> ist bereits das Objekt des Nebensatzes. Ein zweites <b>it</b> ist eines zu viel."}],
+ tr:[
+  {de:"Der Lieferant, der gestern angerufen hat, will eine Antwort.", en:"The supplier who called yesterday wants an answer.",
+   tip:"Person → <b>who</b>. Ohne Komma, weil der Nebensatz bestimmt, welcher Lieferant gemeint ist."},
+  {de:"Das Produkt, das sich am besten verkauft hat, wurde eingestellt.", en:"The product which sold best was discontinued.",
+   tip:"Sache → <b>which</b> oder <b>that</b>."},
+  {de:"Die Firma, deren Aktien am stärksten gestiegen sind, ist deutsch.", en:"The company whose shares rose the most is German.",
+   tip:"Besitz → <b>whose</b>, auch bei Firmen und Sachen."}],
+ wr:{p:"Beschreib drei Personen und drei Dinge aus deinem Arbeitsumfeld, jedes Mal mit einem Relativsatz, der sie genauer bestimmt.",
+  short:"Drei Sätze mit who, which und whose.",
+  ph:["The person who … is …","The tool which we use for … is …","The colleague whose … is …","There is one thing that always …","The department that deals with … is …","The company I work for is …"],
+  ck:["who bei Personen, which bei Sachen?","whose für Besitz, nicht who's?","Kein doppeltes Objekt im Relativsatz?"]}},
+
+{t:"Relativsätze mit Kommas",
+ g:"Liefert der Relativsatz nur eine Zusatzinfo, steht er zwischen Kommas. Dann ist that verboten, es muss who oder which sein.",
+ ex:["Aldi, which is a German discounter, expanded to the US.","Our CEO, who joined in 2019, is retiring."],
+ err:"<b>Aldi, that is a German discounter, …</b> ❌ — nach einem Komma nie <b>that</b>. Weglassen darf man das Pronomen hier auch nicht.",
+ fix:[
+  {s:"Our head office, that is in Hamburg, employs 300 people.", i:3, fix:"which",
+   why:"Zusatzinfo zwischen Kommas → nie <b>that</b>. Bei Sachen steht <b>which</b>."},
+  {s:"Mr Brenner who joined us in 2019 is leaving the company.", i:1, fix:"Brenner,", full:"Mr Brenner, who joined us in 2019, is leaving the company.",
+   why:"Bei einem Namen ist der Relativsatz reine Zusatzinfo. Er braucht Kommas auf <b>beiden</b> Seiten."},
+  {s:"She speaks Russian, what is very useful for us.", i:3, fix:"which",
+   why:"Bezieht sich das „was\" auf den ganzen Satz davor, steht <b>which</b>. <b>what</b> heißt nur: was für ein Ding."}],
+ tr:[
+  {de:"Aldi, das ein deutscher Discounter ist, expandierte in die USA.", en:"Aldi, which is a German discounter, expanded to the US.",
+   tip:"Kommas plus <b>which</b>. Niemals <b>that</b> nach dem Komma."},
+  {de:"Unser Chef, der 2019 angefangen hat, geht in Rente.", en:"Our boss, who joined in 2019, is retiring.",
+   tip:"Zusatzinfo über eine eindeutig bestimmte Person → Kommas und <b>who</b>."},
+  {de:"Sie kündigte fristlos, was uns alle überrascht hat.", en:"She resigned without notice, which surprised us all.",
+   tip:"Bezieht sich <b>which</b> auf den ganzen Satz, heißt es „was\" — nicht <b>what</b>."}],
+ wr:{p:"Schreib einen kurzen Absatz über deine Firma, deine Schule oder deine Stadt. Bau drei Zusatzinfos zwischen Kommas ein, mit who und which.",
+  short:"Drei Sätze mit einer Zusatzinfo zwischen Kommas.",
+  ph:["…, which is based in …, …","Our manager, who has been here for … years, …","The company, which was founded in …, …","…, which was a surprise for everyone.","…, who I have known for years, …","…, which is why we decided to …"],
+  ck:["Kommas auf beiden Seiten der Zusatzinfo?","Nach dem Komma who oder which, nie that?","Für „was\" am Satzende which, nicht what?"]}},
+
+{t:"Verbindungswörter",
+ g:"however, therefore, although und whereas machen aus einzelnen Sätzen einen Text. Sie sind genau das, was einen B2-Text von einer Aufzählung unterscheidet.",
+ ex:["The price is high. However, the quality is excellent.","Although the price is high, the quality is excellent."],
+ err:"<b>although</b> und <b>but</b> nicht mischen: <b>Although it is expensive, but we bought it</b> ❌. Eines von beiden reicht.",
+ fix:[
+  {s:"Although the price was high, but we accepted the offer.", i:5, fix:"",
+   why:"<b>Although</b> stellt den Gegensatz schon her. Ein zusätzliches <b>but</b> ist doppelt."},
+  {s:"The costs increased, therefore we raised our prices.", i:3, fix:"so", full:"The costs increased, so we raised our prices.",
+   why:"Nach einem Komma verbindet <b>so</b>. <b>Therefore</b> braucht einen neuen Satz: <b>… increased. Therefore, we raised …</b>"},
+  {s:"Despite of the delay, the customer was satisfied.", i:1, fix:"",
+   why:"<b>despite</b> steht ohne <b>of</b>. Nur <b>in spite of</b> hat eines."}],
+ tr:[
+  {de:"Der Preis ist hoch. Die Qualität ist allerdings ausgezeichnet.", en:"The price is high. However, the quality is excellent.",
+   tip:"<b>However</b> am Satzanfang, mit Komma dahinter."},
+  {de:"Obwohl der Preis hoch ist, haben wir bestellt.", en:"Although the price is high, we placed an order.",
+   tip:"<b>Although</b> plus vollständiger Satz — und kein <b>but</b> hinterher."},
+  {de:"Unser Umsatz stieg, während der Gewinn zurückging.", en:"Our turnover rose, whereas profits fell.",
+   tip:"<b>whereas</b> stellt zwei Dinge gegenüber. Ideal für Grafik-Beschreibungen."}],
+ wr:{p:"Schreib fünf Sätze zu einem Thema, das du kennst, aber verbinde sie: mindestens ein however, ein although, ein therefore und ein whereas.",
+  short:"Drei verbundene Sätze mit however, although und therefore.",
+  ph:["However, …","Although …, …","Therefore, we decided to …","…, whereas …","On the one hand …, on the other hand …","In addition, …"],
+  ck:["Kein although und but im selben Satz?","However am Satzanfang mit Komma?","despite ohne of, in spite of mit?"]}},
+
+/* ---------- BLOCK C · Prüfungsgrammatik M3W ---------- */
+{t:"First Conditional",
+ g:"If plus Present Simple, dann will plus Grundform. Für reale, wahrscheinliche Bedingungen in Gegenwart und Zukunft. Im if-Teil steht nie will.",
+ ex:["If we lower our prices, we will attract more customers.","We will lose the order if we don't deliver on time."],
+ err:"<b>If we will lower our prices …</b> ❌ — im if-Teil steht Present Simple, auch wenn es um die Zukunft geht.",
+ fix:[
+  {s:"If we will reduce the price, sales will increase.", i:2, fix:"",
+   why:"Im <b>if</b>-Teil steht Present Simple: <b>If we reduce …</b>. Das <b>will</b> gehört nur in den Hauptsatz."},
+  {s:"If the goods arrive late, we would cancel the order.", i:6, fix:"will",
+   why:"Reale, wahrscheinliche Bedingung → First Conditional mit <b>will</b>. <b>would</b> gehört zum Second Conditional."},
+  {s:"We will lose the contract if we don't delivered on time.", i:8, fix:"deliver",
+   why:"Nach <b>don't</b> steht die Grundform, und der if-Teil bleibt im Present."}],
+ tr:[
+  {de:"Wenn wir die Preise senken, gewinnen wir mehr Kunden.", en:"If we lower our prices, we will attract more customers.",
+   tip:"Der Klassiker aus deinen M3W-Karten. Im if-Teil Present, im Hauptsatz <b>will</b>."},
+  {de:"Wir verlieren den Auftrag, wenn wir nicht pünktlich liefern.", en:"We will lose the order if we don't deliver on time.",
+   tip:"Steht der if-Satz hinten, fällt das Komma weg."},
+  {de:"Wenn die Nachfrage steigt, steigen die Preise.", en:"If demand rises, prices go up.",
+   tip:"Allgemeingültig → Zero Conditional, beide Teile im Present Simple."}],
+ wr:{p:"Schreib fünf Wenn-Dann-Sätze über deine Firma oder dein Lernen: Was passiert, wenn ihr etwas ändert? Alles real und wahrscheinlich.",
+  short:"Drei Wenn-Dann-Sätze über die nächsten Wochen.",
+  ph:["If we …, we will …","We will … if …","Unless we …, we will …","If that happens, I will probably …","As long as …, everything will be fine.","If I have time, I am going to …"],
+  ck:["Im if-Teil Present Simple, kein will?","Im Hauptsatz will plus Grundform?","Komma nur, wenn der if-Satz vorne steht?"]}},
+
+{t:"Second Conditional",
+ g:"If plus Past Simple, dann would plus Grundform. Für gedachte, unwahrscheinliche oder unmögliche Situationen. Bei to be steht were für alle Personen.",
+ ex:["If I were the CEO, I would invest in new markets.","If we had more staff, we could take on the project."],
+ err:"<b>If I would be the CEO</b> ❌ — im if-Teil steht nie <b>would</b>. Richtig ist <b>If I were the CEO, I would …</b>",
+ fix:[
+  {s:"If I would have more time, I would learn Spanish.", i:2, fix:"", full:"If I had more time, I would learn Spanish.",
+   why:"Im if-Teil steht Past Simple. <b>would have</b> wird zu <b>had</b>: <b>If I had more time …</b>"},
+  {s:"If I was you, I would accept the offer.", i:2, fix:"were",
+   why:"Feste Wendung: <b>If I were you</b>. Im Second Conditional steht <b>were</b> für alle Personen."},
+  {s:"If we had more staff, we will take on the project.", i:6, fix:"would",
+   why:"Der if-Teil steht im Past Simple, also ist die Lage gedacht → <b>would</b>, nicht <b>will</b>."}],
+ tr:[
+  {de:"Wenn ich der Chef wäre, würde ich in neue Märkte investieren.", en:"If I were the CEO, I would invest in new markets.",
+   tip:"<b>were</b> auch bei <b>I</b>. Prüfungsklassiker aus deinen Karten."},
+  {de:"An Ihrer Stelle würde ich das Angebot annehmen.", en:"If I were you, I would accept the offer.",
+   tip:"„An Ihrer Stelle\" heißt auf Englisch <b>If I were you</b>."},
+  {de:"Wenn wir mehr Personal hätten, könnten wir den Auftrag annehmen.", en:"If we had more staff, we could take on the order.",
+   tip:"Statt <b>would</b> geht auch <b>could</b> oder <b>might</b>."}],
+ wr:{p:"Was würdest du ändern, wenn du in deiner Firma oder Schule das Sagen hättest? Fünf Sätze im Second Conditional.",
+  short:"Drei Sätze nach dem Muster: Wenn ich … wäre, würde ich …",
+  ph:["If I were the manager, I would …","If we had more …, we could …","I would … if I had the chance.","It would be better if we …","If I were you, I would …","Things might improve if …"],
+  ck:["Im if-Teil Past Simple, kein would?","were statt was nach if?","Im Hauptsatz would, could oder might plus Grundform?"]}},
+
+{t:"Third und Mixed Conditional",
+ g:"If plus Past Perfect, dann would have plus dritte Form. Für Vergangenes, das anders hätte laufen können. Beim Mixed Conditional liegt die Bedingung in der Vergangenheit, die Folge aber in der Gegenwart.",
+ ex:["If we had ordered earlier, we would have got a discount.","If we had entered the market earlier, we would be the leader now."],
+ err:"<b>If we would have ordered</b> ❌ — im if-Teil steht <b>had</b> plus dritte Form, niemals <b>would have</b>.",
+ fix:[
+  {s:"If we would have ordered earlier, we would have saved money.", i:2, fix:"", full:"If we had ordered earlier, we would have saved money.",
+   why:"Im if-Teil steht Past Perfect: <b>If we had ordered …</b>. <b>would</b> gehört nur in den Hauptsatz."},
+  {s:"If the EU had lowered the tariffs, trade would grown.", i:9, fix:"have grown.",
+   why:"Der Third Conditional braucht <b>would have</b> plus dritte Form: <b>would have grown</b>."},
+  {s:"If she had taken the job, she would have lived in Dublin now.", i:8, fix:"be", full:"If she had taken the job, she would be living in Dublin now.",
+   why:"<b>now</b> zeigt: die Folge liegt in der Gegenwart → Mixed Conditional. Bedingung <b>had taken</b>, Folge <b>would be living</b>."}],
+ tr:[
+  {de:"Wenn wir früher bestellt hätten, hätten wir Rabatt bekommen.", en:"If we had ordered earlier, we would have got a discount.",
+   tip:"Beide Teile in der Vergangenheit → Third Conditional."},
+  {de:"Wenn die EU die Zölle gesenkt hätte, wäre der Handel gewachsen.", en:"If the EU had lowered the tariffs, trade would have grown.",
+   tip:"Direkt aus deinen M3W-Karten."},
+  {de:"Wenn wir früher in den Markt eingestiegen wären, wären wir heute Marktführer.", en:"If we had entered the market earlier, we would be the market leader now.",
+   tip:"Mixed: Bedingung vergangen, Folge heute → <b>would be</b>, nicht <b>would have been</b>."}],
+ wr:{p:"Denk an eine Entscheidung, die du oder deine Firma anders hätte treffen können. Was wäre passiert? Drei Sätze im Third Conditional, einer im Mixed.",
+  short:"Drei Sätze nach dem Muster: Wenn ich … gemacht hätte, wäre …",
+  ph:["If I had …, I would have …","We would have … if we had …","If that hadn't happened, we would be … now.","Looking back, I should have …","It would have been better to …","If only I had …"],
+  ck:["Im if-Teil had plus dritte Form?","Im Hauptsatz would have plus dritte Form?","Bei Folgen in der Gegenwart nur would plus Grundform?"]}},
+
+{t:"unless, provided that, in case",
+ g:"unless heißt wenn nicht und steht nie zusammen mit einer Verneinung. provided that und as long as heißen vorausgesetzt, in case heißt für den Fall dass.",
+ ex:["We will lose the order unless we deliver on time.","You can have a discount provided that you order 500 units."],
+ err:"<b>unless we don't deliver</b> ❌ — <b>unless</b> ist die Verneinung schon. Richtig ist <b>unless we deliver</b>.",
+ fix:[
+  {s:"We will cancel the contract unless they don't improve quality.", i:7, fix:"",
+   why:"<b>unless</b> enthält das „nicht\" bereits. Ein zusätzliches <b>don't</b> dreht die Bedeutung um."},
+  {s:"We can offer a discount provided that you will order 500 units.", i:8, fix:"",
+   why:"Wie nach <b>if</b> steht auch nach <b>provided that</b> Present Simple, kein <b>will</b>."},
+  {s:"Take an umbrella in case it will rain.", i:6, fix:"", full:"Take an umbrella in case it rains.",
+   why:"Nach <b>in case</b> steht Present Simple: <b>in case it rains</b>."}],
+ tr:[
+  {de:"Wir verlieren den Auftrag, wenn wir nicht pünktlich liefern.", en:"We will lose the order unless we deliver on time.",
+   tip:"<b>unless</b> = if not. Keine zweite Verneinung."},
+  {de:"Sie bekommen Rabatt, vorausgesetzt Sie bestellen 500 Stück.", en:"You will get a discount provided that you order 500 units.",
+   tip:"<b>provided that</b> und <b>as long as</b> sind austauschbar."},
+  {de:"Nimm die Unterlagen mit, für den Fall dass sie danach fragen.", en:"Take the documents in case they ask for them.",
+   tip:"<b>in case</b> heißt vorsorglich, nicht einfach „falls\"."}],
+ wr:{p:"Schreib die Bedingungen eines Angebots oder einer Abmachung auf: was passiert, wenn etwas nicht eintritt, und was vorausgesetzt wird.",
+  short:"Je ein Satz mit unless, provided that und in case.",
+  ph:["Unless we …, we will …","We can … provided that you …","As long as …, we will …","Take … in case …","This offer is valid provided that …","Otherwise we will have to …"],
+  ck:["Nach unless keine zweite Verneinung?","Nach provided that und in case Present Simple?","unless wirklich als „wenn nicht\" gemeint?"]}},
+
+{t:"Passiv bilden",
+ g:"to be plus dritte Verbform. Man nimmt es, wenn wichtiger ist, was passiert, als wer es tut. In Berichten und offiziellen Texten steht es überall.",
+ ex:["The invoice was sent on Monday.","The new system is being tested at the moment."],
+ err:"Der Verursacher kommt mit <b>by</b>: <b>The report was written by the trainee</b>. Meistens lässt man ihn ganz weg — genau dafür gibt es das Passiv.",
+ fix:[
+  {s:"The contract was sign last Friday.", i:3, fix:"signed",
+   why:"Passiv braucht die dritte Form: <b>was signed</b>."},
+  {s:"The goods have delivered yesterday morning.", i:2, fix:"were", full:"The goods were delivered yesterday morning.",
+   why:"Die Waren liefern nicht selbst, sie werden geliefert: <b>were delivered</b>."},
+  {s:"Our website is currently update by an agency.", i:4, fix:"being updated",
+   why:"Läuft gerade → <b>is being updated</b>. Die dritte Form nicht vergessen."}],
+ tr:[
+  {de:"Die Rechnung wurde am Montag verschickt.", en:"The invoice was sent on Monday.",
+   tip:"<b>was</b> plus dritte Form. Wer sie verschickt hat, bleibt offen."},
+  {de:"Das neue System wird gerade getestet.", en:"The new system is being tested at the moment.",
+   tip:"Passiv im Progressive: <b>is being</b> plus dritte Form."},
+  {de:"Die Firma wurde 1998 gegründet.", en:"The company was founded in 1998.",
+   tip:"Standardsatz für Firmenporträts. <b>founded</b>, nicht <b>found</b>."}],
+ wr:{p:"Beschreib einen Ablauf in deiner Firma oder Schule von außen: Was wird gemacht, geprüft, verschickt, entschieden? Mindestens sechs Passivsätze.",
+  short:"Drei Passivsätze über einen Ablauf.",
+  ph:["The order is checked by …","The goods are delivered within … days.","The invoice is sent automatically.","The decision was made last week.","Our systems are being updated.","The report has been approved."],
+  ck:["Überall to be plus dritte Form?","Die richtige Zeit steckt im to be?","by nur da, wo der Verursacher wirklich zählt?"]}},
+
+{t:"Passiv in Prozessen",
+ g:"Im Bericht baut man eine Kette: erst was passiert, dann in welcher Reihenfolge. First, then, after that und finally halten die Passivsätze zusammen.",
+ ex:["First the order is received. Then it is checked by the warehouse.","After that, the goods are packed and shipped."],
+ err:"Nicht jeden Satz gleich anfangen. Drei Sätze mit <b>The order is …</b> sind grammatisch richtig und trotzdem schlecht. Verbinde mit <b>then, after that, once</b>.",
+ fix:[
+  {s:"After the order has checked, it is sent to the warehouse.", i:3, fix:"has been", full:"After the order has been checked, it is sent to the warehouse.",
+   why:"Passiv im Present Perfect: <b>has been checked</b>. Das <b>been</b> fehlt."},
+  {s:"Finally, the goods are pack and shipped to the customer.", i:4, fix:"packed",
+   why:"Beide Verben brauchen die dritte Form: <b>are packed and shipped</b>."},
+  {s:"The complaint was dealt by the service team.", i:4, fix:"with by",
+   why:"<b>deal with</b> behält im Passiv sein <b>with</b>: <b>was dealt with by …</b>"}],
+ tr:[
+  {de:"Zuerst wird die Bestellung geprüft.", en:"First the order is checked.",
+   tip:"<b>First</b> ohne <b>at</b>. <b>At first</b> hieße: anfangs, aber später anders."},
+  {de:"Danach werden die Waren verpackt und verschickt.", en:"After that, the goods are packed and shipped.",
+   tip:"Beide Verben in der dritten Form."},
+  {de:"Sobald die Rechnung bezahlt wurde, wird die Ware freigegeben.", en:"Once the invoice has been paid, the goods are released.",
+   tip:"<b>has been paid</b> — Passiv im Present Perfect."}],
+ wr:{p:"Beschreib einen kompletten Ablauf in sechs bis acht Schritten — eine Bestellung, eine Bewerbung, eine Reklamation. Alles im Passiv, verbunden mit first, then, after that, finally.",
+  short:"Vier Schritte eines Ablaufs im Passiv.",
+  ph:["First, the … is received.","Then it is checked by …","After that, …","Once … has been …, …","Finally, the … is sent to …","The whole process takes about … days."],
+  ck:["Jeder Schritt im Passiv mit dritter Form?","Schritte mit first, then, after that, finally verbunden?","Bei deal with und look after die Präposition mitgenommen?"]}},
+
+{t:"Indirekte Rede",
+ g:"Beim Wiedergeben rutschen die Zeiten eine Stufe zurück, und Personen und Zeitangaben wandern mit: I wird zu he, tomorrow wird zu the next day.",
+ ex:["“We will deliver on Monday.” → He said they would deliver on Monday.","“I have sent it.” → She said she had sent it."],
+ err:"<b>say</b> braucht kein Objekt, <b>tell</b> immer eines: <b>He said that …</b> aber <b>He told me that …</b>. <b>He said me</b> ❌.",
+ fix:[
+  {s:"He told that the delivery would be late.", i:1, fix:"said",
+   why:"<b>tell</b> braucht ein Objekt: <b>told me that</b>. Ohne Objekt nimmt man <b>said</b>."},
+  {s:"She said me that she had already ordered.", i:1, fix:"told",
+   why:"Mit Objekt steht <b>tell</b>: <b>told me that</b>. <b>said me</b> gibt es nicht."},
+  {s:"He said that he will call us back tomorrow.", i:4, fix:"would",
+   why:"Nach <b>said</b> rutscht alles eine Stufe zurück: <b>will</b> wird zu <b>would</b>."}],
+ tr:[
+  {de:"Er sagte, sie würden am Montag liefern.", en:"He said they would deliver on Monday.",
+   tip:"<b>will</b> wird zu <b>would</b>. Kein Objekt → <b>said</b>."},
+  {de:"Sie sagte mir, sie habe die Rechnung schon geschickt.", en:"She told me she had already sent the invoice.",
+   tip:"Mit Objekt → <b>told me</b>. Present Perfect wird zu Past Perfect."},
+  {de:"Er fragte, ob wir den Preis senken könnten.", en:"He asked whether we could lower the price.",
+   tip:"Indirekte Frage: <b>whether</b> oder <b>if</b>, danach normale Satzstellung."}],
+ wr:{p:"Gib ein Gespräch wieder, das du wirklich geführt hast — am Telefon, im Unterricht, mit einem Kollegen. Mindestens fünf Sätze in indirekter Rede.",
+  short:"Drei Sätze in indirekter Rede über ein Gespräch.",
+  ph:["He said that he would …","She told me that she had …","They asked whether we could …","I explained that we were …","He wanted to know when …","She promised to …"],
+  ck:["Zeiten eine Stufe zurückgeschoben?","say ohne Objekt, tell mit Objekt?","tomorrow wird zu the next day, here zu there?"]}},
+
+{t:"Höfliche und indirekte Fragen",
+ g:"Eingebettete Fragen behalten die normale Satzstellung: kein do, keine Umstellung. Genau das macht sie höflich.",
+ ex:["Could you tell me when the meeting starts?","I was wondering whether you could send me the figures."],
+ err:"<b>Could you tell me when does the meeting start?</b> ❌ — nach der Einleitung kommt ein normaler Aussagesatz: <b>when the meeting starts</b>.",
+ fix:[
+  {s:"Could you tell me where is the meeting room?", i:5, fix:"", full:"Could you tell me where the meeting room is?",
+   why:"Eingebettete Frage → normale Reihenfolge: <b>where the meeting room is</b>."},
+  {s:"Do you know when does the delivery arrive?", i:4, fix:"", full:"Do you know when the delivery arrives?",
+   why:"Kein <b>does</b> im eingebetteten Teil. Stattdessen bekommt das Verb sein <b>-s</b>: <b>arrives</b>."},
+  {s:"I would like to know if can you send the offer today.", i:6, fix:"you can", full:"I would like to know if you can send the offer today.",
+   why:"Nach <b>if</b> steht wieder Subjekt vor Verb: <b>if you can send</b>."}],
+ tr:[
+  {de:"Könnten Sie mir sagen, wann die Besprechung anfängt?", en:"Could you tell me when the meeting starts?",
+   tip:"Kein <b>does</b>, normale Reihenfolge, und das <b>-s</b> bei <b>starts</b>."},
+  {de:"Wissen Sie, ob die Lieferung schon unterwegs ist?", en:"Do you know whether the delivery is on its way?",
+   tip:"<b>whether</b> oder <b>if</b>, danach ein Aussagesatz."},
+  {de:"Ich wollte fragen, ob Sie mir die Zahlen schicken könnten.", en:"I was wondering whether you could send me the figures.",
+   tip:"<b>I was wondering whether</b> ist die höflichste Bitte im Business-Englisch."}],
+ wr:{p:"Schreib eine höfliche Mail mit fünf Fragen an eine Firma — zu Preisen, Lieferzeit, Garantie, Rabatt. Alle Fragen eingebettet.",
+  short:"Drei höfliche, eingebettete Fragen.",
+  ph:["Could you tell me whether …","I was wondering if you could …","Would you mind telling me …","I would like to know how much …","Do you know when …","Could you let me know whether …"],
+  ck:["Nach der Einleitung normale Satzstellung?","Kein do / does / did im eingebetteten Teil?","Trotzdem -s bei he / she / it?"]}},
+
+/* ---------- BLOCK D · Business schreiben & sprechen ---------- */
+{t:"Die Geschäftsmail",
+ g:"Anrede, Grund, Anliegen, Schluss. Kennst du den Namen, endest du mit Yours sincerely. Kennst du ihn nicht, mit Yours faithfully.",
+ ex:["Dear Mr Weber, I am writing with regard to your order of 3 June.","We look forward to hearing from you. Yours sincerely, Nick Weber"],
+ err:"Name bekannt → <b>Dear Mr Weber … Yours sincerely</b>. Name unbekannt → <b>Dear Sir or Madam … Yours faithfully</b>. Vertauscht fällt es sofort auf.",
+ fix:[
+  {s:"Dear Mr Weber, thank you for your letter from 3 June.", i:8, fix:"of",
+   why:"Briefe und Mails datiert man mit <b>of</b>: <b>your letter of 3 June</b>."},
+  {s:"I am writing you to ask about your prices.", i:3, fix:"to you",
+   why:"<b>write to somebody</b>. Ohne <b>to</b> ist es im Test ein Fehler."},
+  {s:"We would be grateful if you can send us a sample.", i:6, fix:"could",
+   why:"Nach <b>would be grateful if</b> steht <b>could</b>. Das ist die höfliche Standardform."}],
+ tr:[
+  {de:"Vielen Dank für Ihr Schreiben vom 3. Juni.", en:"Thank you for your letter of 3 June.",
+   tip:"Aus deinen Karten. <b>of</b>, nicht <b>from</b>."},
+  {de:"Wir wären dankbar, wenn Sie uns Muster zusenden könnten.", en:"We would be grateful if you could send us some samples.",
+   tip:"Die höflichste Standardbitte überhaupt."},
+  {de:"Ich freue mich, von Ihnen zu hören.", en:"I look forward to hearing from you.",
+   tip:"<b>hearing</b>, niemals <b>hear</b>."}],
+ wr:{p:"Schreib eine komplette Geschäftsmail an eine Firma, deren Ansprechpartner du nicht kennst: Anrede, Grund fürs Schreiben, Anliegen, Schlussformel.",
+  short:"Anrede, ein Satz Anliegen, Schlussformel.",
+  ph:["Dear Sir or Madam,","I am writing with regard to …","We would be grateful if you could …","Could you please let us know whether …","I look forward to hearing from you.","Yours faithfully,"],
+  ck:["Dear Sir or Madam mit Yours faithfully?","Dear Mr/Ms Name mit Yours sincerely?","Datum mit of, nicht from?"]}},
+
+{t:"Anfrage und Angebot",
+ g:"Eine enquiry fragt nach Preisen und Konditionen, eine quotation ist das Angebot zurück. Beides läuft über feste Formeln.",
+ ex:["We are interested in your range of office furniture.","Could you send us a quotation for 200 units?"],
+ err:"<b>an offer</b> ist eher ein Sonderangebot im Laden. Das schriftliche Angebot mit Preisen heißt <b>quotation</b> oder kurz <b>quote</b>.",
+ fix:[
+  {s:"We are interested to your range of office chairs.", i:3, fix:"in",
+   why:"<b>interested in</b>, immer."},
+  {s:"Please send us your quotation until Friday.", i:5, fix:"by",
+   why:"Eine Frist ist <b>by Friday</b>. <b>until</b> hieße: durchgehend bis Freitag."},
+  {s:"We look forward to receive your offer.", i:4, fix:"receiving",
+   why:"Nach <b>look forward to</b> die -ing-Form: <b>receiving</b>."}],
+ tr:[
+  {de:"Wir interessieren uns für Ihr Sortiment an Bürostühlen.", en:"We are interested in your range of office chairs.",
+   tip:"<b>range</b> ist das Sortiment."},
+  {de:"Könnten Sie uns bis Freitag ein Angebot schicken?", en:"Could you send us a quotation by Friday?",
+   tip:"<b>by</b> als Frist, <b>quotation</b> als Angebot."},
+  {de:"Welchen Rabatt gewähren Sie bei 500 Stück?", en:"What discount do you give for an order of 500 units?",
+   tip:"<b>discount</b> ist der Rabatt, <b>units</b> sind die Stück."}],
+ wr:{p:"Schreib eine Anfrage an einen Lieferanten: Was ihr sucht, welche Menge, welche Fragen ihr zu Preis, Lieferzeit und Rabatt habt.",
+  short:"Drei Sätze Anfrage: Interesse, Menge, Frist.",
+  ph:["We are interested in …","Could you send us a quotation for …","What discount do you offer for …?","We would need delivery by …","Please let us know your terms of payment.","We look forward to receiving your offer."],
+  ck:["interested in, nicht to?","Frist mit by, nicht until?","look forward to plus -ing?"]}},
+
+{t:"Beschwerde schreiben",
+ g:"Eine Beschwerde bleibt sachlich: was war bestellt, was kam an, was soll jetzt passieren. Der Ton ist förmlich, nicht wütend.",
+ ex:["Unfortunately, the goods arrived damaged.","We would ask you to replace the items as soon as possible."],
+ err:"Sachlich bleiben. <b>Please ensure that this does not happen again</b> ist der Standardschluss — nicht <b>Never do this again</b>.",
+ fix:[
+  {s:"We are writing to complain the delay in delivery.", i:4, fix:"complain about",
+   why:"<b>complain about something</b>. Die Präposition gehört fest dazu."},
+  {s:"Unfortunately, three of the items were damage on arrival.", i:6, fix:"damaged",
+   why:"Passiv braucht die dritte Form: <b>were damaged</b>."},
+  {s:"Please ensure that this will not happen again.", i:4, fix:"does", full:"Please ensure that this does not happen again.",
+   why:"Feste Wendung aus deinen Karten: <b>Please ensure that this does not happen again.</b>"}],
+ tr:[
+  {de:"Leider kam die Ware beschädigt an.", en:"Unfortunately, the goods arrived damaged.",
+   tip:"<b>goods</b> ist immer Plural: <b>the goods arrive</b>."},
+  {de:"Wir müssen uns über die Verzögerung beschweren.", en:"We have to complain about the delay.",
+   tip:"<b>complain about</b>."},
+  {de:"Bitte stellen Sie sicher, dass das nicht wieder passiert.", en:"Please ensure that this does not happen again.",
+   tip:"Direkt aus deinen Karteikarten — der Standardschluss jeder Beschwerde."}],
+ wr:{p:"Schreib eine Beschwerde: Was hast du bestellt, was ist schiefgegangen, was erwartest du jetzt? Sachlich, vier bis sechs Sätze.",
+  short:"Drei Sätze: Bestellung, Problem, Forderung.",
+  ph:["I am writing to complain about …","We ordered … on …, but …","Unfortunately, the goods arrived …","We would ask you to replace …","Please ensure that this does not happen again.","We hope you will deal with this matter quickly."],
+  ck:["complain about, nicht complain something?","Passiv mit dritter Form (were damaged)?","Ton sachlich statt wütend?"]}},
+
+{t:"Grafiken beschreiben",
+ g:"Zuerst sagen, was die Grafik zeigt, dann die Entwicklung, dann die auffälligste Stelle. Dafür gibt es einen festen Wortschatz.",
+ ex:["Sales rose sharply in the first quarter.","There was a slight fall in profits between June and August."],
+ err:"Bewegung braucht ein Adverb: <b>rose sharply</b>, nicht <b>rose sharp</b>. Beim Nomen dreht es sich um: <b>a sharp rise</b>.",
+ fix:[
+  {s:"Turnover increased sharp between January and March.", i:2, fix:"sharply",
+   why:"Nach einem Verb steht das Adverb: <b>increased sharply</b>."},
+  {s:"There was a slightly fall in profits in the summer.", i:3, fix:"slight",
+   why:"Vor einem Nomen steht das Adjektiv: <b>a slight fall</b>."},
+  {s:"Sales levelled off at 90% since October.", i:5, fix:"in",
+   why:"<b>since</b> würde Present Perfect verlangen. Bei einem abgeschlossenen Zeitpunkt steht <b>in October</b>."}],
+ tr:[
+  {de:"Der Umsatz stieg im ersten Quartal stark an.", en:"Turnover rose sharply in the first quarter.",
+   tip:"<b>rise – rose – risen</b>, und das Adverb <b>sharply</b>."},
+  {de:"Es gab einen leichten Rückgang bei den Gewinnen.", en:"There was a slight fall in profits.",
+   tip:"Nomen-Variante mit Adjektiv: <b>a slight fall</b>."},
+  {de:"Die Zahlen pendelten sich bei 90 Prozent ein.", en:"The figures levelled off at 90%.",
+   tip:"Direkt aus deinen M3W-Karten: <b>to level off at</b>."}],
+ wr:{p:"Beschreib eine Entwicklung in Zahlen, die du kennst — Umsatz, Mieten, Spritpreise, Zuschauerzahlen. Vier bis sechs Sätze mit Verben und Nomen der Bewegung.",
+  short:"Drei Sätze über eine Entwicklung in Zahlen.",
+  ph:["The chart shows …","Sales rose sharply from … to …","There was a slight fall in …","Figures levelled off at …","The most striking feature is …","Overall, the trend was upwards."],
+  ck:["Nach Verben Adverbien (sharply, slightly)?","Vor Nomen Adjektive (a sharp rise)?","Zeitangaben mit in, from … to, between … and?"]}},
+
+{t:"Zahlen und Prozente",
+ g:"Zahlen im Text brauchen die richtigen Präpositionen: an increase of 5%, an increase in sales, a rise to 90%. Und twice as much statt double so much.",
+ ex:["Sales increased by 12% to 4.5 million.","Profits were twice as high as last year."],
+ err:"<b>increase of</b> nennt die Größe, <b>increase in</b> nennt den Bereich: <b>an increase of 5% in sales</b>.",
+ fix:[
+  {s:"Sales increased with 12% last year.", i:2, fix:"by",
+   why:"Um wie viel etwas steigt → <b>by</b>: <b>increased by 12%</b>."},
+  {s:"There was an increase of sales in the second quarter.", i:4, fix:"in",
+   why:"Der Bereich steht mit <b>in</b>: <b>an increase in sales</b>. <b>of</b> nennt die Zahl."},
+  {s:"Profits were double so high as last year.", i:2, fix:"twice", full:"Profits were twice as high as last year.",
+   why:"<b>twice as high as</b>. <b>double so high</b> ist wörtlich aus dem Deutschen übersetzt."}],
+ tr:[
+  {de:"Der Umsatz stieg um zwölf Prozent auf 4,5 Millionen.", en:"Sales increased by 12% to 4.5 million.",
+   tip:"<b>by</b> für die Veränderung, <b>to</b> für den Endwert. Und Dezimalpunkt statt Komma."},
+  {de:"Es gab einen Anstieg von fünf Prozent bei den Kosten.", en:"There was an increase of 5% in costs.",
+   tip:"<b>of</b> für die Zahl, <b>in</b> für den Bereich."},
+  {de:"Die Gewinne waren doppelt so hoch wie letztes Jahr.", en:"Profits were twice as high as last year.",
+   tip:"<b>twice as … as</b>."}],
+ wr:{p:"Vergleich zwei Jahre, zwei Quartale oder zwei Produkte in Zahlen. Benutz by, to, of und in richtig, plus einmal twice as … as.",
+  short:"Drei Sätze mit Zahlen: um wie viel, auf wie viel, im Vergleich.",
+  ph:["… increased by … % to …","There was a rise of … in …","… was twice as high as …","Compared with last year, …","… accounted for about … % of …","The figure fell from … to …"],
+  ck:["by für die Veränderung, to für den Endwert?","of für die Zahl, in für den Bereich?","twice as … as statt double so?"]}},
+
+{t:"Meetings: zustimmen und widersprechen",
+ g:"Im Meeting zählen feste Wendungen mehr als perfekte Grammatik. Zustimmen, widersprechen und vorschlagen laufen über immer gleiche Formeln.",
+ ex:["I totally agree.","I see your point, but I think we should wait."],
+ err:"Höflich widersprechen heißt: erst einleiten. <b>I see your point, but …</b> Ein blankes <b>No, that's wrong</b> geht im Meeting nicht.",
+ fix:[
+  {s:"I am agree with your proposal.", i:1, fix:"", full:"I agree with your proposal.",
+   why:"<b>agree</b> ist ein Vollverb: <b>I agree</b>. <b>I am agree</b> gibt es nicht."},
+  {s:"What about to postpone the decision until next week?", i:2, fix:"", full:"What about postponing the decision until next week?",
+   why:"Nach <b>What about</b> und <b>How about</b> steht die -ing-Form."},
+  {s:"Let us to discuss this point first.", i:2, fix:"",
+   why:"Nach <b>let</b> steht die Grundform ohne <b>to</b>: <b>Let us discuss …</b>"}],
+ tr:[
+  {de:"Ich stimme vollkommen zu.", en:"I totally agree.",
+   tip:"Aus deinen Karten. <b>I agree</b>, nie <b>I am agree</b>."},
+  {de:"Wie wäre es, wenn wir die Entscheidung verschieben?", en:"What about postponing the decision?",
+   tip:"<b>What about</b> plus -ing."},
+  {de:"Ich verstehe Ihren Punkt, aber ich sehe das anders.", en:"I see your point, but I have a different view.",
+   tip:"Die höfliche Standardeinleitung fürs Widersprechen."}],
+ wr:{p:"Schreib deinen Beitrag zu einer Diskussion: Nimm ein Thema, stimm einem Argument zu, widersprich einem anderen und mach einen Vorschlag.",
+  short:"Ein Zustimmen, ein Widersprechen, ein Vorschlag.",
+  ph:["I totally agree with …","That's a good point, but …","I see your point, however …","What about … ing?","I suggest that we …","Let's discuss this again next week."],
+  ck:["I agree, nicht I am agree?","Nach What about und How about die -ing-Form?","Widerspruch höflich eingeleitet?"]}},
+
+{t:"Telefon und Termine",
+ g:"Am Telefon läuft fast alles über feste Sätze: wer spricht, wen man sprechen will, und was man ausrichten soll.",
+ ex:["Could I speak to Mr Weber, please?","I'm afraid he's in a meeting. Can I take a message?"],
+ err:"Am Telefon sagt man <b>This is Nick Weber</b> oder <b>Nick Weber speaking</b> — nie <b>Here is Nick Weber</b>.",
+ fix:[
+  {s:"Here is Nick Weber from Müller GmbH.", i:0, fix:"This", full:"This is Nick Weber from Müller GmbH.",
+   why:"Am Telefon: <b>This is …</b> oder <b>… speaking</b>. <b>Here is</b> ist direkt aus dem Deutschen übernommen."},
+  {s:"Could I speak Mr Weber, please?", i:2, fix:"speak to",
+   why:"<b>speak to somebody</b>. Die Präposition fehlt sonst."},
+  {s:"Can I take a message for he?", i:6, fix:"him?",
+   why:"Nach einer Präposition steht die Objektform: <b>for him, to her, with them</b>."}],
+ tr:[
+  {de:"Könnte ich bitte Herrn Weber sprechen?", en:"Could I speak to Mr Weber, please?",
+   tip:"<b>speak to</b>."},
+  {de:"Er ist leider gerade in einer Besprechung.", en:"I'm afraid he's in a meeting at the moment.",
+   tip:"<b>I'm afraid</b> ist die höfliche Art, schlechte Nachrichten anzukündigen."},
+  {de:"Kann ich ihm etwas ausrichten?", en:"Can I take a message for him?",
+   tip:"<b>take a message</b>, und <b>him</b> nach der Präposition."}],
+ wr:{p:"Schreib ein komplettes Telefongespräch auf: Du rufst bei einer Firma an, die gewünschte Person ist nicht da, du hinterlässt eine Nachricht und vereinbarst einen Rückruf.",
+  short:"Fünf Zeilen Telefondialog.",
+  ph:["Good morning, this is … speaking.","Could I speak to …, please?","I'm afraid she's not available.","Can I take a message?","Could you ask her to call me back?","Thank you very much. Goodbye."],
+  ck:["This is … statt Here is …?","speak to, nicht speak?","Nach Präpositionen him, her, them?"]}},
+
+{t:"Bewerbung schreiben",
+ g:"Im Anschreiben sagt man, auf welche Stelle man sich bewirbt, warum man passt und was man mitbringt. Stärken kommen mit konkretem Beleg.",
+ ex:["I am writing to apply for the position of junior controller.","I have three years' experience in customer service."],
+ err:"<b>apply for a job</b>, nicht <b>apply on</b>. Und <b>experience</b> als Berufserfahrung ist nicht zählbar: kein <b>experiences</b>.",
+ fix:[
+  {s:"I would like to apply on the position advertised on your website.", i:5, fix:"for",
+   why:"<b>apply for a position</b>. Die Präposition ist fest."},
+  {s:"I have made many experiences in customer service.", i:2, fix:"", full:"I have a lot of experience in customer service.",
+   why:"Berufserfahrung ist nicht zählbar. Und man <b>has</b> sie, man macht sie nicht."},
+  {s:"I am interested in work for an international company.", i:4, fix:"working",
+   why:"Nach der Präposition <b>in</b> steht die -ing-Form: <b>interested in working</b>."}],
+ tr:[
+  {de:"Ich möchte mich auf die ausgeschriebene Stelle bewerben.", en:"I would like to apply for the position advertised.",
+   tip:"<b>apply for</b>."},
+  {de:"Ich habe drei Jahre Erfahrung im Kundenservice.", en:"I have three years' experience in customer service.",
+   tip:"Apostroph nach <b>years</b>, und <b>experience</b> ohne Plural-s."},
+  {de:"Ich arbeite gern im Team und bin sehr zuverlässig.", en:"I enjoy working in a team and I am very reliable.",
+   tip:"<b>enjoy</b> plus -ing."}],
+ wr:{p:"Schreib ein kurzes Bewerbungsanschreiben: auf welche Stelle, warum du passt, drei Stärken mit Beleg, Schlussformel.",
+  short:"Drei Sätze: Stelle, Stärke, Schlussformel.",
+  ph:["I am writing to apply for the position of …","I am currently working as … at …","I have … years' experience in …","I enjoy working in a team and I am …","I would welcome the opportunity to …","I look forward to hearing from you."],
+  ck:["apply for, nicht apply on?","experience ohne Plural-s?","Nach Präpositionen die -ing-Form?"]}},
+
+{t:"Meinung schreiben",
+ g:"Ein Meinungstext hat vier Teile: Einleitung, Argumente dafür, Argumente dagegen, Schluss mit klarer Position. Die Struktur bringt genauso viele Punkte wie die Grammatik.",
+ ex:["In my opinion, working from home should be a right, not a privilege.","On the other hand, some tasks are simply easier face to face."],
+ err:"Nicht nur mit <b>I think</b> arbeiten. Für B2 braucht es Varianten: <b>In my view, It seems to me that, I would argue that</b>.",
+ fix:[
+  {s:"In my opinion I think that prices will rise.", i:4, fix:"", full:"In my opinion, prices will rise.",
+   why:"<b>In my opinion</b> und <b>I think</b> sagen dasselbe. Eines reicht — und danach ein Komma."},
+  {s:"On the one hand it is cheaper, on the other side it is slower.", i:10, fix:"hand",
+   why:"Die feste Wendung ist <b>on the other hand</b>. <b>on the other side</b> heißt: auf der anderen Straßenseite."},
+  {s:"In conclusion, the advantages outweigh clearly the disadvantages.", i:5, fix:"", mv:true, full:"In conclusion, the advantages clearly outweigh the disadvantages.",
+   why:"Bewertende Adverbien stehen vor dem Vollverb: <b>clearly outweigh</b>, nicht dahinter."}],
+ tr:[
+  {de:"Meiner Meinung nach sollten Firmen mehr Homeoffice erlauben.", en:"In my opinion, companies should allow more home office.",
+   tip:"Komma nach <b>In my opinion</b>, und kein zusätzliches <b>I think</b>."},
+  {de:"Einerseits spart es Zeit, andererseits fehlt der Kontakt.", en:"On the one hand it saves time, on the other hand contact is missing.",
+   tip:"<b>on the other hand</b>, nicht <b>side</b>."},
+  {de:"Zusammenfassend überwiegen für mich die Vorteile.", en:"To sum up, in my view the advantages outweigh the disadvantages.",
+   tip:"<b>To sum up</b> als Schlussformel, <b>outweigh</b> als überwiegen."}],
+ wr:{p:"Schreib einen kompletten Meinungstext in vier Absätzen: Einleitung, zwei Argumente dafür, zwei dagegen, Schluss mit klarer Position. Thema frei.",
+  short:"Ein Argument dafür, eins dagegen, ein Fazit.",
+  ph:["In my opinion, …","First of all, …","Another important point is that …","On the other hand, some people argue that …","However, I would say that …","To sum up, …"],
+  ck:["Vier klare Abschnitte?","Argumente mit however, although, on the other hand verbunden?","Am Ende eine eindeutige Position?"]}},
+
+{t:"Präsentieren",
+ g:"Eine Präsentation hat Signalsätze: Begrüßung, Überblick, Übergänge, Schluss. Sie geben dem Zuhörer Halt und dir Zeit zum Nachdenken.",
+ ex:["Today I would like to talk about our new supplier strategy.","That brings me to my second point."],
+ err:"Die Übergänge sind das Wichtigste. <b>Let's move on to …</b> und <b>That brings me to …</b> halten den ganzen Vortrag zusammen.",
+ fix:[
+  {s:"Today I would like to talk about of our new strategy.", i:7, fix:"",
+   why:"<b>talk about something</b> — ohne zusätzliches <b>of</b>."},
+  {s:"Let me to give you a short overview.", i:2, fix:"",
+   why:"Nach <b>let</b> steht die Grundform ohne <b>to</b>: <b>Let me give you …</b>"},
+  {s:"Thank you for your attention. Are there some questions?", i:7, fix:"any",
+   why:"In Fragen und Verneinungen steht <b>any</b>: <b>Are there any questions?</b>"}],
+ tr:[
+  {de:"Heute möchte ich über unsere neue Strategie sprechen.", en:"Today I would like to talk about our new strategy.",
+   tip:"<b>talk about</b>, ohne <b>of</b>."},
+  {de:"Damit komme ich zu meinem zweiten Punkt.", en:"That brings me to my second point.",
+   tip:"Der wichtigste Übergangssatz überhaupt."},
+  {de:"Vielen Dank für Ihre Aufmerksamkeit. Gibt es Fragen?", en:"Thank you for your attention. Are there any questions?",
+   tip:"<b>any</b> in der Frage."}],
+ wr:{p:"Schreib den kompletten Text einer Zwei-Minuten-Präsentation über ein Thema, das du kennst: Begrüßung, Überblick, drei Punkte mit Übergängen, Schluss.",
+  short:"Begrüßung, ein Punkt, Schlusssatz.",
+  ph:["Good morning everyone. Today I would like to talk about …","I have divided my talk into three parts.","First of all, let's look at …","That brings me to my second point.","To sum up, …","Thank you for your attention. Are there any questions?"],
+  ck:["Begrüßung und Überblick am Anfang?","Übergänge zwischen den Punkten?","Schlussformel und Frage nach Fragen?"]}}
+];
+
+/* ============================================================
+   SPRECHEN — mündliche Prüfung / Präsentation
+   Themen nach Modulhandbuch 7514: IT, Management, cultural awareness,
+   describing trends, the language of presentations. Phrasen wörtlich
+   aus der M3W-Wordlist (ORAL EXAM – Useful Phrases for Discussion).
+   ============================================================ */
+const ORAL_PHRASES = [
+  {g:"Meinung sagen", items:["In my opinion …","I firmly believe that …","From my point of view …","To be frank, …","I am convinced that …"]},
+  {g:"Struktur geben", items:["Firstly …, secondly …","On the one hand …, on the other hand …","Furthermore, I'd like to say …","Generally speaking, …"]},
+  {g:"Zustimmen", items:["I totally agree.","That's exactly my opinion.","I think you're right."]},
+  {g:"Widersprechen", items:["I see your point, but I can't agree with you on that.","I'm afraid I have to disagree.","I feel I must disagree."]},
+  {g:"Zweifeln", items:["I must admit I'm not sure.","I doubt it.","I find that very hard to believe.","Do you really think so?"]}
+];
+
+const TOPICS = [
+  {a:"IT", q:"Should companies let employees use their own devices for work?",
+   must:["Nenn zwei Vorteile und zwei Nachteile","Sag klar, wofür du dich entscheidest","Bring ein Beispiel aus deinem Umfeld"]},
+  {a:"IT", q:"Is artificial intelligence a threat to jobs in IT?",
+   must:["Unterscheide kurzfristig und langfristig","Nenn einen Beruf, der sich ändert","Schließ mit deiner eigenen Einschätzung"]},
+  {a:"IT", q:"How important is data protection for a company today?",
+   must:["Nenn ein konkretes Risiko","Was kostet ein Datenleck eine Firma?","Beende mit einer Empfehlung"]},
+  {a:"IT", q:"Should software be developed in-house or outsourced?",
+   must:["Vergleich Kosten und Kontrolle","Nenn eine Situation für jede Variante","Triff eine klare Entscheidung"]},
+  {a:"IT", q:"What are the advantages and disadvantages of cloud computing for a medium-sized company?",
+   must:["Mindestens zwei Vorteile","Mindestens zwei Nachteile","Ein Satz mit einem Conditional"]},
+  {a:"IT", q:"Is remote work good for IT teams?",
+   must:["Aus Sicht der Firma und der Mitarbeiter","Nenn ein Problem und eine Lösung","Sag, was du selbst bevorzugst"]},
+
+  {a:"Management", q:"What makes a good manager?",
+   must:["Drei Eigenschaften mit Begründung","Ein Gegenbeispiel: was ein schlechter Manager tut","Struktur mit firstly, secondly"]},
+  {a:"Management", q:"Should companies pay bonuses based on performance?",
+   must:["Argument dafür","Argument dagegen","Deine Position am Ende"]},
+  {a:"Management", q:"Flat hierarchies or clear structures — what works better?",
+   must:["Definier beide kurz","Nenn je einen Betrieb, wo es passt","Benenne Vor- und Nachteile"]},
+  {a:"Management", q:"Is it better to promote from within or to hire externally?",
+   must:["Zwei Argumente pro Seite","Ein Satz mit If …, we would …","Klare Empfehlung"]},
+  {a:"Management", q:"How should a company deal with a bad review online?",
+   must:["Beschreib die Schritte der Reihe nach","Was sollte man nicht tun?","Nutz first, then, finally"]},
+
+  {a:"Cultural awareness", q:"What should a German businessperson know before doing business in the US?",
+   must:["Zwei konkrete Unterschiede","Ein möglicher Fettnapf","Warum das geschäftlich zählt"]},
+  {a:"Cultural awareness", q:"How does small talk differ between cultures?",
+   must:["Vergleich zwei Länder","Nenn ein Thema, das man meidet","Was heißt das für ein Meeting?"]},
+  {a:"Cultural awareness", q:"Should a company adapt its product to local markets or keep one global brand?",
+   must:["Ein Beispiel für jede Strategie","Kosten gegen Akzeptanz abwägen","Entscheide dich"]},
+  {a:"Cultural awareness", q:"What problems can arise in international teams, and how would you solve them?",
+   must:["Zwei typische Probleme","Für jedes eine Lösung","Ein Satz mit If we had …, we would …"]},
+
+  {a:"Describing trends", q:"How have online sales developed in Germany over the last five years?",
+   must:["Nutz rise, fall, level off","Adverbien: sharply, slightly, steadily","Nenn einen Grund für die Entwicklung"]},
+  {a:"Describing trends", q:"Describe how energy prices have changed and what that means for business.",
+   must:["Beschreib die Kurve in drei Schritten","Ein Satz mit whereas","Folgen für Firmen benennen"]},
+  {a:"Describing trends", q:"How has the job market for IT specialists developed?",
+   must:["Zahlen oder Größenordnungen nennen","a sharp rise / a slight fall benutzen","Prognose mit will have"]},
+  {a:"Describing trends", q:"Look at your own spending over the last year — describe the trend.",
+   must:["increase by und increase in richtig nutzen","Einen Vergleich mit twice as … as","Fazit in einem Satz"]},
+
+  {a:"Presentation", q:"Present your degree programme to a school leaver — two minutes.",
+   must:["Begrüßung und Überblick","Drei Punkte mit Übergängen","Schluss und Frage nach Fragen"]},
+  {a:"Presentation", q:"Present a software tool you use and explain why it is useful.",
+   must:["I have divided my talk into … parts","That brings me to my second point","Thank you for your attention"]},
+  {a:"Presentation", q:"Present your company or a company you know well.",
+   must:["Gründung, Größe, Geschäftsfeld","Eine Zahl nennen","Klare Struktur mit Übergängen"]},
+  {a:"Presentation", q:"Present the biggest challenge your industry will face in the next five years.",
+   must:["Problem klar benennen","Zwei mögliche Reaktionen","Prognose mit will have oder will be"]},
+
+  {a:"Retailing", q:"Will physical shops survive against online retail?",
+   must:["Argumente für beide Seiten","Ein konkretes Beispiel","Deine Prognose"]},
+  {a:"Franchising", q:"Would you rather start your own business or buy a franchise?",
+   must:["Je zwei Vor- und Nachteile","Ein Satz mit If I had …","Entscheidung mit Begründung"]},
+  {a:"European Union", q:"What are the benefits of the single European market for a German company?",
+   must:["Zwei konkrete Vorteile","Ein Nachteil oder Risiko","Beispiel Import/Export"]},
+  {a:"Banking", q:"Should cash be abolished?",
+   must:["Argument dafür und dagegen","Wer wäre benachteiligt?","Klare Position"]},
+  {a:"Marketing", q:"Is influencer marketing worth the money?",
+   must:["Vergleich mit klassischer Werbung","Ein Risiko benennen","Empfehlung für eine kleine Firma"]}
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const KEY = "dailyEnglish.v2";
+const BLANK = {
+  topics:{},          // je Thema: {n: Runden, ok: Treffer, total: Aufgaben}
+  texts:[],
+  spoken:{},          // je Sprechthema: Anzahl Runden
+  stats:{fixOk:0, fixN:0, trOk:0, trN:0, words:0, seconds:0, rounds:0, speakRounds:0, speakSeconds:0}
+};
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(!raw) return structuredClone(BLANK);
+    const s = JSON.parse(raw);
+    return Object.assign(structuredClone(BLANK), s, {stats:Object.assign(structuredClone(BLANK.stats), s.stats||{})});
+  }catch(e){ return structuredClone(BLANK); }
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+let S = load();
+
+const today = () => new Date().toISOString().slice(0,10);
+
+/* Nächstes Thema: erst was du noch nie hattest, danach das, was am schlechtesten sitzt.
+   Kein Kalender, kein Tageszähler — die App entscheidet, du drückst nur Start. */
+/* nach Titel gespeichert, nicht nach Position — so überlebt der Fortschritt neue Themen */
+function topicStat(i){ return S.topics[UNITS[i].t] || {n:0, ok:0, total:0}; }
+function strength(i){ const t = topicStat(i); return t.total ? t.ok / t.total : null; }
+function pickNext(){
+  let best = 0, bestScore = Infinity;
+  for(let i = 0; i < UNITS.length; i++){
+    const t = topicStat(i);
+    const score = t.n * 10 + (t.total ? (t.ok / t.total) * 3 : 0);
+    if(score < bestScore){ bestScore = score; best = i; }
+  }
+  return best;
+}
+
+let view = "home";
+let ses = null;
+let tick = null;
+
+/* ============================================================
+   HELFER
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const words = t => (t.trim().match(/[\p{L}\p{N}'’-]+/gu) || []).length;
+function mmss(sec){ const m = Math.floor(sec/60), s = sec%60; return m + ":" + String(s).padStart(2,"0"); }
+
+let toastT = null;
+function toast(msg){
+  const el = $("toast");
+  el.textContent = msg; el.classList.add("show");
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove("show"), 2200);
+}
+
+function copy(text, okMsg){
+  const done = () => toast(okMsg || "Kopiert");
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, () => fallback(text, done));
+  } else fallback(text, done);
+}
+function fallback(text, done){
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.cssText = "position:fixed;top:-1000px;left:0;opacity:0";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  let ok = false;
+  try{ ok = document.execCommand("copy"); }catch(e){}
+  ta.remove();
+  if(ok) done(); else showManualCopy(text);
+}
+function showManualCopy(text){
+  view = "manual"; manualText = text; render();
+}
+let manualText = "";
+
+/* Satz aus Tokens + Korrektur zusammensetzen */
+function corrected(item){
+  if(item.full) return item.full;
+  const t = item.s.split(" ").slice();
+  if(item.fix === "") t.splice(item.i, 1); else t[item.i] = item.fix;
+  return t.join(" ");
+}
+
+/* Prompt für den Claude-Check */
+function claudePrompt(u, prompt, text){
+  return [
+    "Du bist mein Englisch-Trainer. Ich bin Deutscher, Level B1–B2, und bereite mich auf eine Business-English-Prüfung (M3W) vor.",
+    "",
+    "Thema heute: " + u.t,
+    "Aufgabe: " + prompt,
+    "",
+    "Mein Text:",
+    "---",
+    text.trim(),
+    "---",
+    "",
+    "Antworte auf Deutsch, genau in diesen vier Punkten, kurz:",
+    "1) KORRIGIERT — mein Text sauber korrigiert.",
+    "2) DIE 3 WICHTIGSTEN FEHLER — je eine Zeile: falsch → richtig, dahinter in max. 10 Wörtern warum.",
+    "3) KLINGT UNENGLISCH — eine Stelle, die grammatisch okay ist, aber kein Muttersprachler so sagen würde, plus bessere Version.",
+    "4) MORGEN ACHTEN AUF — die eine Regel, die mir am meisten bringt.",
+    "",
+    "Kein Lob, keine Einleitung, keine Zusammenfassung."
+  ].join("\n");
+}
+
+/* ============================================================
+   SESSION
+   ============================================================ */
+const STEPS = [
+  {k:"rule",  label:"Regel"},
+  {k:"fix",   label:"Fehler"},
+  {k:"trans", label:"Übersetzen"},
+  {k:"write", label:"Schreiben"}
+];
+
+function startSession(mode, unitIdx){
+  const idx = (typeof unitIdx === "number" ? unitIdx : pickNext()) % UNITS.length;
+  ses = {
+    mode, idx, u: UNITS[idx],
+    step: mode === "short" ? "write" : "rule",
+    fi:0, ti:0, fixOk:0, trOk:0,
+    sel:null, shown:false,
+    text:"", t0:Date.now(), wt0:null
+  };
+  view = "session";
+  startClock();
+  render();
+}
+/* ---------- Sprechen ---------- */
+let speakTimer = null;
+const PREP = 30, TALK = 120;
+
+function pickTopic(){
+  let best = 0, least = Infinity;
+  for(let i = 0; i < TOPICS.length; i++){
+    const n = S.spoken[TOPICS[i].q] || 0;
+    if(n < least){ least = n; best = i; }
+  }
+  return best;
+}
+function startSpeak(topicIdx){
+  const i = typeof topicIdx === "number" ? topicIdx : pickTopic();
+  ses = {mode:"speak", ti:i, topic:TOPICS[i], phase:"ready", left:PREP, checks:[false,false,false], t0:Date.now()};
+  view = "speak";
+  stopSpeak();
+  render();
+}
+function stopSpeak(){ if(speakTimer){ clearInterval(speakTimer); speakTimer = null; } }
+function runPhase(phase){
+  ses.phase = phase;
+  ses.left = phase === "prep" ? PREP : TALK;
+  render();
+  stopSpeak();
+  speakTimer = setInterval(() => {
+    ses.left--;
+    const t = $("bigTimer"), r = $("ringFill");
+    if(!t){ stopSpeak(); return; }
+    t.textContent = mmss(Math.max(0, ses.left));
+    if(r) r.style.width = Math.max(0, ses.left / (ses.phase === "prep" ? PREP : TALK) * 100) + "%";
+    if(ses.left <= 0){
+      stopSpeak();
+      if(ses.phase === "prep") runPhase("talk");
+      else { ses.phase = "check"; render(); }
+    }
+  }, 1000);
+}
+function finishSpeak(){
+  stopSpeak();
+  S.spoken[ses.topic.q] = (S.spoken[ses.topic.q] || 0) + 1;
+  S.stats.speakRounds += 1;
+  S.stats.speakSeconds += TALK;
+  save();
+  ses = null; view = "home"; render();
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+function startClock(){
+  stopClock();
+  tick = setInterval(() => {
+    if(!ses) return;
+    const c = $("clock");
+    if(c) c.textContent = mmss(Math.floor((Date.now() - ses.t0)/1000));
+  }, 1000);
+}
+function stopClock(){ if(tick){ clearInterval(tick); tick = null; } }
+
+function nextStep(){
+  const order = ["rule","fix","trans","write"];
+  const i = order.indexOf(ses.step);
+  ses.step = order[i+1];
+  ses.sel = null; ses.shown = false;
+  if(ses.step === "write") ses.wt0 = Date.now();
+  render();
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+function finishSession(){
+  const secs = Math.floor((Date.now() - ses.t0)/1000);
+  const w = words(ses.text);
+  const d = today();
+
+  S.stats.words += w;
+  S.stats.seconds += secs;
+  S.stats.rounds += 1;
+
+  const t = topicStat(ses.idx);
+  t.n += 1;
+  if(ses.mode !== "short"){
+    t.ok += ses.fixOk + ses.trOk;
+    t.total += ses.u.fix.length + ses.u.tr.length;
+    S.stats.fixOk += ses.fixOk; S.stats.fixN += ses.u.fix.length;
+    S.stats.trOk  += ses.trOk;  S.stats.trN  += ses.u.tr.length;
+  }
+  S.topics[ses.u.t] = t;
+
+  if(w > 0){
+    S.texts.unshift({d, u:ses.u.t, p:ses.u.wr.p, x:ses.text.trim(), w});
+    if(S.texts.length > 400) S.texts.length = 400;
+  }
+  save();
+
+  ses.secs = secs; ses.wcount = w;
+  stopClock();
+  view = "done";
+  render();
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function render(){
+  const main = $("main"), dock = $("dock"), rail = $("rail");
+  const back = $("backBtn"), clock = $("clock"), tag = $("dayTag"), title = $("topTitle");
+
+  main.innerHTML = ""; dock.innerHTML = ""; rail.innerHTML = "";
+  rail.hidden = true; back.hidden = (view === "home"); clock.hidden = (view !== "session");
+
+  const inSession = (view === "session" || view === "done") && ses;
+  tag.hidden = !(inSession || view === "speak");
+  if(inSession) tag.textContent = areaOf(ses.idx);
+  else if(view === "speak") tag.textContent = ses.topic.a;
+
+  if(view === "home")        { title.textContent = "Daily English"; renderHome(main, dock); }
+  else if(view === "speak")  { title.textContent = "Sprechen"; renderSpeak(main, dock); }
+  else if(view === "session"){ title.textContent = ses.u.t; renderRail(rail); renderSession(main, dock); }
+  else if(view === "done")   { title.textContent = ses.u.t; renderDone(main, dock); }
+  else if(view === "topics") { title.textContent = "Themen"; renderTopics(main, dock); }
+  else if(view === "archive"){ title.textContent = "Meine Texte"; renderArchive(main, dock); }
+  else if(view === "backup") { title.textContent = "Sicherung"; renderBackup(main, dock); }
+  else if(view === "manual") { title.textContent = "Zum Kopieren"; renderManual(main, dock); }
+}
+
+function renderRail(rail){
+  if(ses.mode === "short") return;
+  rail.hidden = false;
+  const cur = STEPS.findIndex(s => s.k === ses.step);
+  rail.innerHTML = STEPS.map((s,i) =>
+    `<div class="seg ${i < cur ? "done" : ""} ${i === cur ? "now" : ""}">
+       <div class="seg-bar"></div><span class="seg-label">${s.label}</span>
+     </div>`).join("");
+}
+
+function btn(label, cls, fn){
+  const b = document.createElement("button");
+  b.className = "btn " + (cls || "");
+  b.textContent = label;
+  b.addEventListener("click", fn);
+  return b;
+}
+
+/* ---------- HOME ---------- */
+function renderHome(main, dock){
+  const idx = pickNext();
+  const u = UNITS[idx];
+
+  const hero = document.createElement("div");
+  hero.className = "hero";
+  hero.innerHTML = `
+    <div class="stack tight">
+      <span class="label accent">${esc(blockOf(idx).name)}</span>
+      <h1>${esc(u.t)}</h1>
+      <p class="muted">${esc(u.g)}</p>
+    </div>
+    <p class="small">Regel ansehen · Fehler finden · übersetzen · selbst schreiben. Die App sucht das Thema aus — du drückst nur Start.</p>`;
+  main.appendChild(hero);
+
+  const links = document.createElement("div");
+  links.className = "stack tight";
+  links.appendChild(rowlink("Nur schreiben", "3 Minuten, direkt zum Schreibteil", () => startSession("short")));
+  links.appendChild(rowlink("Themen", "Lieber selbst eins aussuchen", () => { view = "topics"; render(); }));
+  links.appendChild(rowlink("Meine Texte", S.texts.length ? S.texts.length + (S.texts.length === 1 ? " Text gespeichert" : " Texte gespeichert") : "noch nichts geschrieben", () => { view = "archive"; render(); }));
+  main.appendChild(links);
+
+  if(S.stats.rounds > 0 || S.stats.speakRounds > 0){
+    const parts = [];
+    if(S.stats.rounds) parts.push(S.stats.rounds + (S.stats.rounds === 1 ? " Runde" : " Runden") + " · " + S.stats.words + " Wörter geschrieben");
+    if(S.stats.speakRounds) parts.push(S.stats.speakRounds + "× gesprochen · " + Math.round(S.stats.speakSeconds/60) + " Min");
+    const sum = document.createElement("p");
+    sum.className = "small";
+    sum.style.textAlign = "center";
+    sum.textContent = parts.join(" · ");
+    main.appendChild(sum);
+  }
+
+  dock.appendChild(btn("Start — 10 Minuten", "primary", () => startSession("full")));
+  const s = btn("Sprechen", "", () => startSpeak());
+  s.style.flex = "0 0 auto";
+  dock.appendChild(s);
+}
+
+function rowlink(title, sub, fn){
+  const b = document.createElement("button");
+  b.className = "rowlink";
+  b.innerHTML = `<span>${esc(title)}<span class="sub">${esc(sub)}</span></span><span class="chev" aria-hidden="true">›</span>`;
+  b.addEventListener("click", fn);
+  return b;
+}
+
+/* ---------- SESSION ---------- */
+function renderSession(main, dock){
+  if(ses.step === "rule")  return renderRule(main, dock);
+  if(ses.step === "fix")   return renderFix(main, dock);
+  if(ses.step === "trans") return renderTrans(main, dock);
+  if(ses.step === "write") return renderWrite(main, dock);
+}
+
+function renderRule(main, dock){
+  const u = ses.u;
+  const c = document.createElement("div");
+  c.className = "card raised stack";
+  c.innerHTML = `
+    <span class="label accent">Regel</span>
+    <h2>${esc(u.t)}</h2>
+    <p class="muted">${esc(u.g)}</p>`;
+  main.appendChild(c);
+
+  const ex = document.createElement("div");
+  ex.className = "card marked stack tight";
+  ex.innerHTML = `<span class="label">So sieht's aus</span>` +
+    u.ex.map(e => `<p class="en">${esc(e)}</p>`).join("");
+  main.appendChild(ex);
+
+  const t = document.createElement("div");
+  t.className = "trap";
+  t.innerHTML = `<span class="label wrong">Typischer Deutsch-Fehler</span>${u.err}`;
+  main.appendChild(t);
+
+  dock.appendChild(btn("Verstanden — weiter", "primary", nextStep));
+}
+
+function renderFix(main, dock){
+  const u = ses.u, it = u.fix[ses.fi];
+
+  const head = document.createElement("div");
+  head.className = "stack tight";
+  head.innerHTML = `<span class="label accent">Fehler finden · ${ses.fi + 1} von ${u.fix.length}</span>
+    <p class="muted">Tipp auf das Wort, das falsch ist.</p>`;
+  main.appendChild(head);
+
+  const card = document.createElement("div");
+  card.className = "card marked";
+  const box = document.createElement("div");
+  box.className = "words";
+  it.s.split(" ").forEach((tok, i) => {
+    const b = document.createElement("button");
+    b.className = "w";
+    b.textContent = tok;
+    if(ses.shown){
+      b.classList.add("locked");
+      if(i === it.i){
+        b.classList.add("miss");
+        if(ses.sel === i) b.classList.add("found");
+      } else if(ses.sel === i) b.classList.add("picked");
+    } else if(ses.sel === i) b.classList.add("sel");
+    if(!ses.shown) b.addEventListener("click", () => { ses.sel = i; render(); });
+    box.appendChild(b);
+  });
+  card.appendChild(box);
+  main.appendChild(card);
+
+  if(ses.shown){
+    const hit = ses.sel === it.i;
+    const rev = document.createElement("div");
+    rev.className = "card stack tight";
+    rev.style.borderColor = hit ? "var(--right)" : "var(--line)";
+    rev.innerHTML = `
+      <span class="label ${hit ? "right" : "wrong"}">${hit ? "Richtig erkannt" : "Der Fehler saß hier"}</span>
+      <p class="en"><span class="strike">${esc(it.s.split(" ")[it.i])}</span> <span class="ins">${esc(
+        it.mv ? "steht an der falschen Stelle" : it.fix === "" ? "gehört gestrichen" : it.fix
+      )}</span></p>
+      <p class="en" style="margin-top:6px">${esc(corrected(it))}</p>
+      <p class="muted" style="margin-top:8px">${it.why}</p>`;
+    main.appendChild(rev);
+  }
+
+  if(!ses.shown){
+    const b = btn("Prüfen", "primary", () => {
+      ses.shown = true;
+      if(ses.sel === it.i) ses.fixOk++;
+      render();
+    });
+    b.disabled = ses.sel === null;
+    dock.appendChild(b);
+  } else {
+    const last = ses.fi === u.fix.length - 1;
+    dock.appendChild(btn(last ? "Weiter zum Übersetzen" : "Nächster Satz", "primary", () => {
+      if(last) nextStep();
+      else { ses.fi++; ses.sel = null; ses.shown = false; render(); window.scrollTo({top:0,behavior:"instant"}); }
+    }));
+  }
+}
+
+function renderTrans(main, dock){
+  const u = ses.u, it = u.tr[ses.ti];
+
+  const head = document.createElement("div");
+  head.className = "stack tight";
+  head.innerHTML = `<span class="label accent">Übersetzen · ${ses.ti + 1} von ${u.tr.length}</span>
+    <p class="muted">Schreib den Satz auf Englisch. Nicht nachschlagen — raten ist Teil der Übung.</p>`;
+  main.appendChild(head);
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `<span class="label">Deutsch</span><p class="de" style="font-size:1.05rem;font-weight:600">${esc(it.de)}</p>`;
+  main.appendChild(card);
+
+  const ta = document.createElement("textarea");
+  ta.rows = 3;
+  ta.placeholder = "Deine englische Version …";
+  ta.value = ses.answer || "";
+  ta.readOnly = ses.shown;
+  ta.addEventListener("input", () => { ses.answer = ta.value; });
+  main.appendChild(ta);
+
+  if(ses.shown){
+    const rev = document.createElement("div");
+    rev.className = "card marked stack tight";
+    rev.innerHTML = `<span class="label right">Musterlösung</span>
+      <p class="en">${esc(it.en)}</p>
+      <p class="muted" style="margin-top:8px">${it.tip}</p>`;
+    main.appendChild(rev);
+
+    const q = document.createElement("p");
+    q.className = "small";
+    q.style.textAlign = "center";
+    q.textContent = "Ehrlich sein — hattest du das?";
+    main.appendChild(q);
+
+    dock.appendChild(btn("Daneben", "no", () => advTrans(false)));
+    dock.appendChild(btn("Hatte ich", "ok", () => advTrans(true)));
+  } else {
+    dock.appendChild(btn("Lösung zeigen", "primary", () => {
+      ses.shown = true; render();
+    }));
+  }
+}
+function advTrans(ok){
+  if(ok) ses.trOk++;
+  const last = ses.ti === ses.u.tr.length - 1;
+  ses.answer = ""; ses.shown = false;
+  if(last) nextStep();
+  else { ses.ti++; render(); window.scrollTo({top:0,behavior:"instant"}); }
+}
+
+function renderWrite(main, dock){
+  const u = ses.u;
+  const short = ses.mode === "short";
+  const target = short ? 35 : 70;
+  if(!ses.wt0) ses.wt0 = Date.now();
+
+  const head = document.createElement("div");
+  head.className = "card raised stack tight";
+  head.innerHTML = `<span class="label accent">Selbst schreiben${short ? " · Kurzrunde" : ""}</span>
+    <h2>${esc(short ? u.wr.short : u.wr.p)}</h2>
+    <p class="muted">${short ? "Drei Sätze reichen. Fehler sind egal — Hauptsache, es steht da." : "Ungefähr " + target + " Wörter. Nicht schön machen, einfach schreiben."}</p>`;
+  main.appendChild(head);
+
+  const ph = document.createElement("details");
+  ph.className = "entry";
+  ph.open = true;
+  ph.innerHTML = `<summary><span class="etitle">Nützliche Wendungen</span><span class="edate">${u.wr.ph.length}</span></summary>
+    <div class="ebody"><ul class="phrases">${u.wr.ph.map((p,i) => `<li><em>${i+1}</em><span>${esc(p)}</span></li>`).join("")}</ul></div>`;
+  main.appendChild(ph);
+
+  const ta = document.createElement("textarea");
+  ta.rows = short ? 6 : 9;
+  ta.placeholder = "Write in English …";
+  ta.value = ses.text;
+  main.appendChild(ta);
+
+  const row = document.createElement("div");
+  row.className = "meterrow";
+  row.innerHTML = `<div class="meter"><i style="width:0"></i></div><span class="count"><strong>0</strong> / ${target} Wörter</span>`;
+  main.appendChild(row);
+
+  const bar = row.querySelector("i"), cnt = row.querySelector("strong");
+  const upd = () => {
+    ses.text = ta.value;
+    const w = words(ta.value);
+    cnt.textContent = w;
+    bar.style.width = Math.min(100, (w / target) * 100) + "%";
+  };
+  ta.addEventListener("input", upd);
+  upd();
+
+  if(!short){
+    const ch = document.createElement("div");
+    ch.className = "card";
+    ch.innerHTML = `<span class="label">Bevor du abschickst — kurz drüberlesen</span>
+      <ul class="checks">${u.wr.ck.map(c => `<li>${esc(c)}</li>`).join("")}</ul>`;
+    main.appendChild(ch);
+  }
+
+  dock.appendChild(btn("Fertig", "primary", () => { ses.text = ta.value; finishSession(); }));
+}
+
+/* ---------- DONE ---------- */
+function renderDone(main, dock){
+  const u = ses.u, short = ses.mode === "short";
+
+  const hero = document.createElement("div");
+  hero.className = "hero";
+  hero.innerHTML = `
+    <div class="stack tight">
+      <span class="label accent">Geschafft</span>
+      <h1>${esc(u.t)}</h1>
+    </div>
+    <div class="streakrow">
+      ${short ? "" : `<div class="stat hot"><b>${ses.fixOk + ses.trOk}/${u.fix.length + u.tr.length}</b><span>Richtig</span></div>`}
+      <div class="stat"><b>${ses.wcount}</b><span>Wörter</span></div>
+      <div class="stat"><b>${mmss(ses.secs)}</b><span>Gebraucht</span></div>
+    </div>
+    ${short ? "" : `<p class="muted">Fehler gefunden: <strong>${ses.fixOk} von ${u.fix.length}</strong> · Übersetzt: <strong>${ses.trOk} von ${u.tr.length}</strong></p>`}`;
+  main.appendChild(hero);
+
+  if(ses.wcount > 0){
+    const c = document.createElement("div");
+    c.className = "card marked stack tight";
+    c.innerHTML = `<span class="label">Dein Text</span>
+      <p class="en" style="white-space:pre-wrap">${esc(ses.text.trim())}</p>`;
+    main.appendChild(c);
+
+    const n = document.createElement("div");
+    n.className = "note";
+    n.innerHTML = `<b>Korrektur holen:</b> Der Knopf unten kopiert deinen Text zusammen mit einer fertigen Anweisung. In die Claude-App einfügen, abschicken — du bekommst Korrektur, die drei wichtigsten Fehler und eine Regel für morgen. Dauert eine Minute.`;
+    main.appendChild(n);
+
+    dock.appendChild(btn("Für Claude kopieren", "primary", () => {
+      copy(claudePrompt(u, short ? u.wr.short : u.wr.p, ses.text), "Kopiert — in Claude einfügen");
+    }));
+  }
+  const b = btn(ses.wcount > 0 ? "Fertig" : "Zum Start", ses.wcount > 0 ? "ghost" : "primary", () => {
+    ses = null; view = "home"; render(); window.scrollTo({top:0,behavior:"instant"});
+  });
+  if(ses.wcount > 0) b.style.flex = "0 0 auto";
+  dock.appendChild(b);
+}
+
+/* ---------- SPRECHEN ---------- */
+function renderSpeak(main, dock){
+  const t = ses.topic, ph = ses.phase;
+
+  const q = document.createElement("div");
+  q.className = "card raised stack tight";
+  q.innerHTML = `<span class="label accent">${esc(t.a)}</span><p class="en big">${esc(t.q)}</p>`;
+  main.appendChild(q);
+
+  if(ph === "ready"){
+    const c = document.createElement("div");
+    c.className = "card stack tight";
+    c.innerHTML = `<span class="label">So läuft's</span>
+      <p class="muted">30 Sekunden überlegen, dann <strong>zwei Minuten am Stück laut reden</strong> — so lang wie in der mündlichen Prüfung. Nichts aufschreiben, nur stichwortartig denken.</p>
+      <p class="small">Allein im Zimmer reicht. Es geht darum, dass dein Mund die Sätze baut, nicht dein Kopf.</p>`;
+    main.appendChild(c);
+  }
+
+  if(ph === "prep" || ph === "talk"){
+    const c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = `<span class="timerlabel">${ph === "prep" ? "Überlegen" : "Reden — nicht aufhören"}</span>
+      <span class="bigtimer ${ph === "prep" ? "prep" : ""}" id="bigTimer">${mmss(ses.left)}</span>
+      <div class="ring ${ph === "prep" ? "prep" : ""}"><i id="ringFill"></i></div>`;
+    main.appendChild(c);
+  }
+
+  if(ph !== "check"){
+    const m = document.createElement("div");
+    m.className = "card";
+    m.innerHTML = `<span class="label">Das muss vorkommen</span>
+      <ul class="checks">${t.must.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+    main.appendChild(m);
+
+    const p = document.createElement("details");
+    p.className = "entry";
+    p.open = ph !== "talk";
+    p.innerHTML = `<summary><span class="etitle">Wendungen aus deiner Wordlist</span><span class="edate">${ORAL_PHRASES.reduce((a,g)=>a+g.items.length,0)}</span></summary>
+      <div class="ebody">${ORAL_PHRASES.map(g =>
+        `<div class="phgroup"><b>${esc(g.g)}</b>${g.items.map(s => `<span>${esc(s)}</span>`).join("")}</div>`).join("")}</div>`;
+    main.appendChild(p);
+  }
+
+  if(ph === "check"){
+    const c = document.createElement("div");
+    c.className = "card stack tight";
+    c.innerHTML = `<span class="label right">Zeit um</span><p class="muted">Ehrlich abhaken — nur für dich.</p>`;
+    main.appendChild(c);
+
+    const labels = ["Ich habe die vollen zwei Minuten geredet","Ich habe mindestens drei der Wendungen benutzt","Ich habe Vor- und Nachteile genannt"];
+    const box = document.createElement("div");
+    box.className = "selfcheck";
+    labels.forEach((lab, i) => {
+      const b = document.createElement("button");
+      b.className = ses.checks[i] ? "on" : "";
+      b.innerHTML = `<span class="box">✓</span><span>${esc(lab)}</span>`;
+      b.addEventListener("click", () => { ses.checks[i] = !ses.checks[i]; render(); });
+      box.appendChild(b);
+    });
+    main.appendChild(box);
+
+    const n = document.createElement("div");
+    n.className = "note";
+    n.innerHTML = `<b>Echte Prüfungsübung:</b> Der Knopf unten macht aus Claude einen Prüfer, der dir zu genau diesem Thema Rückfragen auf Englisch stellt. In der Claude-App die Spracheingabe nutzen — dann redest du wirklich.`;
+    main.appendChild(n);
+  }
+
+  if(ph === "ready")      dock.appendChild(btn("30 Sekunden überlegen", "primary", () => runPhase("prep")));
+  else if(ph === "prep")  dock.appendChild(btn("Ich rede jetzt", "primary", () => runPhase("talk")));
+  else if(ph === "talk")  dock.appendChild(btn("Fertig", "primary", () => { stopSpeak(); ses.phase = "check"; render(); }));
+  else {
+    dock.appendChild(btn("Als Prüfer mit Claude", "primary", () => {
+      copy(examinerPrompt(ses.topic), "Kopiert — in Claude einfügen");
+    }));
+    const b = btn("Fertig", "ghost", () => finishSpeak());
+    b.style.flex = "0 0 auto";
+    dock.appendChild(b);
+  }
+}
+
+function examinerPrompt(t){
+  return [
+    "Du bist mein Prüfer in einer mündlichen Business-English-Prüfung (HTW Berlin, Modul M3W, Niveau B2.2). Ich bin Deutscher.",
+    "",
+    "Thema: " + t.q,
+    "",
+    "So läuft es ab:",
+    "1) Stell mir die Frage oben auf Englisch und lass mich antworten.",
+    "2) Danach stellst du mir drei bis vier Rückfragen auf Englisch — eine davon kritisch, sodass ich widersprechen muss.",
+    "3) Bleib die ganze Zeit auf Englisch und antworte kurz, damit ich mehr rede als du.",
+    "4) Erst ganz am Ende, wenn ich „Auswertung\" schreibe: gib mir auf Deutsch die drei wichtigsten Sprachfehler, eine Note von 1 bis 10 für B2.2-Niveau und den einen Punkt, an dem ich als Nächstes arbeiten soll.",
+    "",
+    "Fang jetzt direkt mit der Frage an, ohne Vorrede."
+  ].join("\n");
+}
+
+/* ---------- TOPICS ---------- */
+function renderTopics(main, dock){
+  const next = pickNext();
+
+  const intro = document.createElement("p");
+  intro.className = "small";
+  intro.textContent = "Tipp auf ein Thema, um direkt damit anzufangen. Die Zahl zeigt, wie gut es bisher sitzt.";
+  main.appendChild(intro);
+
+  const wrap = document.createElement("div");
+  wrap.className = "topics";
+
+  BLOCKS.forEach(bl => {
+    const h = document.createElement("div");
+    h.className = "blockhead";
+    h.textContent = bl.name;
+    wrap.appendChild(h);
+
+    for(let i = bl.from - 1; i <= bl.to - 1 && i < UNITS.length; i++){
+      const u = UNITS[i], s = strength(i);
+      const pct = s === null ? null : Math.round(s * 100);
+      const cls = pct === null ? "" : pct >= 80 ? "good" : pct >= 55 ? "mid" : "low";
+      const b = document.createElement("button");
+      b.className = "topic" + (i === next ? " cur" : "");
+      b.innerHTML = `<span class="tt">${esc(u.t)}<small>${esc(u.g.split(/[.!?]/)[0])}.</small></span>` +
+        `<span class="str ${cls}">${pct === null ? "neu" : pct + "%"}</span>`;
+      b.addEventListener("click", () => startSession("full", i));
+      wrap.appendChild(b);
+    }
+  });
+  main.appendChild(wrap);
+
+  if(S.stats.fixN + S.stats.trN > 0){
+    const sum = document.createElement("p");
+    sum.className = "small";
+    sum.style.textAlign = "center";
+    sum.textContent = "Insgesamt " + Math.round((S.stats.fixOk + S.stats.trOk) / (S.stats.fixN + S.stats.trN) * 100) +
+      " % richtig · " + S.stats.words + " Wörter geschrieben";
+    main.appendChild(sum);
+  }
+
+  const bk = btn("Fortschritt sichern oder zurückholen", "ghost", () => { view = "backup"; render(); });
+  bk.style.minHeight = "42px";
+  bk.style.fontSize = ".82rem";
+  main.appendChild(bk);
+
+  if(S.stats.rounds > 0){
+    const reset = btn("Alles zurücksetzen", "ghost", () => {
+      if(confirm("Wirklich alles löschen — Statistik und alle gespeicherten Texte?")){
+        S = structuredClone(BLANK); save(); view = "home"; render();
+      }
+    });
+    reset.style.minHeight = "40px";
+    reset.style.fontSize = ".8rem";
+    main.appendChild(reset);
+  }
+
+  dock.appendChild(btn("Zurück", "ghost", () => { view = "home"; render(); }));
+}
+
+/* ---------- ARCHIVE ---------- */
+function renderArchive(main, dock){
+  if(!S.texts.length){
+    const c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = `<span class="label">Noch leer</span><p class="muted">Alles, was du im Schreibteil tippst, landet hier — nur auf diesem Gerät, nichts wird hochgeladen. Nach zwei Wochen siehst du hier, wie sich deine Sätze verändern.</p>`;
+    main.appendChild(c);
+  } else {
+    const info = document.createElement("p");
+    info.className = "small";
+    info.textContent = S.texts.length + (S.texts.length === 1 ? " Text · " : " Texte · ") +
+      S.texts.reduce((a,t) => a + t.w, 0) + " Wörter · gespeichert nur auf diesem Gerät";
+    main.appendChild(info);
+
+    S.texts.forEach((t, i) => {
+      const d = document.createElement("details");
+      d.className = "entry";
+      d.innerHTML = `<summary><span class="etitle">${esc(t.u)}</span><span class="edate">${esc(t.d.slice(8,10) + "." + t.d.slice(5,7) + ".")} · ${t.w} W.</span></summary>
+        <div class="ebody">
+          <p class="eprompt">${esc(t.p)}</p>
+          <div class="etext">${esc(t.x)}</div>
+        </div>`;
+      const b = btn("Für Claude kopieren", "ghost", () => {
+        copy(claudePrompt({t:t.u}, t.p, t.x), "Kopiert — in Claude einfügen");
+      });
+      b.style.minHeight = "42px";
+      d.querySelector(".ebody").appendChild(b);
+      main.appendChild(d);
+    });
+  }
+
+  dock.appendChild(btn("Zurück", "ghost", () => { view = "home"; render(); }));
+  if(S.texts.length){
+    dock.appendChild(btn("Alles kopieren", "", () => {
+      copy(S.texts.map(t => `=== ${t.d} — ${t.u} ===\n${t.p}\n\n${t.x}`).join("\n\n\n"), "Alle Texte kopiert");
+    }));
+  }
+}
+
+/* ---------- SICHERUNG ----------
+   Eine Datei überlebt das Löschen von Browserdaten — localStorage nicht.
+   Deshalb ist der Datei-Weg hier der Hauptweg, Kopieren nur der Rückfall. */
+function applyBackup(raw){
+  let data = null;
+  try{ data = JSON.parse(String(raw).trim()); }catch(e){}
+  if(!data || typeof data !== "object" || !data.stats || typeof data.stats.rounds !== "number"){
+    toast("Das ist keine gültige Sicherung"); return false;
+  }
+  const n = Array.isArray(data.texts) ? data.texts.length : 0;
+  if(!confirm("Alles überschreiben und " + n + " gesicherte Texte einspielen?")) return false;
+  S = Object.assign(structuredClone(BLANK), data, {
+    stats: Object.assign(structuredClone(BLANK.stats), data.stats)
+  });
+  save(); toast("Wiederhergestellt"); view = "home"; render();
+  return true;
+}
+
+function backupName(){
+  const d = new Date();
+  const p = n => String(n).padStart(2, "0");
+  return `daily-english-${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}.json`;
+}
+
+function saveBackupFile(){
+  const dl = window.claude && window.claude.downloads;
+  if(!dl){ toast("Datei speichern geht hier nicht"); return; }
+  dl.save({filename: backupName(), data: JSON.stringify(S)}).then(
+    () => toast("Als Datei gespeichert"),
+    err => {
+      const c = err && err.code;
+      if(c === "declined")           toast("Abgebrochen");
+      else if(c === "rate_limited")  toast("Kurz warten, dann nochmal");
+      else                           toast("Ging nicht — nimm „Text kopieren\"");
+    }
+  );
+}
+
+function renderBackup(main, dock){
+  const canFile = !!(window.claude && window.claude.downloads);
+
+  const a = document.createElement("div");
+  a.className = "card stack tight";
+  a.innerHTML = `<span class="label accent">Sichern</span>
+    <p class="muted">Dein Fortschritt liegt im Browser. Wenn du Browserdaten löschst, ist er weg — <strong>eine gesicherte Datei nicht</strong>, die liegt in deinen Downloads.</p>
+    <p class="small">Einmal im Monat reicht. Enthält Texte, Trefferquoten und Sprechrunden.</p>`;
+  main.appendChild(a);
+
+  if(canFile){
+    const bf = btn("Als Datei speichern", "primary", saveBackupFile);
+    bf.style.minHeight = "46px";
+    main.appendChild(bf);
+  }
+  const bc = btn(canFile ? "Stattdessen Text kopieren" : "Sicherung kopieren", "", () => copy(JSON.stringify(S), "Sicherung kopiert"));
+  bc.style.minHeight = "44px";
+  main.appendChild(bc);
+
+  const b = document.createElement("div");
+  b.className = "card stack tight";
+  b.innerHTML = `<span class="label wrong">Zurückholen</span>
+    <p class="muted">Überschreibt alles, was gerade gespeichert ist.</p>`;
+  main.appendChild(b);
+
+  const file = document.createElement("input");
+  file.type = "file";
+  file.accept = ".json,application/json";
+  file.style.display = "none";
+  file.addEventListener("change", () => {
+    const f = file.files && file.files[0];
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = () => applyBackup(r.result);
+    r.onerror = () => toast("Datei ließ sich nicht lesen");
+    r.readAsText(f);
+    file.value = "";
+  });
+  main.appendChild(file);
+
+  const bfile = btn("Sicherungsdatei wählen", "primary", () => file.click());
+  bfile.style.minHeight = "46px";
+  main.appendChild(bfile);
+
+  const inp = document.createElement("textarea");
+  inp.className = "copybox"; inp.rows = 4;
+  inp.placeholder = "… oder gesicherten Text hier einfügen";
+  main.appendChild(inp);
+
+  const b2 = btn("Aus Text wiederherstellen", "", () => applyBackup(inp.value));
+  b2.style.minHeight = "44px";
+  main.appendChild(b2);
+
+  dock.appendChild(btn("Zurück", "ghost", () => { view = "topics"; render(); }));
+}
+
+/* ---------- MANUAL COPY ---------- */
+function renderManual(main, dock){
+  const c = document.createElement("div");
+  c.className = "card stack tight";
+  c.innerHTML = `<span class="label">Automatisches Kopieren ging nicht</span>
+    <p class="muted">Text antippen, alles markieren, kopieren — dann in Claude einfügen.</p>`;
+  main.appendChild(c);
+  const ta = document.createElement("textarea");
+  ta.className = "copybox";
+  ta.rows = 14;
+  ta.value = manualText;
+  ta.readOnly = true;
+  ta.addEventListener("focus", () => ta.select());
+  main.appendChild(ta);
+  dock.appendChild(btn("Zurück", "ghost", () => { view = ses ? "done" : "home"; render(); }));
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+$("backBtn").addEventListener("click", () => {
+  if(view === "session"){
+    if(!confirm("Runde abbrechen? Der Fortschritt dieser Runde geht verloren.")) return;
+  }
+  stopClock(); stopSpeak(); ses = null; view = "home"; render();
+});
+
+render();
+</script>
+</body>
+</html>
