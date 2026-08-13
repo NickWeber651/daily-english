@@ -3,7 +3,9 @@
 Zehn Minuten Englisch am Tag: Grammatik, selbst schreiben, laut reden.
 Gebaut für **Business English M3W** (HTW Berlin, Modul 7512, Niveau B2.2).
 
-**App öffnen → [nickweber651.github.io/daily-english](https://nickweber651.github.io/daily-english/)**
+**Benutzen:** Die Android-App unter [Releases](../../releases) installieren —
+oder `index.html` herunterladen und im Browser öffnen. Die Datei läuft
+eigenständig, ohne Server.
 
 ## Was drin ist
 
@@ -44,8 +46,8 @@ hochgeladen, nichts verlässt das Gerät.
 Unter *Themen → Fortschritt sichern oder zurückholen* gibt es deshalb eine
 Sicherung als Datei oder als Text.
 
-Die Android-App unter *Releases* hat ihren eigenen Speicher, den das Löschen
-von Browserdaten nicht anfasst.
+Die Android-App unter [Releases](../../releases) hat ihren eigenen Speicher,
+den das Löschen von Browserdaten nicht anfasst.
 
 ## Technisch
 
