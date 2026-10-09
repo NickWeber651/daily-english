@@ -1,6 +1,6 @@
 # Daily English
 
-Zehn Minuten Englisch am Tag: Grammatik, selbst schreiben, laut reden.
+Zehn Minuten Englisch am Tag: Grammatik üben und selbst schreiben.
 Gebaut für **Business English M3W** (HTW Berlin, Modul 7512, Niveau B2.2).
 
 **Benutzen:** Die Android-App unter [Releases](../../releases) installieren —
@@ -11,16 +11,17 @@ eigenständig, ohne Server.
 
 | | |
 |---|---|
-| Grammatikthemen | 47 |
-| Fehlersätze | 141 |
-| Übersetzungen | 141 |
-| Schreibaufgaben | 47 lang, 47 kurz |
-| Sprechthemen | 28 |
-| Wendungen | 282 fürs Schreiben, 19 fürs Sprechen |
+| Grammatikthemen | 26 |
+| Fehlersätze | 78 |
+| Übersetzungen | 78 |
+| Schreibaufgaben | 26 lang, 26 kurz |
+| Wendungen | 156 |
 
-Alle zwölf englischen Zeitformen, Conditionals 1–3 und mixed, Passiv,
-Relativsätze, indirekte Rede — plus die typischen Fehler, die Deutsche
-im Englischen machen.
+Nur M3W-Stoff: Zeiten aktiv und passiv, Conditionals 1–3 und mixed,
+Relativsätze, Adjektiv/Adverb, Verbindungswörter und die Kursthemen
+Trends, Meetings, Meinung und Präsentation.
+
+Essay und Lesetexte sind bewusst nicht in der App — die laufen im Chat mit Claude.
 
 ## Wie es funktioniert
 
@@ -30,12 +31,9 @@ erst was du noch nie hattest, danach immer das, was am schlechtesten sitzt.
 **Start — 10 Minuten** führt durch vier Schritte: Regel lesen, in drei Sätzen
 den Fehler antippen, drei Sätze übersetzen, am Ende selbst einen Text schreiben.
 
-**Sprechen** gibt dir ein Thema, 30 Sekunden zum Überlegen und zwei Minuten
-zum Reden — so lang wie in der mündlichen Prüfung.
-
-Beide enden mit einem Knopf, der deinen Text bzw. das Thema samt fertiger
-Anweisung in die Zwischenablage legt. In Claude einfügen, und du bekommst
-Korrektur oder einen Prüfer, der dir Rückfragen stellt.
+Am Ende legt ein Knopf deinen Text samt fertiger Anweisung in die Zwischenablage.
+In Claude einfügen, und du bekommst die Korrektur, deine wichtigsten Fehler und
+eine Regel für das nächste Mal.
 
 ## Wo der Fortschritt liegt
 
