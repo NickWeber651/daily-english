@@ -346,42 +346,6 @@ textarea:focus{border-color:var(--accent); outline:none; background:var(--sheet)
 }
 .entry .eprompt{font-size:.8rem; color:var(--ink-3); font-style:italic}
 
-/* ---- Sprech-Modus ---- */
-.bigtimer{
-  display:block; text-align:center; font-size:3.6rem; font-weight:700;
-  letter-spacing:-.03em; font-variant-numeric:tabular-nums; line-height:1;
-  color:var(--accent); margin:4px 0 2px;
-}
-.bigtimer.prep{color:var(--amber)}
-.bigtimer.over{color:var(--wrong)}
-.timerlabel{
-  display:block; text-align:center; font-size:.66rem; font-weight:700;
-  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
-}
-.ring{height:5px; border-radius:3px; background:var(--sheet-3); overflow:hidden; margin-top:14px}
-.ring > i{display:block; height:100%; background:var(--accent); width:100%}
-.ring.prep > i{background:var(--amber)}
-.phgroup{margin-bottom:11px}
-.phgroup:last-child{margin-bottom:0}
-.phgroup > b{
-  display:block; font-size:.64rem; font-weight:700; letter-spacing:.09em;
-  text-transform:uppercase; color:var(--accent); margin-bottom:5px;
-}
-.phgroup > span{display:block; font-family:var(--serif); font-size:1rem; line-height:1.5; color:var(--ink)}
-.selfcheck{display:flex; flex-direction:column; gap:8px}
-.selfcheck button{
-  display:flex; align-items:center; gap:11px; width:100%; text-align:left;
-  padding:12px 14px; background:var(--sheet); border:1px solid var(--line);
-  border-radius:var(--r-m); cursor:pointer; color:var(--ink-2); font-size:.88rem;
-}
-.selfcheck button .box{
-  flex:0 0 auto; width:20px; height:20px; border-radius:5px;
-  border:2px solid var(--line-2); display:grid; place-items:center;
-  font-size:.72rem; font-weight:700; color:transparent;
-}
-.selfcheck button.on{border-color:var(--right); color:var(--ink)}
-.selfcheck button.on .box{background:var(--right); border-color:var(--right); color:#fff}
-
 .note{
   background:var(--amber-soft); border-radius:var(--r-m); padding:12px 14px;
   font-size:.86rem; color:var(--ink-2); line-height:1.5;
@@ -435,67 +399,22 @@ textarea:focus{border-color:var(--accent); outline:none; background:var(--sheet)
 "use strict";
 
 /* ============================================================
-   INHALT — 40 Einheiten
-   Reihenfolge: erst typische Deutsch-Englisch-Fehler,
-   dann Satzbau, dann M3W-Prüfungsgrammatik, dann Business-Produktion.
+   INHALT — 26 Einheiten, nur M3W-Stoff
+   Grundlage: Kursprogramm „English for Business Computing" (Tenses active/passive,
+   Adjective/Adverb, Conditional Clauses 1–3) und die Altklausuren SS18 und
+   WiSe 2020/21 (Relativsätze, Conditionals, Übersetzen Deutsch → Englisch).
    ============================================================ */
 const BLOCKS = [
-  {from:1,  to:18, short:"Fehler",   name:"Zeiten & typische Deutsch-Englisch-Fehler"},
-  {from:19, to:29, short:"Satzbau",  name:"Satzbau & Struktur"},
-  {from:30, to:37, short:"Prüfung",  name:"Prüfungsgrammatik M3W"},
-  {from:38, to:47, short:"Business", name:"Business schreiben & sprechen"}
+  {from:1,  to:10, short:"Zeiten",     name:"Zeiten"},
+  {from:11, to:16, short:"Passiv & If", name:"Passiv & Conditionals"},
+  {from:17, to:21, short:"Satzbau",    name:"Relativsätze, Adjektiv/Adverb, Verbindungswörter"},
+  {from:22, to:26, short:"Kurs",       name:"Kursthemen: Trends, Meetings, Meinung, Präsentation"}
 ];
 const blockOf = i => BLOCKS.find(b => i + 1 >= b.from && i + 1 <= b.to) || BLOCKS[0];
 const areaOf = i => blockOf(i).short;
 
 const UNITS = [
-/* ---------- BLOCK A · Fundament & typische Deutsch-Fehler ---------- */
-{t:"Wortstellung: erst Subjekt, dann Verb",
- g:"Im Englischen steht das Verb direkt hinter dem Subjekt und bleibt dort. Eine Zeit- oder Ortsangabe am Satzanfang schiebt es nicht weg, wie sie es im Deutschen tut.",
- ex:["Last week we signed the contract.","Every Monday the team meets at nine."],
- err:"„Gestern hatten wir …\" wird nicht zu <b>Yesterday had we …</b> Nach der Zeitangabe kommt trotzdem zuerst das Subjekt: <b>Yesterday we had …</b>",
- fix:[
-  {s:"Yesterday had we a long meeting with the supplier.", i:1, fix:"", mv:true, full:"Yesterday we had a long meeting with the supplier.",
-   why:"Deutsch dreht nach der Zeitangabe Verb und Subjekt um. Englisch nicht: nach <b>Yesterday</b> kommt <b>we</b>, dann erst <b>had</b>."},
-  {s:"I sent yesterday the invoice to the customer.", i:2, fix:"", mv:true, full:"I sent the invoice to the customer yesterday.",
-   why:"Zwischen Verb und Objekt passt nichts. Zeitangaben stehen am Satzende: <b>… to the customer yesterday.</b>"},
-  {s:"In our company works everybody from home on Fridays.", i:3, fix:"", mv:true, full:"In our company everybody works from home on Fridays.",
-   why:"Auch nach einer Ortsangabe gilt: Subjekt vor Verb. <b>everybody works</b>, nicht <b>works everybody</b>."}],
- tr:[
-  {de:"Letzte Woche haben wir den Vertrag unterschrieben.", en:"Last week we signed the contract.",
-   tip:"Nach <b>Last week</b> sofort <b>we</b>. Und weil eine feste Zeit dabeisteht: Past Simple, kein Present Perfect."},
-  {de:"Jeden Morgen prüft die Buchhaltung die Rechnungen.", en:"Every morning the accounting department checks the invoices.",
-   tip:"Subjekt <b>the accounting department</b> vor Verb <b>checks</b> — auch wenn der Satz mit der Zeit beginnt."},
-  {de:"Heute Nachmittag treffe ich den neuen Lieferanten.", en:"This afternoon I am meeting the new supplier.",
-   tip:"<b>I am meeting</b>, weil der Termin feststeht. <b>I meet</b> wäre eine Gewohnheit."}],
- wr:{p:"Beschreib deinen gestrigen Tag. Fang mindestens drei Sätze mit einer Zeitangabe an — und pass auf, dass danach das Subjekt kommt.",
-  short:"Drei Sätze über gestern, jeder mit einer Zeitangabe am Anfang.",
-  ph:["Yesterday morning I …","After lunch we …","At around four o'clock …","In the afternoon the team …","Later that evening I …","By the end of the day I was …"],
-  ck:["Steht nach jeder Zeitangabe zuerst das Subjekt?","Sitzt keine Zeitangabe zwischen Verb und Objekt?","Past Simple genommen, weil es um gestern geht?"]}},
-
-{t:"Wo always und usually stehen",
- g:"Häufigkeitsadverbien stehen vor dem Vollverb, aber hinter am, is und are. Im Deutschen wandern sie frei durch den Satz, im Englischen haben sie einen festen Platz.",
- ex:["She always checks the figures twice.","He is never late for a meeting."],
- err:"<b>I go always by train</b> ❌ → <b>I always go by train</b> ✅. Vor dem Vollverb, aber hinter <b>be</b>.",
- fix:[
-  {s:"We check always the invoices before we pay.", i:2, fix:"", mv:true, full:"We always check the invoices before we pay.",
-   why:"Vor dem Vollverb: <b>we always check</b>. Zwischen Verb und Objekt passt nichts."},
-  {s:"She never is available before nine.", i:1, fix:"", mv:true, full:"She is never available before nine.",
-   why:"Nach <b>am, is, are, was, were</b> steht das Adverb dahinter: <b>She is never …</b>"},
-  {s:"I have usually a coffee before the meeting.", i:2, fix:"", mv:true, full:"I usually have a coffee before the meeting.",
-   why:"<b>have</b> ist hier ein Vollverb, also steht <b>usually</b> davor."}],
- tr:[
-  {de:"Sie prüft die Zahlen immer zweimal.", en:"She always checks the figures twice.",
-   tip:"Vor dem Vollverb — und das <b>-s</b> bei <b>checks</b> nicht vergessen."},
-  {de:"Er kommt nie zu spät zu einer Besprechung.", en:"He is never late for a meeting.",
-   tip:"Nach <b>is</b> steht <b>never</b> dahinter."},
-  {de:"Wir arbeiten normalerweise bis fünf.", en:"We usually work until five.",
-   tip:"<b>usually</b> vor dem Vollverb."}],
- wr:{p:"Beschreib deinen normalen Tag mit Häufigkeitsangaben: was du immer, oft, manchmal und nie machst. Mindestens sechs Adverbien.",
-  short:"Drei Sätze mit always, usually und never.",
-  ph:["I always start the day with …","We usually meet on …","I often have to …","She is never …","I sometimes forget to …","We rarely …"],
-  ck:["Adverb vor dem Vollverb?","Hinter am / is / are / was / were?","Nichts zwischen Verb und Objekt geschoben?"]}},
-
+/* ---------- Zeiten (aktiv) ---------- */
 {t:"Present Simple oder Progressive",
  g:"Present Simple für Gewohnheiten, Fakten und Abläufe. Present Progressive für das, was gerade oder in dieser Phase läuft. Deutsch macht diesen Unterschied nicht, deshalb fällt er beim Schreiben leicht unter den Tisch.",
  ex:["We usually order from two suppliers.","At the moment we are looking for a third one."],
@@ -611,6 +530,29 @@ const UNITS = [
   ph:["I have been working on … for …","We have been trying to … since …","It has been taking longer than expected.","So far I have finished …","I have been thinking about …","Lately I have been …"],
   ck:["have/has been + Verb-ing sauber gebaut?","Kein know / be / want in der -ing-Form?","Ergebnisse im normalen Perfect, Dauer in der Progressive?"]}},
 
+{t:"Past Progressive",
+ g:"was oder were plus Verb-ing. Für das, was in der Vergangenheit gerade lief — meist als Hintergrund für etwas, das dazwischenkam.",
+ ex:["I was working on the report when she called.","While we were discussing the price, the client left."],
+ err:"Der Trick ist das Zusammenspiel: die lange Handlung im Past Progressive, die kurze im Past Simple. <b>I was driving when the phone rang.</b>",
+ fix:[
+  {s:"I worked on the report when the phone rang.", i:1, fix:"was working",
+   why:"Die längere Handlung im Hintergrund steht im Past Progressive: <b>I was working</b>."},
+  {s:"While we were discuss the contract, he arrived.", i:3, fix:"discussing",
+   why:"Nach <b>were</b> kommt die -ing-Form: <b>were discussing</b>."},
+  {s:"They were wanting a discount at that time.", i:2, fix:"", full:"They wanted a discount at that time.",
+   why:"Zustandsverben wie <b>want, know, need</b> gehen nicht in die Progressive-Form: <b>They wanted</b>."}],
+ tr:[
+  {de:"Ich arbeitete gerade am Bericht, als sie anrief.", en:"I was working on the report when she called.",
+   tip:"Lange Handlung Progressive, kurze Unterbrechung Simple."},
+  {de:"Während wir über den Preis sprachen, ging der Kunde.", en:"While we were talking about the price, the client left.",
+   tip:"<b>While</b> zieht fast immer die Progressive-Form nach sich."},
+  {de:"Was hast du gestern um drei gemacht?", en:"What were you doing yesterday at three?",
+   tip:"Uhrzeit in der Vergangenheit → Past Progressive."}],
+ wr:{p:"Erzähl von einem Tag, an dem etwas dazwischenkam: was lief gerade, was hat es unterbrochen, wie ging es aus? Mindestens drei Past-Progressive-Sätze.",
+  short:"Drei Sätze: was gerade lief, was dazwischenkam.",
+  ph:["I was … when …","While we were …, …","At that moment I was …","Suddenly the phone rang.","It was raining, so we …","In the end everything was fine."],
+  ck:["Lange Handlung mit was / were + -ing?","Kurze Unterbrechung im Past Simple?","Kein want / know / need in der -ing-Form?"]}},
+
 {t:"Past Perfect",
  g:"had plus dritte Verbform. Für das, was vor einer anderen Vergangenheitshandlung schon passiert war. Man braucht es nur da, wo die Reihenfolge sonst unklar wäre.",
  ex:["When we arrived, the meeting had already started.","They had signed the contract before the prices went up."],
@@ -656,52 +598,6 @@ const UNITS = [
   short:"Drei Sätze: wie lange etwas lief, bevor etwas passierte.",
   ph:["I had been … for … when …","We had been trying to … before …","She had been working on … all week.","By that time I had been …","That was because I had been …","After that, everything changed."],
   ck:["had been plus Verb-ing vollständig gebaut?","Dauer gemeint, nicht nur das Ergebnis?","Kein know / be / want in der -ing-Form?"]}},
-
-{t:"Past Progressive",
- g:"was oder were plus Verb-ing. Für das, was in der Vergangenheit gerade lief — meist als Hintergrund für etwas, das dazwischenkam.",
- ex:["I was working on the report when she called.","While we were discussing the price, the client left."],
- err:"Der Trick ist das Zusammenspiel: die lange Handlung im Past Progressive, die kurze im Past Simple. <b>I was driving when the phone rang.</b>",
- fix:[
-  {s:"I worked on the report when the phone rang.", i:1, fix:"was working",
-   why:"Die längere Handlung im Hintergrund steht im Past Progressive: <b>I was working</b>."},
-  {s:"While we were discuss the contract, he arrived.", i:3, fix:"discussing",
-   why:"Nach <b>were</b> kommt die -ing-Form: <b>were discussing</b>."},
-  {s:"They were wanting a discount at that time.", i:2, fix:"", full:"They wanted a discount at that time.",
-   why:"Zustandsverben wie <b>want, know, need</b> gehen nicht in die Progressive-Form: <b>They wanted</b>."}],
- tr:[
-  {de:"Ich arbeitete gerade am Bericht, als sie anrief.", en:"I was working on the report when she called.",
-   tip:"Lange Handlung Progressive, kurze Unterbrechung Simple."},
-  {de:"Während wir über den Preis sprachen, ging der Kunde.", en:"While we were talking about the price, the client left.",
-   tip:"<b>While</b> zieht fast immer die Progressive-Form nach sich."},
-  {de:"Was hast du gestern um drei gemacht?", en:"What were you doing yesterday at three?",
-   tip:"Uhrzeit in der Vergangenheit → Past Progressive."}],
- wr:{p:"Erzähl von einem Tag, an dem etwas dazwischenkam: was lief gerade, was hat es unterbrochen, wie ging es aus? Mindestens drei Past-Progressive-Sätze.",
-  short:"Drei Sätze: was gerade lief, was dazwischenkam.",
-  ph:["I was … when …","While we were …, …","At that moment I was …","Suddenly the phone rang.","It was raining, so we …","In the end everything was fine."],
-  ck:["Lange Handlung mit was / were + -ing?","Kurze Unterbrechung im Past Simple?","Kein want / know / need in der -ing-Form?"]}},
-
-{t:"used to: wie es früher war",
- g:"used to plus Grundform beschreibt, was früher regelmäßig so war und heute nicht mehr ist. In Frage und Verneinung fällt das -d weg.",
- ex:["We used to order everything by fax.","He didn't use to work in sales."],
- err:"<b>I am used to work here</b> heißt etwas anderes, nämlich daran gewöhnt sein. Die Früher-Gewohnheit ist <b>I used to work here</b>, ohne <b>am</b>.",
- fix:[
-  {s:"We use to have a bigger warehouse in Hamburg.", i:1, fix:"used",
-   why:"In der Aussage steht <b>used to</b> mit <b>-d</b>."},
-  {s:"He didn't used to work in sales.", i:2, fix:"use",
-   why:"Nach <b>didn't</b> kommt die Grundform: <b>didn't use to</b>, ohne <b>-d</b>."},
-  {s:"I am used to order everything online.", i:4, fix:"ordering",
-   why:"<b>be used to</b> heißt „gewöhnt an\" und nimmt die -ing-Form. Meinst du „früher\", dann <b>I used to order</b>."}],
- tr:[
-  {de:"Früher haben wir alles per Fax bestellt.", en:"We used to order everything by fax.",
-   tip:"Früher ja, heute nicht mehr → <b>used to</b>."},
-  {de:"Er hat früher nicht im Vertrieb gearbeitet.", en:"He didn't use to work in sales.",
-   tip:"Nach <b>didn't</b> ohne <b>-d</b>."},
-  {de:"Ich bin daran gewöhnt, auf Englisch zu telefonieren.", en:"I am used to speaking English on the phone.",
-   tip:"<b>be used to</b> plus -ing — ein völlig anderer Sinn als <b>used to</b>."}],
- wr:{p:"Wie war es früher bei dir — in der Schule, im alten Job, als Kind? Was hat sich geändert? Mindestens vier Sätze mit used to.",
-  short:"Drei Sätze: was früher war und heute nicht mehr ist.",
-  ph:["I used to …, but now I …","We used to have …","I didn't use to like …","These days I …","Things have changed since …","I am used to … ing now."],
-  ck:["Aussage mit used to, Verneinung mit didn't use to?","be used to plus -ing nur für „gewöhnt an\"?","Klarer Kontrast zwischen früher und heute?"]}},
 
 {t:"Zukunft: will, going to, Progressive",
  g:"will für spontane Entscheidungen, Versprechen und Vorhersagen. going to für Pläne und für das, was sich sichtbar abzeichnet. Present Progressive für feste Termine, Present Simple für Fahrpläne und feste Abläufe.",
@@ -749,376 +645,53 @@ const UNITS = [
   ph:["By 2029 I will have …","In three years we will have …","This time next year I will be …","By then the company will be …","I hope I will have finished …","We will still be working on …"],
   ck:["will have plus dritte Form für alles Fertige?","will be plus -ing für alles Laufende?","by plus Zeitpunkt beim Future Perfect?"]}},
 
-{t:"Artikel: a, an, the oder gar nichts",
- g:"a und an bei etwas Neuem oder Unbestimmtem, the wenn beide Seiten wissen welches, und gar kein Artikel bei allgemeinen Aussagen im Plural und bei nicht zählbaren Sachen.",
- ex:["We need a new supplier. The supplier we have is too slow.","Prices are rising. Inflation is a serious problem."],
- err:"Deutsch sagt „Die Preise steigen\". Englisch lässt den Artikel weg, wenn es allgemein gemeint ist: <b>Prices are rising</b>, nicht <b>The prices are rising</b>.",
+/* ---------- Passiv & Conditionals ---------- */
+{t:"Passiv bilden",
+ g:"to be plus dritte Verbform. Man nimmt es, wenn wichtiger ist, was passiert, als wer es tut. In Berichten und offiziellen Texten steht es überall.",
+ ex:["The invoice was sent on Monday.","The new system is being tested at the moment."],
+ err:"Der Verursacher kommt mit <b>by</b>: <b>The report was written by the trainee</b>. Meistens lässt man ihn ganz weg — genau dafür gibt es das Passiv.",
  fix:[
-  {s:"The unemployment is rising in most European countries.", i:0, fix:"", full:"Unemployment is rising in most European countries.",
-   why:"Allgemeiner Begriff → kein Artikel. Genauso bei <b>inflation, business, money, advice</b>."},
-  {s:"She works as accountant in a small firm.", i:3, fix:"an accountant",
-   why:"Berufe brauchen im Englischen einen Artikel: <b>as an accountant</b>."},
-  {s:"I have an information about the new procedure.", i:2, fix:"some", full:"I have some information about the new procedure.",
-   why:"<b>information</b> ist nicht zählbar — kein <b>an</b>, kein Plural. Genau wie <b>advice, news, equipment, feedback</b>."}],
+  {s:"The contract was sign last Friday.", i:3, fix:"signed",
+   why:"Passiv braucht die dritte Form: <b>was signed</b>."},
+  {s:"The goods have delivered yesterday morning.", i:2, fix:"were", full:"The goods were delivered yesterday morning.",
+   why:"Die Waren liefern nicht selbst, sie werden geliefert: <b>were delivered</b>."},
+  {s:"Our website is currently update by an agency.", i:4, fix:"being updated",
+   why:"Läuft gerade → <b>is being updated</b>. Die dritte Form nicht vergessen."}],
  tr:[
-  {de:"Die Zinsen sind in diesem Jahr gestiegen.", en:"Interest rates have risen this year.",
-   tip:"Allgemein → kein <b>the</b>. Wären ganz bestimmte Zinsen gemeint, ginge <b>the interest rates</b>."},
-  {de:"Er ist Geschäftsführer eines mittelständischen Unternehmens.", en:"He is the managing director of a medium-sized company.",
-   tip:"Nur einer im Betrieb → <b>the</b>. Bei <b>a manager</b> wäre er einer von vielen."},
-  {de:"Können Sie mir einen Rat geben?", en:"Can you give me some advice?",
-   tip:"<b>advice</b> ist nicht zählbar. <b>An advice</b> gibt es nicht — notfalls <b>a piece of advice</b>."}],
- wr:{p:"Schreib über eine allgemeine Entwicklung, die dir auffällt — Preise, Mieten, Arbeitsmarkt, Technik. Prüf bei jedem Nomen bewusst, ob ein Artikel hingehört.",
-  short:"Drei Sätze über eine Entwicklung, die dir auffällt.",
-  ph:["Prices for … have gone up.","Unemployment in my region is …","A lot of companies are …","The company I work for …","In general, people …","This is a problem for …"],
-  ck:["Allgemeine Plural-Aussagen ohne the?","Berufe mit a oder an?","Kein a/an bei information, advice, news, money?"]}},
+  {de:"Die Rechnung wurde am Montag verschickt.", en:"The invoice was sent on Monday.",
+   tip:"<b>was</b> plus dritte Form. Wer sie verschickt hat, bleibt offen."},
+  {de:"Das neue System wird gerade getestet.", en:"The new system is being tested at the moment.",
+   tip:"Passiv im Progressive: <b>is being</b> plus dritte Form."},
+  {de:"Die Firma wurde 1998 gegründet.", en:"The company was founded in 1998.",
+   tip:"Standardsatz für Firmenporträts. <b>founded</b>, nicht <b>found</b>."}],
+ wr:{p:"Beschreib einen Ablauf in deiner Firma oder Schule von außen: Was wird gemacht, geprüft, verschickt, entschieden? Mindestens sechs Passivsätze.",
+  short:"Drei Passivsätze über einen Ablauf.",
+  ph:["The order is checked by …","The goods are delivered within … days.","The invoice is sent automatically.","The decision was made last week.","Our systems are being updated.","The report has been approved."],
+  ck:["Überall to be plus dritte Form?","Die richtige Zeit steckt im to be?","by nur da, wo der Verursacher wirklich zählt?"]}},
 
-{t:"there is und there are",
- g:"„Es gibt\" heißt there is bei Einzahl und there are bei Mehrzahl. Es heißt nie it gives — das ist wörtlich aus dem Deutschen und fällt sofort auf.",
- ex:["There is a problem with the delivery.","There are three options on the table."],
- err:"<b>It gives a problem</b> ❌ ist eine direkte Übersetzung von „es gibt\". Richtig ist <b>There is a problem</b>.",
+{t:"Passiv in Prozessen",
+ g:"Im Bericht baut man eine Kette: erst was passiert, dann in welcher Reihenfolge. First, then, after that und finally halten die Passivsätze zusammen.",
+ ex:["First the order is received. Then it is checked by the warehouse.","After that, the goods are packed and shipped."],
+ err:"Nicht jeden Satz gleich anfangen. Drei Sätze mit <b>The order is …</b> sind grammatisch richtig und trotzdem schlecht. Verbinde mit <b>then, after that, once</b>.",
  fix:[
-  {s:"It gives two ways to solve this problem.", i:0, fix:"There", full:"There are two ways to solve this problem.",
-   why:"„Es gibt\" ist <b>there is</b> oder <b>there are</b>, nie <b>it gives</b>. Bei <b>two ways</b> steht <b>are</b>."},
-  {s:"There is many complaints about the new system.", i:1, fix:"are",
-   why:"<b>complaints</b> ist Mehrzahl → <b>There are</b>."},
-  {s:"There are a lot of information on the website.", i:1, fix:"is",
-   why:"<b>information</b> ist nicht zählbar und zählt als Einzahl → <b>There is a lot of information</b>."}],
+  {s:"After the order has checked, it is sent to the warehouse.", i:3, fix:"has been", full:"After the order has been checked, it is sent to the warehouse.",
+   why:"Passiv im Present Perfect: <b>has been checked</b>. Das <b>been</b> fehlt."},
+  {s:"Finally, the goods are pack and shipped to the customer.", i:4, fix:"packed",
+   why:"Beide Verben brauchen die dritte Form: <b>are packed and shipped</b>."},
+  {s:"The complaint was dealt by the service team.", i:4, fix:"with by",
+   why:"<b>deal with</b> behält im Passiv sein <b>with</b>: <b>was dealt with by …</b>"}],
  tr:[
-  {de:"Es gibt ein Problem mit der Lieferung.", en:"There is a problem with the delivery.",
-   tip:"Einzahl → <b>There is</b>."},
-  {de:"Es gibt drei Möglichkeiten.", en:"There are three options.",
-   tip:"Mehrzahl → <b>There are</b>."},
-  {de:"Letztes Jahr gab es keine Beschwerden.", en:"There were no complaints last year.",
-   tip:"In der Vergangenheit: <b>there was</b> und <b>there were</b>."}],
- wr:{p:"Beschreib deinen Arbeitsplatz, deine Stadt oder deine Firma: was es dort gibt und was nicht. Mindestens sechs Sätze mit there is oder there are.",
-  short:"Drei Sätze mit there is und there are.",
-  ph:["There is a … in our office.","There are about … people in my team.","There isn't enough …","There are no … at the moment.","There used to be …","There will be … next year."],
-  ck:["Einzahl there is, Mehrzahl there are?","Nirgends it gives?","Bei information, advice und money die Einzahl?"]}},
+  {de:"Zuerst wird die Bestellung geprüft.", en:"First the order is checked.",
+   tip:"<b>First</b> ohne <b>at</b>. <b>At first</b> hieße: anfangs, aber später anders."},
+  {de:"Danach werden die Waren verpackt und verschickt.", en:"After that, the goods are packed and shipped.",
+   tip:"Beide Verben in der dritten Form."},
+  {de:"Sobald die Rechnung bezahlt wurde, wird die Ware freigegeben.", en:"Once the invoice has been paid, the goods are released.",
+   tip:"<b>has been paid</b> — Passiv im Present Perfect."}],
+ wr:{p:"Beschreib einen kompletten Ablauf in sechs bis acht Schritten — eine Bestellung, eine Bewerbung, eine Reklamation. Alles im Passiv, verbunden mit first, then, after that, finally.",
+  short:"Vier Schritte eines Ablaufs im Passiv.",
+  ph:["First, the … is received.","Then it is checked by …","After that, …","Once … has been …, …","Finally, the … is sent to …","The whole process takes about … days."],
+  ck:["Jeder Schritt im Passiv mit dritter Form?","Schritte mit first, then, after that, finally verbunden?","Bei deal with und look after die Präposition mitgenommen?"]}},
 
-{t:"False Friends",
- g:"Wörter, die aussehen wie ein deutsches Wort, aber etwas ganz anderes heißen. Sie fallen besonders auf, weil der Satz drumherum meistens richtig ist.",
- ex:["I received the parcel this morning.","Our current supplier is based in Poland."],
- err:"<b>become</b> heißt werden, nicht bekommen. <b>I become a package</b> heißt wörtlich: Ich verwandle mich in ein Paket.",
- fix:[
-  {s:"I hope I will become the job in Munich.", i:4, fix:"get",
-   why:"<b>become</b> = werden. Bekommen heißt <b>get</b> oder <b>receive</b>."},
-  {s:"Please send me the actual price list.", i:4, fix:"current",
-   why:"<b>actual</b> = tatsächlich. Aktuell heißt <b>current</b> oder <b>up-to-date</b>."},
-  {s:"We eventually need a bigger warehouse next year.", i:1, fix:"may", full:"We may need a bigger warehouse next year.",
-   why:"<b>eventually</b> = schließlich, am Ende. Eventuell heißt <b>maybe, possibly</b> oder <b>may</b>."}],
- tr:[
-  {de:"Ich habe gestern Ihre E-Mail bekommen.", en:"I received your email yesterday.",
-   tip:"bekommen = <b>receive</b> oder <b>get</b>, niemals <b>become</b>."},
-  {de:"Unser aktueller Chef kommt aus Hamburg.", en:"Our current boss is from Hamburg.",
-   tip:"Zwei Fallen: <b>current</b> statt actual, und <b>boss</b> statt <b>chef</b> — ein chef ist der Koch."},
-  {de:"Wir haben eventuell nächste Woche einen Termin frei.", en:"We may have a free slot next week.",
-   tip:"eventuell = <b>may</b> oder <b>might</b>. <b>Eventually</b> hieße: irgendwann am Ende doch."}],
- wr:{p:"Schreib eine kurze Mail an einen Lieferanten: Du hast die Lieferung bekommen, brauchst die aktuelle Preisliste und willst eventuell mehr bestellen. Genau die drei Fallen von heute.",
-  short:"Drei Sätze mit receive, current und may.",
-  ph:["Thank you for your email of 3 June.","We received the delivery on Monday.","Could you send us your current price list?","We may increase our order next month.","I would be grateful if you could …","I look forward to hearing from you."],
-  ck:["bekommen = get / receive, nicht become?","aktuell = current, nicht actual?","eventuell = may / might, nicht eventually?"]}},
-
-{t:"Großschreibung und Kommas",
- g:"Englisch schreibt Nomen klein. Groß werden nur Satzanfänge, Namen, Länder, Sprachen, Nationalitäten, Monate und Wochentage. Und vor that steht kein Komma.",
- ex:["On Monday I met our German supplier in Vienna.","I think that the price is too high."],
- err:"Deutsche Kommaregeln gelten hier nicht. <b>I think, that …</b> ❌ → <b>I think that …</b> ✅. Vor <b>that, if, because, when</b> steht normalerweise kein Komma.",
- fix:[
-  {s:"We hope, that the delivery arrives on time.", i:1, fix:"hope",
-   why:"Vor <b>that</b> steht im Englischen kein Komma. Das ist reine deutsche Gewohnheit."},
-  {s:"Our new colleague speaks french very well.", i:4, fix:"French",
-   why:"Sprachen und Nationalitäten werden groß geschrieben: <b>French, German, Italian, Dutch</b>."},
-  {s:"I sent the Invoice to the accounting department.", i:3, fix:"invoice",
-   why:"Nomen bleiben klein. Groß sind nur Namen, Länder, Sprachen, Monate und Wochentage."}],
- tr:[
-  {de:"Ich glaube, dass die Preise nächstes Jahr steigen.", en:"I think that prices will rise next year.",
-   tip:"Kein Komma vor <b>that</b>. Und <b>prices</b> allgemein, also ohne Artikel."},
-  {de:"Am Montag treffe ich unseren französischen Lieferanten.", en:"On Monday I am meeting our French supplier.",
-   tip:"<b>Monday</b> und <b>French</b> groß, <b>supplier</b> klein."},
-  {de:"Wir haben die Rechnung im Januar bezahlt.", en:"We paid the invoice in January.",
-   tip:"<b>January</b> groß, <b>invoice</b> klein. Monate sind im Englischen immer groß."}],
- wr:{p:"Schreib fünf Sätze über deine letzte Woche, in denen Wochentage, Monate, Länder oder Sprachen vorkommen. Danach nochmal drüber und jede Großschreibung prüfen.",
-  short:"Drei Sätze mit Wochentag, Land und Sprache.",
-  ph:["On Tuesday I …","In September we …","My English is getting …","We work with a Dutch company.","I think that …","Last Friday I had to …"],
-  ck:["Alle normalen Nomen klein geschrieben?","Wochentage, Monate, Länder, Sprachen groß?","Kein Komma vor that, if, because?"]}},
-
-{t:"Fragen und Verneinung mit do",
- g:"Vollverben brauchen für Frage und Verneinung ein Hilfsverb: do, does oder did. Ohne geht es nur bei be, have got und den Modalverben.",
- ex:["Do you work in the same department?","We didn't receive the confirmation."],
- err:"<b>Work you here?</b> ❌ — das ist deutsche Wortstellung. Richtig ist <b>Do you work here?</b>",
- fix:[
-  {s:"Where works your brother at the moment?", i:1, fix:"does", full:"Where does your brother work at the moment?",
-   why:"Frage mit Vollverb → <b>does</b>, und das Verb rutscht hinter das Subjekt: <b>does your brother work</b>."},
-  {s:"I not agree with this proposal.", i:1, fix:"don't", full:"I don't agree with this proposal.",
-   why:"Vollverben verneint man mit <b>don't</b> oder <b>doesn't</b>. Ein blankes <b>not</b> geht nur bei <b>be</b> und Modalverben."},
-  {s:"Did you sent the confirmation yesterday?", i:2, fix:"send",
-   why:"<b>Did</b> trägt die Vergangenheit schon. Danach kommt immer die Grundform."}],
- tr:[
-  {de:"Arbeiten Sie mit diesem Lieferanten zusammen?", en:"Do you work with this supplier?",
-   tip:"Frage mit Vollverb → <b>Do</b> ganz nach vorn."},
-  {de:"Wir haben die Bestätigung nicht bekommen.", en:"We didn't receive the confirmation.",
-   tip:"Nach <b>didn't</b> die Grundform <b>receive</b>, nicht <b>received</b>."},
-  {de:"Warum hat sie gekündigt?", en:"Why did she resign?",
-   tip:"<b>did</b> plus Grundform. <b>Why resigned she</b> gibt es nicht."}],
- wr:{p:"Schreib zehn Fragen, die du einem neuen Kollegen am ersten Tag stellen würdest — gemischt aus Gegenwart und Vergangenheit.",
-  short:"Fünf Fragen an einen neuen Kollegen.",
-  ph:["Where do you come from?","What did you do before?","Do you know …?","How long have you been …?","Did you find the office easily?","Have you met the team yet?"],
-  ck:["Frage mit Vollverb: do / does / did am Anfang?","Nach do / does / did die Grundform?","Verneinung mit don't / doesn't / didn't?"]}},
-
-/* ---------- BLOCK B · Satzbau & Struktur ---------- */
-{t:"Modalverben",
- g:"can, could, may, might, should, must und will bekommen nie ein -s und werden immer von der nackten Grundform gefolgt. Sie bestimmen den Ton eines ganzen Satzes.",
- ex:["We should check the figures again.","Could you send me the contract, please?"],
- err:"<b>She can to help</b> ❌ und <b>He cans</b> ❌. Nach einem Modalverb kommt die Grundform ohne to: <b>She can help.</b>",
- fix:[
-  {s:"He must to sign the contract before Friday.", i:2, fix:"",
-   why:"Nach Modalverben steht die Grundform ohne <b>to</b>: <b>must sign</b>."},
-  {s:"She cans speak three languages fluently.", i:1, fix:"can",
-   why:"Modalverben bekommen nie ein <b>-s</b>, auch nicht bei he, she und it."},
-  {s:"Can you please to explain the procedure?", i:3, fix:"",
-   why:"Wieder kein <b>to</b> nach <b>can</b>. Höflicher wäre ohnehin <b>Could you explain …?</b>"}],
- tr:[
-  {de:"Könnten Sie mir bitte den Vertrag schicken?", en:"Could you send me the contract, please?",
-   tip:"<b>Could</b> klingt höflicher als <b>can</b> — Standard in Geschäftsmails."},
-  {de:"Wir sollten die Zahlen noch einmal prüfen.", en:"We should check the figures again.",
-   tip:"<b>should</b> plus Grundform, kein <b>to</b>."},
-  {de:"Sie kann fließend Spanisch.", en:"She can speak Spanish fluently.",
-   tip:"Kein <b>-s</b> bei <b>can</b>, und <b>Spanish</b> groß."}],
- wr:{p:"Schreib fünf Ratschläge für jemanden, der in deiner Firma oder an deiner Schule neu anfängt. Benutz should, could, must und can.",
-  short:"Drei Ratschläge mit should, could und must.",
-  ph:["You should always …","You could try to …","You must not …","You can ask … if …","It might be a good idea to …","You don't have to …"],
-  ck:["Nach jedem Modalverb die Grundform ohne to?","Kein -s bei can, must, should?","Verneinung als can't, shouldn't, mustn't?"]}},
-
-{t:"must not oder don't have to",
- g:"mustn't heißt: das ist verboten. don't have to heißt: das ist nicht nötig. Zwei völlig verschiedene Aussagen, die im Deutschen beide mit „müssen\" gebaut werden.",
- ex:["You mustn't share these figures with anyone.","You don't have to come to the meeting, it's optional."],
- err:"„Du musst nicht kommen\" heißt <b>You don't have to come</b>. <b>You mustn't come</b> hieße: Du darfst nicht kommen. Das ist ein Bedeutungsfehler, kein Stilfehler.",
- fix:[
-  {s:"You mustn't fill in this field, it's optional.", i:1, fix:"don't have to",
-   why:"<b>optional</b> heißt nicht nötig → <b>don't have to</b>. <b>mustn't</b> wäre ein Verbot."},
-  {s:"Employees don't have to smoke inside the building.", i:1, fix:"must not", full:"Employees must not smoke inside the building.",
-   why:"Ein Rauchverbot ist ein Verbot → <b>must not</b>. So gelesen wäre Rauchen bloß freiwillig."},
-  {s:"We must not to disclose the client's name.", i:3, fix:"",
-   why:"Auch nach <b>must not</b> kommt die Grundform ohne <b>to</b>."}],
- tr:[
-  {de:"Sie müssen nicht am Freitag kommen, es ist freiwillig.", en:"You don't have to come on Friday, it's optional.",
-   tip:"Nicht nötig → <b>don't have to</b>."},
-  {de:"Diese Zahlen dürfen Sie an niemanden weitergeben.", en:"You must not share these figures with anyone.",
-   tip:"Verbot → <b>must not</b>."},
-  {de:"Wir mussten letzte Woche Überstunden machen.", en:"We had to work overtime last week.",
-   tip:"<b>must</b> hat keine Vergangenheit. Dafür nimmt man <b>had to</b>."}],
- wr:{p:"Schreib die wichtigsten Regeln deines Arbeitsplatzes oder deiner Schule auf: drei echte Verbote und drei Dinge, die nur freiwillig sind.",
-  short:"Zwei Verbote und zwei freiwillige Sachen.",
-  ph:["You must not …","You are not allowed to …","You don't have to …, but it helps.","It's up to you whether …","Everyone has to …","We are required to …"],
-  ck:["Echte Verbote mit must not?","Freiwilliges mit don't have to?","Vergangenheit von must als had to?"]}},
-
-{t:"Gerund oder Infinitiv",
- g:"Manche Verben verlangen die -ing-Form, andere to plus Grundform. Nach jeder Präposition steht immer die -ing-Form. Einen Teil davon muss man schlicht auswendig können.",
- ex:["We look forward to hearing from you.","I would like to arrange a meeting."],
- err:"<b>I look forward to hear from you</b> ❌ — das <b>to</b> in <b>look forward to</b> ist eine Präposition, kein Infinitiv. Danach steht <b>hearing</b>.",
- fix:[
-  {s:"We look forward to hear from you soon.", i:4, fix:"hearing",
-   why:"Das <b>to</b> gehört zu <b>look forward to</b> und ist eine Präposition. Danach immer <b>-ing</b>."},
-  {s:"She enjoys to work with international clients.", i:2, fix:"", full:"She enjoys working with international clients.",
-   why:"<b>enjoy, avoid, suggest, mind, finish, practise</b> nehmen die -ing-Form: <b>enjoys working</b>."},
-  {s:"We decided postponing the launch until March.", i:2, fix:"to postpone",
-   why:"<b>decide, want, hope, plan, agree, offer</b> nehmen <b>to</b> plus Grundform."}],
- tr:[
-  {de:"Wir freuen uns darauf, von Ihnen zu hören.", en:"We look forward to hearing from you.",
-   tip:"Der Standardschluss jeder Geschäftsmail. <b>hearing</b>, niemals <b>hear</b>."},
-  {de:"Sie schlug vor, den Termin zu verschieben.", en:"She suggested postponing the meeting.",
-   tip:"<b>suggest</b> nimmt die -ing-Form. <b>suggested to postpone</b> ist falsch."},
-  {de:"Ich möchte einen Termin für nächste Woche vereinbaren.", en:"I would like to arrange a meeting for next week.",
-   tip:"<b>would like</b> nimmt <b>to</b> plus Grundform."}],
- wr:{p:"Schreib eine kurze Mail, in der du einen Termin vorschlägst, verschiebst oder absagst. Bau look forward to, suggest und would like ein.",
-  short:"Drei Sätze mit look forward to, suggest und would like.",
-  ph:["I would like to arrange a meeting.","Would you mind moving it to Thursday?","I suggest meeting at ten.","We look forward to hearing from you.","I am interested in discussing …","Thank you for offering to help."],
-  ck:["Nach Präpositionen (to, in, of, about) die -ing-Form?","enjoy / suggest / avoid / mind mit -ing?","decide / want / hope / plan mit to plus Grundform?"]}},
-
-{t:"in, on, at bei Zeit und Ort",
- g:"at für Punkte, on für Tage und Flächen, in für Räume und längere Zeiträume. Die deutschen Präpositionen helfen hier überhaupt nicht weiter.",
- ex:["The meeting is on Monday at nine in the morning.","She works at head office in Hamburg."],
- err:"„Am Montag\" ist <b>on Monday</b>, nicht <b>at Monday</b>. „Im Januar\" ist <b>in January</b>, „um neun\" ist <b>at nine</b>.",
- fix:[
-  {s:"The presentation starts in nine o'clock.", i:3, fix:"at",
-   why:"Uhrzeiten sind Punkte → <b>at</b>: at nine, at noon, at midnight."},
-  {s:"We are moving to the new office at March.", i:7, fix:"in",
-   why:"Monate, Jahre und Jahreszeiten sind Zeiträume → <b>in March, in 2026, in summer</b>."},
-  {s:"I will call you in Friday morning.", i:4, fix:"on",
-   why:"Tage und Daten → <b>on</b>. Steht ein Tag dabei, schlägt er die Tageszeit: <b>on Friday morning</b>."}],
- tr:[
-  {de:"Die Besprechung ist am Dienstag um zehn.", en:"The meeting is on Tuesday at ten.",
-   tip:"Tag → <b>on</b>, Uhrzeit → <b>at</b>."},
-  {de:"Sie fängt im September in der Zentrale an.", en:"She is starting at head office in September.",
-   tip:"<b>at head office</b> als Institution, <b>in September</b> als Zeitraum."},
-  {de:"Ich bin am Wochenende nicht im Büro.", en:"I am not in the office at the weekend.",
-   tip:"Britisch <b>at the weekend</b>, amerikanisch <b>on the weekend</b>. Im Büro ist man <b>in</b>."}],
- wr:{p:"Schreib deinen Terminplan für die kommende Woche auf — mit Wochentagen, Uhrzeiten, Orten und Monaten. Mindestens acht Präpositionen.",
-  short:"Drei Termine mit Tag, Uhrzeit und Ort.",
-  ph:["On Monday at nine I have …","In the afternoon I will be at …","The deadline is on 15 March.","I am usually in the office from … to …","At the end of the month we …","In two weeks we are going to …"],
-  ck:["Uhrzeiten mit at?","Tage und Daten mit on?","Monate, Jahre, Jahreszeiten mit in?"]}},
-
-{t:"Feste Präpositionen",
- g:"Viele Verben und Adjektive ziehen eine feste Präposition nach sich, die mit der deutschen nichts zu tun hat. Man lernt sie als Paar, nie einzeln.",
- ex:["It depends on the delivery date.","She is responsible for purchasing."],
- err:"<b>depend of</b> ❌ → <b>depend on</b>. <b>interested on</b> ❌ → <b>interested in</b>. Das deutsche „abhängig von\" führt direkt in die Falle.",
- fix:[
-  {s:"It depends of the delivery date.", i:2, fix:"on",
-   why:"<b>depend on</b>, immer — trotz des deutschen „abhängig von\"."},
-  {s:"She is responsible of the whole department.", i:3, fix:"for",
-   why:"<b>responsible for</b> heißt verantwortlich für. <b>responsible to</b> hieße: jemandem unterstellt."},
-  {s:"We are very interested on your latest offer.", i:4, fix:"in",
-   why:"<b>interested in</b>. Folgt ein Verb, dann in der -ing-Form: <b>interested in buying</b>."}],
- tr:[
-  {de:"Das hängt vom Liefertermin ab.", en:"It depends on the delivery date.",
-   tip:"<b>depend on</b> — nie <b>depend from</b> oder <b>of</b>."},
-  {de:"Wir sind an Ihrem Angebot interessiert.", en:"We are interested in your offer.",
-   tip:"<b>interested in</b>. Mit Verb: <b>interested in working with you</b>."},
-  {de:"Sie ist für den Einkauf zuständig.", en:"She is responsible for purchasing.",
-   tip:"<b>responsible for</b>, und danach die -ing-Form."}],
- wr:{p:"Beschreib, wer in deiner Firma oder Klasse wofür zuständig ist und wovon eure Arbeit abhängt. Mindestens sechs feste Präpositionen.",
-  short:"Drei Sätze mit responsible for, depend on und interested in.",
-  ph:["I am responsible for …","This depends on …","We are interested in …","She deals with …","He is good at …","We finally agreed on …"],
-  ck:["depend on, nicht of oder from?","responsible for, nicht of?","interested in, und danach -ing?"]}},
-
-{t:"Phrasal Verbs im Business",
- g:"Verb plus kleines Wörtchen ergibt oft eine ganz neue Bedeutung: set up, carry out, take over, look into. Im Geschäftsenglisch stecken sie überall drin.",
- ex:["We set up a new branch in Poland.","The committee is looking into the complaint."],
- err:"Bei vielen Phrasal Verbs darf ein Pronomen nicht hinten stehen: <b>fill out it</b> ❌ → <b>fill it out</b> ✅.",
- fix:[
-  {s:"Could you please fill out it before Friday?", i:4, fix:"", mv:true, full:"Could you please fill it out before Friday?",
-   why:"Ein Pronomen wie <b>it</b> rutscht zwischen Verb und Partikel: <b>fill it out</b>."},
-  {s:"The new manager will take on the department in June.", i:5, fix:"over",
-   why:"<b>take over</b> heißt übernehmen. <b>take on</b> heißt einstellen oder annehmen."},
-  {s:"We are looking in the delay at the moment.", i:3, fix:"into",
-   why:"<b>look into</b> heißt untersuchen. <b>look in</b> gibt es in dieser Bedeutung nicht."}],
- tr:[
-  {de:"Wir haben letztes Jahr eine Filiale in Polen eröffnet.", en:"We set up a branch in Poland last year.",
-   tip:"<b>set up</b> heißt aufbauen oder gründen."},
-  {de:"Können Sie das bitte bis Freitag ausfüllen?", en:"Could you fill it in by Friday?",
-   tip:"<b>fill in</b> oder <b>fill out</b> — und <b>it</b> gehört in die Mitte."},
-  {de:"Wer übernimmt die Abteilung?", en:"Who is taking over the department?",
-   tip:"<b>take over</b> = übernehmen."}],
- wr:{p:"Beschreib eine Veränderung in deiner Firma oder deinem Leben mit Phrasal Verbs: was wurde aufgebaut, übernommen, abgesagt, geprüft?",
-  short:"Drei Sätze mit set up, take over und look into.",
-  ph:["We set up …","She took over …","They called off the meeting.","We are looking into …","The project was carried out by …","I had to deal with …"],
-  ck:["Pronomen zwischen Verb und Partikel (fill it in)?","take over statt take on, wenn übernehmen gemeint ist?","look into statt look in?"]}},
-
-{t:"Zählbar, nicht zählbar, much und many",
- g:"Nicht zählbare Nomen haben keinen Plural und kein a: information, advice, news, money, equipment, staff. Bei ihnen steht much und a little, bei zählbaren many und a few.",
- ex:["We don't have much information yet.","There were only a few complaints last month."],
- err:"<b>informations</b>, <b>advices</b> und <b>an equipment</b> gibt es nicht. Und <b>The news are good</b> ❌ → <b>The news is good</b> ✅.",
- fix:[
-  {s:"I need some more informations about the product.", i:4, fix:"information",
-   why:"<b>information</b> hat keinen Plural. Für Einzelstücke sagt man <b>a piece of information</b>."},
-  {s:"There weren't many feedback from the customers.", i:2, fix:"much", full:"There wasn't much feedback from the customers.",
-   why:"<b>feedback</b> ist nicht zählbar → <b>much</b>, und das Verb wird zu <b>wasn't</b>."},
-  {s:"The news about the merger are very positive.", i:5, fix:"is",
-   why:"<b>news</b> sieht aus wie ein Plural, ist aber Einzahl: <b>the news is</b>."}],
- tr:[
-  {de:"Wir haben noch nicht viele Informationen.", en:"We don't have much information yet.",
-   tip:"<b>much information</b>, nie <b>many informations</b>."},
-  {de:"Es gab letzten Monat nur wenige Beschwerden.", en:"There were only a few complaints last month.",
-   tip:"<b>complaints</b> sind zählbar → <b>a few</b>."},
-  {de:"Wie viel Geld haben wir dafür ausgegeben?", en:"How much money did we spend on that?",
-   tip:"<b>money</b> ist nicht zählbar → <b>how much</b>."}],
- wr:{p:"Schreib einen kurzen Lagebericht: Was habt ihr an Informationen, Geld, Personal und Ausrüstung, und wovon zu wenig? Achte auf much und many.",
-  short:"Drei Sätze mit much, many und a few.",
-  ph:["We don't have much …","There are only a few …","We need more information about …","How much … do we need?","There is very little …","A lot of people think that …"],
-  ck:["Kein Plural-s bei information, advice, news, feedback?","much bei nicht zählbar, many bei zählbar?","news, staff und advice mit Verb in der Einzahl?"]}},
-
-{t:"Komparativ und Superlativ",
- g:"Kurze Wörter bekommen -er und -est, lange nehmen more und most. Nach dem Komparativ steht than, nicht as.",
- ex:["This supplier is cheaper than the last one.","It was the most expensive option on the list."],
- err:"<b>more cheaper</b> ❌ — entweder <b>-er</b> oder <b>more</b>, nie beides. Und „billiger als\" heißt <b>cheaper than</b>, nicht <b>cheaper as</b>.",
- fix:[
-  {s:"This offer is more cheaper than the other one.", i:3, fix:"",
-   why:"Entweder <b>-er</b> oder <b>more</b>. Doppelt geht nicht: <b>cheaper than</b>."},
-  {s:"Our new warehouse is bigger as the old one.", i:5, fix:"than",
-   why:"Nach dem Komparativ steht immer <b>than</b>. <b>as … as</b> gibt es nur bei Gleichheit."},
-  {s:"That was the most cheap solution we found.", i:3, fix:"cheapest", full:"That was the cheapest solution we found.",
-   why:"Einsilbige Wörter nehmen <b>-est</b>: <b>the cheapest</b>. <b>most</b> nur bei langen Wörtern."}],
- tr:[
-  {de:"Dieser Lieferant ist billiger als der letzte.", en:"This supplier is cheaper than the last one.",
-   tip:"<b>cheaper than</b>, nie <b>as</b>."},
-  {de:"Es war die teuerste Option auf der Liste.", en:"It was the most expensive option on the list.",
-   tip:"<b>expensive</b> ist lang → <b>most expensive</b>."},
-  {de:"Der Umsatz ist genauso hoch wie letztes Jahr.", en:"Turnover is as high as last year.",
-   tip:"Gleichheit → <b>as … as</b>. Und Umsatz heißt <b>turnover</b>."}],
- wr:{p:"Vergleich zwei Firmen, zwei Produkte oder zwei Städte. Mindestens drei Komparative, ein Superlativ und ein as … as.",
-  short:"Zwei Vergleiche und ein Superlativ.",
-  ph:["… is cheaper than …","… is much more expensive than …","The biggest advantage is …","It is not as good as …","The most important difference is …","… is by far the best option."],
-  ck:["Entweder -er oder more, nie beides?","Nach dem Komparativ than, nicht as?","Kurze Wörter mit -est, lange mit most?"]}},
-
-{t:"Relativsätze: who, which, whose",
- g:"who für Personen, which für Sachen, that für beides. whose zeigt Besitz. Ohne Komma bestimmt der Relativsatz, welches Ding oder welche Person gemeint ist.",
- ex:["The supplier who called yesterday wants an answer.","The product which sold best was discontinued."],
- err:"Das Objekt nicht doppelt setzen: <b>The report which I sent it yesterday</b> ❌ → <b>The report which I sent yesterday</b> ✅.",
- fix:[
-  {s:"The colleague which called you is from Vienna.", i:2, fix:"who",
-   why:"<b>which</b> ist für Sachen. Bei Personen steht <b>who</b> oder <b>that</b>."},
-  {s:"That's the manager who's team won the award.", i:3, fix:"whose",
-   why:"<b>whose</b> zeigt Besitz. <b>who's</b> ist nur die Kurzform von <b>who is</b>."},
-  {s:"The invoice which I sent it last week is still open.", i:5, fix:"",
-   why:"<b>which</b> ist bereits das Objekt des Nebensatzes. Ein zweites <b>it</b> ist eines zu viel."}],
- tr:[
-  {de:"Der Lieferant, der gestern angerufen hat, will eine Antwort.", en:"The supplier who called yesterday wants an answer.",
-   tip:"Person → <b>who</b>. Ohne Komma, weil der Nebensatz bestimmt, welcher Lieferant gemeint ist."},
-  {de:"Das Produkt, das sich am besten verkauft hat, wurde eingestellt.", en:"The product which sold best was discontinued.",
-   tip:"Sache → <b>which</b> oder <b>that</b>."},
-  {de:"Die Firma, deren Aktien am stärksten gestiegen sind, ist deutsch.", en:"The company whose shares rose the most is German.",
-   tip:"Besitz → <b>whose</b>, auch bei Firmen und Sachen."}],
- wr:{p:"Beschreib drei Personen und drei Dinge aus deinem Arbeitsumfeld, jedes Mal mit einem Relativsatz, der sie genauer bestimmt.",
-  short:"Drei Sätze mit who, which und whose.",
-  ph:["The person who … is …","The tool which we use for … is …","The colleague whose … is …","There is one thing that always …","The department that deals with … is …","The company I work for is …"],
-  ck:["who bei Personen, which bei Sachen?","whose für Besitz, nicht who's?","Kein doppeltes Objekt im Relativsatz?"]}},
-
-{t:"Relativsätze mit Kommas",
- g:"Liefert der Relativsatz nur eine Zusatzinfo, steht er zwischen Kommas. Dann ist that verboten, es muss who oder which sein.",
- ex:["Aldi, which is a German discounter, expanded to the US.","Our CEO, who joined in 2019, is retiring."],
- err:"<b>Aldi, that is a German discounter, …</b> ❌ — nach einem Komma nie <b>that</b>. Weglassen darf man das Pronomen hier auch nicht.",
- fix:[
-  {s:"Our head office, that is in Hamburg, employs 300 people.", i:3, fix:"which",
-   why:"Zusatzinfo zwischen Kommas → nie <b>that</b>. Bei Sachen steht <b>which</b>."},
-  {s:"Mr Brenner who joined us in 2019 is leaving the company.", i:1, fix:"Brenner,", full:"Mr Brenner, who joined us in 2019, is leaving the company.",
-   why:"Bei einem Namen ist der Relativsatz reine Zusatzinfo. Er braucht Kommas auf <b>beiden</b> Seiten."},
-  {s:"She speaks Russian, what is very useful for us.", i:3, fix:"which",
-   why:"Bezieht sich das „was\" auf den ganzen Satz davor, steht <b>which</b>. <b>what</b> heißt nur: was für ein Ding."}],
- tr:[
-  {de:"Aldi, das ein deutscher Discounter ist, expandierte in die USA.", en:"Aldi, which is a German discounter, expanded to the US.",
-   tip:"Kommas plus <b>which</b>. Niemals <b>that</b> nach dem Komma."},
-  {de:"Unser Chef, der 2019 angefangen hat, geht in Rente.", en:"Our boss, who joined in 2019, is retiring.",
-   tip:"Zusatzinfo über eine eindeutig bestimmte Person → Kommas und <b>who</b>."},
-  {de:"Sie kündigte fristlos, was uns alle überrascht hat.", en:"She resigned without notice, which surprised us all.",
-   tip:"Bezieht sich <b>which</b> auf den ganzen Satz, heißt es „was\" — nicht <b>what</b>."}],
- wr:{p:"Schreib einen kurzen Absatz über deine Firma, deine Schule oder deine Stadt. Bau drei Zusatzinfos zwischen Kommas ein, mit who und which.",
-  short:"Drei Sätze mit einer Zusatzinfo zwischen Kommas.",
-  ph:["…, which is based in …, …","Our manager, who has been here for … years, …","The company, which was founded in …, …","…, which was a surprise for everyone.","…, who I have known for years, …","…, which is why we decided to …"],
-  ck:["Kommas auf beiden Seiten der Zusatzinfo?","Nach dem Komma who oder which, nie that?","Für „was\" am Satzende which, nicht what?"]}},
-
-{t:"Verbindungswörter",
- g:"however, therefore, although und whereas machen aus einzelnen Sätzen einen Text. Sie sind genau das, was einen B2-Text von einer Aufzählung unterscheidet.",
- ex:["The price is high. However, the quality is excellent.","Although the price is high, the quality is excellent."],
- err:"<b>although</b> und <b>but</b> nicht mischen: <b>Although it is expensive, but we bought it</b> ❌. Eines von beiden reicht.",
- fix:[
-  {s:"Although the price was high, but we accepted the offer.", i:5, fix:"",
-   why:"<b>Although</b> stellt den Gegensatz schon her. Ein zusätzliches <b>but</b> ist doppelt."},
-  {s:"The costs increased, therefore we raised our prices.", i:3, fix:"so", full:"The costs increased, so we raised our prices.",
-   why:"Nach einem Komma verbindet <b>so</b>. <b>Therefore</b> braucht einen neuen Satz: <b>… increased. Therefore, we raised …</b>"},
-  {s:"Despite of the delay, the customer was satisfied.", i:1, fix:"",
-   why:"<b>despite</b> steht ohne <b>of</b>. Nur <b>in spite of</b> hat eines."}],
- tr:[
-  {de:"Der Preis ist hoch. Die Qualität ist allerdings ausgezeichnet.", en:"The price is high. However, the quality is excellent.",
-   tip:"<b>However</b> am Satzanfang, mit Komma dahinter."},
-  {de:"Obwohl der Preis hoch ist, haben wir bestellt.", en:"Although the price is high, we placed an order.",
-   tip:"<b>Although</b> plus vollständiger Satz — und kein <b>but</b> hinterher."},
-  {de:"Unser Umsatz stieg, während der Gewinn zurückging.", en:"Our turnover rose, whereas profits fell.",
-   tip:"<b>whereas</b> stellt zwei Dinge gegenüber. Ideal für Grafik-Beschreibungen."}],
- wr:{p:"Schreib fünf Sätze zu einem Thema, das du kennst, aber verbinde sie: mindestens ein however, ein although, ein therefore und ein whereas.",
-  short:"Drei verbundene Sätze mit however, although und therefore.",
-  ph:["However, …","Although …, …","Therefore, we decided to …","…, whereas …","On the one hand …, on the other hand …","In addition, …"],
-  ck:["Kein although und but im selben Satz?","However am Satzanfang mit Komma?","despite ohne of, in spite of mit?"]}},
-
-/* ---------- BLOCK C · Prüfungsgrammatik M3W ---------- */
 {t:"First Conditional",
  g:"If plus Present Simple, dann will plus Grundform. Für reale, wahrscheinliche Bedingungen in Gegenwart und Zukunft. Im if-Teil steht nie will.",
  ex:["If we lower our prices, we will attract more customers.","We will lose the order if we don't deliver on time."],
@@ -1211,168 +784,123 @@ const UNITS = [
   ph:["Unless we …, we will …","We can … provided that you …","As long as …, we will …","Take … in case …","This offer is valid provided that …","Otherwise we will have to …"],
   ck:["Nach unless keine zweite Verneinung?","Nach provided that und in case Present Simple?","unless wirklich als „wenn nicht\" gemeint?"]}},
 
-{t:"Passiv bilden",
- g:"to be plus dritte Verbform. Man nimmt es, wenn wichtiger ist, was passiert, als wer es tut. In Berichten und offiziellen Texten steht es überall.",
- ex:["The invoice was sent on Monday.","The new system is being tested at the moment."],
- err:"Der Verursacher kommt mit <b>by</b>: <b>The report was written by the trainee</b>. Meistens lässt man ihn ganz weg — genau dafür gibt es das Passiv.",
+/* ---------- Satzbau ---------- */
+{t:"Relativsätze: who, which, whose",
+ g:"who für Personen, which für Sachen, that für beides. whose zeigt Besitz. Ohne Komma bestimmt der Relativsatz, welches Ding oder welche Person gemeint ist.",
+ ex:["The supplier who called yesterday wants an answer.","The product which sold best was discontinued."],
+ err:"Das Objekt nicht doppelt setzen: <b>The report which I sent it yesterday</b> ❌ → <b>The report which I sent yesterday</b> ✅.",
  fix:[
-  {s:"The contract was sign last Friday.", i:3, fix:"signed",
-   why:"Passiv braucht die dritte Form: <b>was signed</b>."},
-  {s:"The goods have delivered yesterday morning.", i:2, fix:"were", full:"The goods were delivered yesterday morning.",
-   why:"Die Waren liefern nicht selbst, sie werden geliefert: <b>were delivered</b>."},
-  {s:"Our website is currently update by an agency.", i:4, fix:"being updated",
-   why:"Läuft gerade → <b>is being updated</b>. Die dritte Form nicht vergessen."}],
+  {s:"The colleague which called you is from Vienna.", i:2, fix:"who",
+   why:"<b>which</b> ist für Sachen. Bei Personen steht <b>who</b> oder <b>that</b>."},
+  {s:"That's the manager who's team won the award.", i:3, fix:"whose",
+   why:"<b>whose</b> zeigt Besitz. <b>who's</b> ist nur die Kurzform von <b>who is</b>."},
+  {s:"The invoice which I sent it last week is still open.", i:5, fix:"",
+   why:"<b>which</b> ist bereits das Objekt des Nebensatzes. Ein zweites <b>it</b> ist eines zu viel."}],
  tr:[
-  {de:"Die Rechnung wurde am Montag verschickt.", en:"The invoice was sent on Monday.",
-   tip:"<b>was</b> plus dritte Form. Wer sie verschickt hat, bleibt offen."},
-  {de:"Das neue System wird gerade getestet.", en:"The new system is being tested at the moment.",
-   tip:"Passiv im Progressive: <b>is being</b> plus dritte Form."},
-  {de:"Die Firma wurde 1998 gegründet.", en:"The company was founded in 1998.",
-   tip:"Standardsatz für Firmenporträts. <b>founded</b>, nicht <b>found</b>."}],
- wr:{p:"Beschreib einen Ablauf in deiner Firma oder Schule von außen: Was wird gemacht, geprüft, verschickt, entschieden? Mindestens sechs Passivsätze.",
-  short:"Drei Passivsätze über einen Ablauf.",
-  ph:["The order is checked by …","The goods are delivered within … days.","The invoice is sent automatically.","The decision was made last week.","Our systems are being updated.","The report has been approved."],
-  ck:["Überall to be plus dritte Form?","Die richtige Zeit steckt im to be?","by nur da, wo der Verursacher wirklich zählt?"]}},
+  {de:"Der Lieferant, der gestern angerufen hat, will eine Antwort.", en:"The supplier who called yesterday wants an answer.",
+   tip:"Person → <b>who</b>. Ohne Komma, weil der Nebensatz bestimmt, welcher Lieferant gemeint ist."},
+  {de:"Das Produkt, das sich am besten verkauft hat, wurde eingestellt.", en:"The product which sold best was discontinued.",
+   tip:"Sache → <b>which</b> oder <b>that</b>."},
+  {de:"Die Firma, deren Aktien am stärksten gestiegen sind, ist deutsch.", en:"The company whose shares rose the most is German.",
+   tip:"Besitz → <b>whose</b>, auch bei Firmen und Sachen."}],
+ wr:{p:"Beschreib drei Personen und drei Dinge aus deinem Arbeitsumfeld, jedes Mal mit einem Relativsatz, der sie genauer bestimmt.",
+  short:"Drei Sätze mit who, which und whose.",
+  ph:["The person who … is …","The tool which we use for … is …","The colleague whose … is …","There is one thing that always …","The department that deals with … is …","The company I work for is …"],
+  ck:["who bei Personen, which bei Sachen?","whose für Besitz, nicht who's?","Kein doppeltes Objekt im Relativsatz?"]}},
 
-{t:"Passiv in Prozessen",
- g:"Im Bericht baut man eine Kette: erst was passiert, dann in welcher Reihenfolge. First, then, after that und finally halten die Passivsätze zusammen.",
- ex:["First the order is received. Then it is checked by the warehouse.","After that, the goods are packed and shipped."],
- err:"Nicht jeden Satz gleich anfangen. Drei Sätze mit <b>The order is …</b> sind grammatisch richtig und trotzdem schlecht. Verbinde mit <b>then, after that, once</b>.",
+{t:"Relativsätze mit Kommas",
+ g:"Liefert der Relativsatz nur eine Zusatzinfo, steht er zwischen Kommas. Dann ist that verboten, es muss who oder which sein.",
+ ex:["Aldi, which is a German discounter, expanded to the US.","Our CEO, who joined in 2019, is retiring."],
+ err:"<b>Aldi, that is a German discounter, …</b> ❌ — nach einem Komma nie <b>that</b>. Weglassen darf man das Pronomen hier auch nicht.",
  fix:[
-  {s:"After the order has checked, it is sent to the warehouse.", i:3, fix:"has been", full:"After the order has been checked, it is sent to the warehouse.",
-   why:"Passiv im Present Perfect: <b>has been checked</b>. Das <b>been</b> fehlt."},
-  {s:"Finally, the goods are pack and shipped to the customer.", i:4, fix:"packed",
-   why:"Beide Verben brauchen die dritte Form: <b>are packed and shipped</b>."},
-  {s:"The complaint was dealt by the service team.", i:4, fix:"with by",
-   why:"<b>deal with</b> behält im Passiv sein <b>with</b>: <b>was dealt with by …</b>"}],
+  {s:"Our head office, that is in Hamburg, employs 300 people.", i:3, fix:"which",
+   why:"Zusatzinfo zwischen Kommas → nie <b>that</b>. Bei Sachen steht <b>which</b>."},
+  {s:"Mr Brenner who joined us in 2019 is leaving the company.", i:1, fix:"Brenner,", full:"Mr Brenner, who joined us in 2019, is leaving the company.",
+   why:"Bei einem Namen ist der Relativsatz reine Zusatzinfo. Er braucht Kommas auf <b>beiden</b> Seiten."},
+  {s:"She speaks Russian, what is very useful for us.", i:3, fix:"which",
+   why:"Bezieht sich das „was\" auf den ganzen Satz davor, steht <b>which</b>. <b>what</b> heißt nur: was für ein Ding."}],
  tr:[
-  {de:"Zuerst wird die Bestellung geprüft.", en:"First the order is checked.",
-   tip:"<b>First</b> ohne <b>at</b>. <b>At first</b> hieße: anfangs, aber später anders."},
-  {de:"Danach werden die Waren verpackt und verschickt.", en:"After that, the goods are packed and shipped.",
-   tip:"Beide Verben in der dritten Form."},
-  {de:"Sobald die Rechnung bezahlt wurde, wird die Ware freigegeben.", en:"Once the invoice has been paid, the goods are released.",
-   tip:"<b>has been paid</b> — Passiv im Present Perfect."}],
- wr:{p:"Beschreib einen kompletten Ablauf in sechs bis acht Schritten — eine Bestellung, eine Bewerbung, eine Reklamation. Alles im Passiv, verbunden mit first, then, after that, finally.",
-  short:"Vier Schritte eines Ablaufs im Passiv.",
-  ph:["First, the … is received.","Then it is checked by …","After that, …","Once … has been …, …","Finally, the … is sent to …","The whole process takes about … days."],
-  ck:["Jeder Schritt im Passiv mit dritter Form?","Schritte mit first, then, after that, finally verbunden?","Bei deal with und look after die Präposition mitgenommen?"]}},
+  {de:"Aldi, das ein deutscher Discounter ist, expandierte in die USA.", en:"Aldi, which is a German discounter, expanded to the US.",
+   tip:"Kommas plus <b>which</b>. Niemals <b>that</b> nach dem Komma."},
+  {de:"Unser Chef, der 2019 angefangen hat, geht in Rente.", en:"Our boss, who joined in 2019, is retiring.",
+   tip:"Zusatzinfo über eine eindeutig bestimmte Person → Kommas und <b>who</b>."},
+  {de:"Sie kündigte fristlos, was uns alle überrascht hat.", en:"She resigned without notice, which surprised us all.",
+   tip:"Bezieht sich <b>which</b> auf den ganzen Satz, heißt es „was\" — nicht <b>what</b>."}],
+ wr:{p:"Schreib einen kurzen Absatz über deine Firma, deine Schule oder deine Stadt. Bau drei Zusatzinfos zwischen Kommas ein, mit who und which.",
+  short:"Drei Sätze mit einer Zusatzinfo zwischen Kommas.",
+  ph:["…, which is based in …, …","Our manager, who has been here for … years, …","The company, which was founded in …, …","…, which was a surprise for everyone.","…, who I have known for years, …","…, which is why we decided to …"],
+  ck:["Kommas auf beiden Seiten der Zusatzinfo?","Nach dem Komma who oder which, nie that?","Für „was\" am Satzende which, nicht what?"]}},
 
-{t:"Indirekte Rede",
- g:"Beim Wiedergeben rutschen die Zeiten eine Stufe zurück, und Personen und Zeitangaben wandern mit: I wird zu he, tomorrow wird zu the next day.",
- ex:["“We will deliver on Monday.” → He said they would deliver on Monday.","“I have sent it.” → She said she had sent it."],
- err:"<b>say</b> braucht kein Objekt, <b>tell</b> immer eines: <b>He said that …</b> aber <b>He told me that …</b>. <b>He said me</b> ❌.",
+{t:"Adjektiv oder Adverb",
+ g:"Ein Adjektiv beschreibt ein Nomen, ein Adverb beschreibt ein Verb. Deutsch nimmt für beides dasselbe Wort, Englisch hängt beim Adverb meist -ly an: a careful check, aber check carefully.",
+ ex:["Sales rose sharply in March.","There was a sharp rise in sales in March.","Her English is fluent — she speaks it fluently."],
+ err:"„Er arbeitet gut\" ist nicht <b>He works good</b>, sondern <b>He works well</b>. Aber nach <b>look, seem, sound, feel, become</b> steht das Adjektiv: <b>The figures look good.</b>",
  fix:[
-  {s:"He told that the delivery would be late.", i:1, fix:"said",
-   why:"<b>tell</b> braucht ein Objekt: <b>told me that</b>. Ohne Objekt nimmt man <b>said</b>."},
-  {s:"She said me that she had already ordered.", i:1, fix:"told",
-   why:"Mit Objekt steht <b>tell</b>: <b>told me that</b>. <b>said me</b> gibt es nicht."},
-  {s:"He said that he will call us back tomorrow.", i:4, fix:"would",
-   why:"Nach <b>said</b> rutscht alles eine Stufe zurück: <b>will</b> wird zu <b>would</b>."}],
+  {s:"Our profits increased significant last year.", i:3, fix:"significantly",
+   why:"<b>increased</b> ist ein Verb, also braucht es das Adverb: <b>increased significantly</b>. <b>significant</b> passt nur vor ein Nomen: <b>a significant increase</b>."},
+  {s:"The new manager handled the crisis very good.", i:7, fix:"well.",
+   why:"Das Adverb zu <b>good</b> ist <b>well</b>. <b>good</b> beschreibt nur Nomen: <b>a good manager</b>."},
+  {s:"The results of the survey look badly.", i:6, fix:"bad.",
+   why:"Nach <b>look, seem, sound, feel</b> beschreibt das Wort das Subjekt, nicht die Handlung. Deshalb Adjektiv: <b>look bad</b>."}],
  tr:[
-  {de:"Er sagte, sie würden am Montag liefern.", en:"He said they would deliver on Monday.",
-   tip:"<b>will</b> wird zu <b>would</b>. Kein Objekt → <b>said</b>."},
-  {de:"Sie sagte mir, sie habe die Rechnung schon geschickt.", en:"She told me she had already sent the invoice.",
-   tip:"Mit Objekt → <b>told me</b>. Present Perfect wird zu Past Perfect."},
-  {de:"Er fragte, ob wir den Preis senken könnten.", en:"He asked whether we could lower the price.",
-   tip:"Indirekte Frage: <b>whether</b> oder <b>if</b>, danach normale Satzstellung."}],
- wr:{p:"Gib ein Gespräch wieder, das du wirklich geführt hast — am Telefon, im Unterricht, mit einem Kollegen. Mindestens fünf Sätze in indirekter Rede.",
-  short:"Drei Sätze in indirekter Rede über ein Gespräch.",
-  ph:["He said that he would …","She told me that she had …","They asked whether we could …","I explained that we were …","He wanted to know when …","She promised to …"],
-  ck:["Zeiten eine Stufe zurückgeschoben?","say ohne Objekt, tell mit Objekt?","tomorrow wird zu the next day, here zu there?"]}},
+  {de:"Der Umsatz ist im zweiten Quartal leicht gesunken.", en:"Sales fell slightly in the second quarter.",
+   tip:"Verb <b>fell</b> → Adverb <b>slightly</b>. Mit Nomen wäre es <b>a slight fall in sales</b>."},
+  {de:"Sie hat die Präsentation sehr gut vorbereitet.", en:"She prepared the presentation very well.",
+   tip:"<b>well</b> ist das Adverb zu <b>good</b>. <b>very good</b> nur vor einem Nomen: <b>a very good presentation</b>."},
+  {de:"Das Angebot klingt interessant, aber der Preis ist extrem hoch.", en:"The offer sounds interesting, but the price is extremely high.",
+   tip:"Nach <b>sounds</b> das Adjektiv <b>interesting</b>. <b>extremely</b> steigert das Adjektiv <b>high</b> — dafür braucht es das Adverb."}],
+ wr:{p:"Beschreib, wie sich etwas im letzten Jahr entwickelt hat — Umsatz, Kosten, Preise oder deine eigenen Noten. Nenn jede Entwicklung einmal als Verb mit Adverb und einmal als Nomen mit Adjektiv.",
+  short:"Drei Sätze: eine Entwicklung als Verb mit Adverb, eine als Nomen mit Adjektiv.",
+  ph:["… rose sharply in …","There was a sharp rise in …","… fell slightly after …","There was a slight fall in …","… remained stable until …","The figures look …, but …"],
+  ck:["Steht nach jedem Verb das Adverb (-ly)?","Steht vor jedem Nomen das Adjektiv?","Nach look / seem / sound / feel das Adjektiv?"]}},
 
-{t:"Höfliche und indirekte Fragen",
- g:"Eingebettete Fragen behalten die normale Satzstellung: kein do, keine Umstellung. Genau das macht sie höflich.",
- ex:["Could you tell me when the meeting starts?","I was wondering whether you could send me the figures."],
- err:"<b>Could you tell me when does the meeting start?</b> ❌ — nach der Einleitung kommt ein normaler Aussagesatz: <b>when the meeting starts</b>.",
+{t:"Komparativ und Superlativ",
+ g:"Kurze Wörter bekommen -er und -est, lange nehmen more und most. Nach dem Komparativ steht than, nicht as.",
+ ex:["This supplier is cheaper than the last one.","It was the most expensive option on the list."],
+ err:"<b>more cheaper</b> ❌ — entweder <b>-er</b> oder <b>more</b>, nie beides. Und „billiger als\" heißt <b>cheaper than</b>, nicht <b>cheaper as</b>.",
  fix:[
-  {s:"Could you tell me where is the meeting room?", i:5, fix:"", full:"Could you tell me where the meeting room is?",
-   why:"Eingebettete Frage → normale Reihenfolge: <b>where the meeting room is</b>."},
-  {s:"Do you know when does the delivery arrive?", i:4, fix:"", full:"Do you know when the delivery arrives?",
-   why:"Kein <b>does</b> im eingebetteten Teil. Stattdessen bekommt das Verb sein <b>-s</b>: <b>arrives</b>."},
-  {s:"I would like to know if can you send the offer today.", i:6, fix:"you can", full:"I would like to know if you can send the offer today.",
-   why:"Nach <b>if</b> steht wieder Subjekt vor Verb: <b>if you can send</b>."}],
+  {s:"This offer is more cheaper than the other one.", i:3, fix:"",
+   why:"Entweder <b>-er</b> oder <b>more</b>. Doppelt geht nicht: <b>cheaper than</b>."},
+  {s:"Our new warehouse is bigger as the old one.", i:5, fix:"than",
+   why:"Nach dem Komparativ steht immer <b>than</b>. <b>as … as</b> gibt es nur bei Gleichheit."},
+  {s:"That was the most cheap solution we found.", i:3, fix:"cheapest", full:"That was the cheapest solution we found.",
+   why:"Einsilbige Wörter nehmen <b>-est</b>: <b>the cheapest</b>. <b>most</b> nur bei langen Wörtern."}],
  tr:[
-  {de:"Könnten Sie mir sagen, wann die Besprechung anfängt?", en:"Could you tell me when the meeting starts?",
-   tip:"Kein <b>does</b>, normale Reihenfolge, und das <b>-s</b> bei <b>starts</b>."},
-  {de:"Wissen Sie, ob die Lieferung schon unterwegs ist?", en:"Do you know whether the delivery is on its way?",
-   tip:"<b>whether</b> oder <b>if</b>, danach ein Aussagesatz."},
-  {de:"Ich wollte fragen, ob Sie mir die Zahlen schicken könnten.", en:"I was wondering whether you could send me the figures.",
-   tip:"<b>I was wondering whether</b> ist die höflichste Bitte im Business-Englisch."}],
- wr:{p:"Schreib eine höfliche Mail mit fünf Fragen an eine Firma — zu Preisen, Lieferzeit, Garantie, Rabatt. Alle Fragen eingebettet.",
-  short:"Drei höfliche, eingebettete Fragen.",
-  ph:["Could you tell me whether …","I was wondering if you could …","Would you mind telling me …","I would like to know how much …","Do you know when …","Could you let me know whether …"],
-  ck:["Nach der Einleitung normale Satzstellung?","Kein do / does / did im eingebetteten Teil?","Trotzdem -s bei he / she / it?"]}},
+  {de:"Dieser Lieferant ist billiger als der letzte.", en:"This supplier is cheaper than the last one.",
+   tip:"<b>cheaper than</b>, nie <b>as</b>."},
+  {de:"Es war die teuerste Option auf der Liste.", en:"It was the most expensive option on the list.",
+   tip:"<b>expensive</b> ist lang → <b>most expensive</b>."},
+  {de:"Der Umsatz ist genauso hoch wie letztes Jahr.", en:"Turnover is as high as last year.",
+   tip:"Gleichheit → <b>as … as</b>. Und Umsatz heißt <b>turnover</b>."}],
+ wr:{p:"Vergleich zwei Firmen, zwei Produkte oder zwei Städte. Mindestens drei Komparative, ein Superlativ und ein as … as.",
+  short:"Zwei Vergleiche und ein Superlativ.",
+  ph:["… is cheaper than …","… is much more expensive than …","The biggest advantage is …","It is not as good as …","The most important difference is …","… is by far the best option."],
+  ck:["Entweder -er oder more, nie beides?","Nach dem Komparativ than, nicht as?","Kurze Wörter mit -est, lange mit most?"]}},
 
-/* ---------- BLOCK D · Business schreiben & sprechen ---------- */
-{t:"Die Geschäftsmail",
- g:"Anrede, Grund, Anliegen, Schluss. Kennst du den Namen, endest du mit Yours sincerely. Kennst du ihn nicht, mit Yours faithfully.",
- ex:["Dear Mr Weber, I am writing with regard to your order of 3 June.","We look forward to hearing from you. Yours sincerely, Nick Weber"],
- err:"Name bekannt → <b>Dear Mr Weber … Yours sincerely</b>. Name unbekannt → <b>Dear Sir or Madam … Yours faithfully</b>. Vertauscht fällt es sofort auf.",
+{t:"Verbindungswörter",
+ g:"however, therefore, although und whereas machen aus einzelnen Sätzen einen Text. Sie sind genau das, was einen B2-Text von einer Aufzählung unterscheidet.",
+ ex:["The price is high. However, the quality is excellent.","Although the price is high, the quality is excellent."],
+ err:"<b>although</b> und <b>but</b> nicht mischen: <b>Although it is expensive, but we bought it</b> ❌. Eines von beiden reicht.",
  fix:[
-  {s:"Dear Mr Weber, thank you for your letter from 3 June.", i:8, fix:"of",
-   why:"Briefe und Mails datiert man mit <b>of</b>: <b>your letter of 3 June</b>."},
-  {s:"I am writing you to ask about your prices.", i:3, fix:"to you",
-   why:"<b>write to somebody</b>. Ohne <b>to</b> ist es im Test ein Fehler."},
-  {s:"We would be grateful if you can send us a sample.", i:6, fix:"could",
-   why:"Nach <b>would be grateful if</b> steht <b>could</b>. Das ist die höfliche Standardform."}],
+  {s:"Although the price was high, but we accepted the offer.", i:5, fix:"",
+   why:"<b>Although</b> stellt den Gegensatz schon her. Ein zusätzliches <b>but</b> ist doppelt."},
+  {s:"The costs increased, therefore we raised our prices.", i:3, fix:"so", full:"The costs increased, so we raised our prices.",
+   why:"Nach einem Komma verbindet <b>so</b>. <b>Therefore</b> braucht einen neuen Satz: <b>… increased. Therefore, we raised …</b>"},
+  {s:"Despite of the delay, the customer was satisfied.", i:1, fix:"",
+   why:"<b>despite</b> steht ohne <b>of</b>. Nur <b>in spite of</b> hat eines."}],
  tr:[
-  {de:"Vielen Dank für Ihr Schreiben vom 3. Juni.", en:"Thank you for your letter of 3 June.",
-   tip:"Aus deinen Karten. <b>of</b>, nicht <b>from</b>."},
-  {de:"Wir wären dankbar, wenn Sie uns Muster zusenden könnten.", en:"We would be grateful if you could send us some samples.",
-   tip:"Die höflichste Standardbitte überhaupt."},
-  {de:"Ich freue mich, von Ihnen zu hören.", en:"I look forward to hearing from you.",
-   tip:"<b>hearing</b>, niemals <b>hear</b>."}],
- wr:{p:"Schreib eine komplette Geschäftsmail an eine Firma, deren Ansprechpartner du nicht kennst: Anrede, Grund fürs Schreiben, Anliegen, Schlussformel.",
-  short:"Anrede, ein Satz Anliegen, Schlussformel.",
-  ph:["Dear Sir or Madam,","I am writing with regard to …","We would be grateful if you could …","Could you please let us know whether …","I look forward to hearing from you.","Yours faithfully,"],
-  ck:["Dear Sir or Madam mit Yours faithfully?","Dear Mr/Ms Name mit Yours sincerely?","Datum mit of, nicht from?"]}},
+  {de:"Der Preis ist hoch. Die Qualität ist allerdings ausgezeichnet.", en:"The price is high. However, the quality is excellent.",
+   tip:"<b>However</b> am Satzanfang, mit Komma dahinter."},
+  {de:"Obwohl der Preis hoch ist, haben wir bestellt.", en:"Although the price is high, we placed an order.",
+   tip:"<b>Although</b> plus vollständiger Satz — und kein <b>but</b> hinterher."},
+  {de:"Unser Umsatz stieg, während der Gewinn zurückging.", en:"Our turnover rose, whereas profits fell.",
+   tip:"<b>whereas</b> stellt zwei Dinge gegenüber. Ideal für Grafik-Beschreibungen."}],
+ wr:{p:"Schreib fünf Sätze zu einem Thema, das du kennst, aber verbinde sie: mindestens ein however, ein although, ein therefore und ein whereas.",
+  short:"Drei verbundene Sätze mit however, although und therefore.",
+  ph:["However, …","Although …, …","Therefore, we decided to …","…, whereas …","On the one hand …, on the other hand …","In addition, …"],
+  ck:["Kein although und but im selben Satz?","However am Satzanfang mit Komma?","despite ohne of, in spite of mit?"]}},
 
-{t:"Anfrage und Angebot",
- g:"Eine enquiry fragt nach Preisen und Konditionen, eine quotation ist das Angebot zurück. Beides läuft über feste Formeln.",
- ex:["We are interested in your range of office furniture.","Could you send us a quotation for 200 units?"],
- err:"<b>an offer</b> ist eher ein Sonderangebot im Laden. Das schriftliche Angebot mit Preisen heißt <b>quotation</b> oder kurz <b>quote</b>.",
- fix:[
-  {s:"We are interested to your range of office chairs.", i:3, fix:"in",
-   why:"<b>interested in</b>, immer."},
-  {s:"Please send us your quotation until Friday.", i:5, fix:"by",
-   why:"Eine Frist ist <b>by Friday</b>. <b>until</b> hieße: durchgehend bis Freitag."},
-  {s:"We look forward to receive your offer.", i:4, fix:"receiving",
-   why:"Nach <b>look forward to</b> die -ing-Form: <b>receiving</b>."}],
- tr:[
-  {de:"Wir interessieren uns für Ihr Sortiment an Bürostühlen.", en:"We are interested in your range of office chairs.",
-   tip:"<b>range</b> ist das Sortiment."},
-  {de:"Könnten Sie uns bis Freitag ein Angebot schicken?", en:"Could you send us a quotation by Friday?",
-   tip:"<b>by</b> als Frist, <b>quotation</b> als Angebot."},
-  {de:"Welchen Rabatt gewähren Sie bei 500 Stück?", en:"What discount do you give for an order of 500 units?",
-   tip:"<b>discount</b> ist der Rabatt, <b>units</b> sind die Stück."}],
- wr:{p:"Schreib eine Anfrage an einen Lieferanten: Was ihr sucht, welche Menge, welche Fragen ihr zu Preis, Lieferzeit und Rabatt habt.",
-  short:"Drei Sätze Anfrage: Interesse, Menge, Frist.",
-  ph:["We are interested in …","Could you send us a quotation for …","What discount do you offer for …?","We would need delivery by …","Please let us know your terms of payment.","We look forward to receiving your offer."],
-  ck:["interested in, nicht to?","Frist mit by, nicht until?","look forward to plus -ing?"]}},
-
-{t:"Beschwerde schreiben",
- g:"Eine Beschwerde bleibt sachlich: was war bestellt, was kam an, was soll jetzt passieren. Der Ton ist förmlich, nicht wütend.",
- ex:["Unfortunately, the goods arrived damaged.","We would ask you to replace the items as soon as possible."],
- err:"Sachlich bleiben. <b>Please ensure that this does not happen again</b> ist der Standardschluss — nicht <b>Never do this again</b>.",
- fix:[
-  {s:"We are writing to complain the delay in delivery.", i:4, fix:"complain about",
-   why:"<b>complain about something</b>. Die Präposition gehört fest dazu."},
-  {s:"Unfortunately, three of the items were damage on arrival.", i:6, fix:"damaged",
-   why:"Passiv braucht die dritte Form: <b>were damaged</b>."},
-  {s:"Please ensure that this will not happen again.", i:4, fix:"does", full:"Please ensure that this does not happen again.",
-   why:"Feste Wendung aus deinen Karten: <b>Please ensure that this does not happen again.</b>"}],
- tr:[
-  {de:"Leider kam die Ware beschädigt an.", en:"Unfortunately, the goods arrived damaged.",
-   tip:"<b>goods</b> ist immer Plural: <b>the goods arrive</b>."},
-  {de:"Wir müssen uns über die Verzögerung beschweren.", en:"We have to complain about the delay.",
-   tip:"<b>complain about</b>."},
-  {de:"Bitte stellen Sie sicher, dass das nicht wieder passiert.", en:"Please ensure that this does not happen again.",
-   tip:"Direkt aus deinen Karteikarten — der Standardschluss jeder Beschwerde."}],
- wr:{p:"Schreib eine Beschwerde: Was hast du bestellt, was ist schiefgegangen, was erwartest du jetzt? Sachlich, vier bis sechs Sätze.",
-  short:"Drei Sätze: Bestellung, Problem, Forderung.",
-  ph:["I am writing to complain about …","We ordered … on …, but …","Unfortunately, the goods arrived …","We would ask you to replace …","Please ensure that this does not happen again.","We hope you will deal with this matter quickly."],
-  ck:["complain about, nicht complain something?","Passiv mit dritter Form (were damaged)?","Ton sachlich statt wütend?"]}},
-
+/* ---------- Kursthemen ---------- */
 {t:"Grafiken beschreiben",
  g:"Zuerst sagen, was die Grafik zeigt, dann die Entwicklung, dann die auffälligste Stelle. Dafür gibt es einen festen Wortschatz.",
  ex:["Sales rose sharply in the first quarter.","There was a slight fall in profits between June and August."],
@@ -1442,52 +970,6 @@ const UNITS = [
   ph:["I totally agree with …","That's a good point, but …","I see your point, however …","What about … ing?","I suggest that we …","Let's discuss this again next week."],
   ck:["I agree, nicht I am agree?","Nach What about und How about die -ing-Form?","Widerspruch höflich eingeleitet?"]}},
 
-{t:"Telefon und Termine",
- g:"Am Telefon läuft fast alles über feste Sätze: wer spricht, wen man sprechen will, und was man ausrichten soll.",
- ex:["Could I speak to Mr Weber, please?","I'm afraid he's in a meeting. Can I take a message?"],
- err:"Am Telefon sagt man <b>This is Nick Weber</b> oder <b>Nick Weber speaking</b> — nie <b>Here is Nick Weber</b>.",
- fix:[
-  {s:"Here is Nick Weber from Müller GmbH.", i:0, fix:"This", full:"This is Nick Weber from Müller GmbH.",
-   why:"Am Telefon: <b>This is …</b> oder <b>… speaking</b>. <b>Here is</b> ist direkt aus dem Deutschen übernommen."},
-  {s:"Could I speak Mr Weber, please?", i:2, fix:"speak to",
-   why:"<b>speak to somebody</b>. Die Präposition fehlt sonst."},
-  {s:"Can I take a message for he?", i:6, fix:"him?",
-   why:"Nach einer Präposition steht die Objektform: <b>for him, to her, with them</b>."}],
- tr:[
-  {de:"Könnte ich bitte Herrn Weber sprechen?", en:"Could I speak to Mr Weber, please?",
-   tip:"<b>speak to</b>."},
-  {de:"Er ist leider gerade in einer Besprechung.", en:"I'm afraid he's in a meeting at the moment.",
-   tip:"<b>I'm afraid</b> ist die höfliche Art, schlechte Nachrichten anzukündigen."},
-  {de:"Kann ich ihm etwas ausrichten?", en:"Can I take a message for him?",
-   tip:"<b>take a message</b>, und <b>him</b> nach der Präposition."}],
- wr:{p:"Schreib ein komplettes Telefongespräch auf: Du rufst bei einer Firma an, die gewünschte Person ist nicht da, du hinterlässt eine Nachricht und vereinbarst einen Rückruf.",
-  short:"Fünf Zeilen Telefondialog.",
-  ph:["Good morning, this is … speaking.","Could I speak to …, please?","I'm afraid she's not available.","Can I take a message?","Could you ask her to call me back?","Thank you very much. Goodbye."],
-  ck:["This is … statt Here is …?","speak to, nicht speak?","Nach Präpositionen him, her, them?"]}},
-
-{t:"Bewerbung schreiben",
- g:"Im Anschreiben sagt man, auf welche Stelle man sich bewirbt, warum man passt und was man mitbringt. Stärken kommen mit konkretem Beleg.",
- ex:["I am writing to apply for the position of junior controller.","I have three years' experience in customer service."],
- err:"<b>apply for a job</b>, nicht <b>apply on</b>. Und <b>experience</b> als Berufserfahrung ist nicht zählbar: kein <b>experiences</b>.",
- fix:[
-  {s:"I would like to apply on the position advertised on your website.", i:5, fix:"for",
-   why:"<b>apply for a position</b>. Die Präposition ist fest."},
-  {s:"I have made many experiences in customer service.", i:2, fix:"", full:"I have a lot of experience in customer service.",
-   why:"Berufserfahrung ist nicht zählbar. Und man <b>has</b> sie, man macht sie nicht."},
-  {s:"I am interested in work for an international company.", i:4, fix:"working",
-   why:"Nach der Präposition <b>in</b> steht die -ing-Form: <b>interested in working</b>."}],
- tr:[
-  {de:"Ich möchte mich auf die ausgeschriebene Stelle bewerben.", en:"I would like to apply for the position advertised.",
-   tip:"<b>apply for</b>."},
-  {de:"Ich habe drei Jahre Erfahrung im Kundenservice.", en:"I have three years' experience in customer service.",
-   tip:"Apostroph nach <b>years</b>, und <b>experience</b> ohne Plural-s."},
-  {de:"Ich arbeite gern im Team und bin sehr zuverlässig.", en:"I enjoy working in a team and I am very reliable.",
-   tip:"<b>enjoy</b> plus -ing."}],
- wr:{p:"Schreib ein kurzes Bewerbungsanschreiben: auf welche Stelle, warum du passt, drei Stärken mit Beleg, Schlussformel.",
-  short:"Drei Sätze: Stelle, Stärke, Schlussformel.",
-  ph:["I am writing to apply for the position of …","I am currently working as … at …","I have … years' experience in …","I enjoy working in a team and I am …","I would welcome the opportunity to …","I look forward to hearing from you."],
-  ck:["apply for, nicht apply on?","experience ohne Plural-s?","Nach Präpositionen die -ing-Form?"]}},
-
 {t:"Meinung schreiben",
  g:"Ein Meinungstext hat vier Teile: Einleitung, Argumente dafür, Argumente dagegen, Schluss mit klarer Position. Die Struktur bringt genauso viele Punkte wie die Grammatik.",
  ex:["In my opinion, working from home should be a right, not a privilege.","On the other hand, some tasks are simply easier face to face."],
@@ -1536,92 +1018,13 @@ const UNITS = [
 ];
 
 /* ============================================================
-   SPRECHEN — mündliche Prüfung / Präsentation
-   Themen nach Modulhandbuch 7514: IT, Management, cultural awareness,
-   describing trends, the language of presentations. Phrasen wörtlich
-   aus der M3W-Wordlist (ORAL EXAM – Useful Phrases for Discussion).
-   ============================================================ */
-const ORAL_PHRASES = [
-  {g:"Meinung sagen", items:["In my opinion …","I firmly believe that …","From my point of view …","To be frank, …","I am convinced that …"]},
-  {g:"Struktur geben", items:["Firstly …, secondly …","On the one hand …, on the other hand …","Furthermore, I'd like to say …","Generally speaking, …"]},
-  {g:"Zustimmen", items:["I totally agree.","That's exactly my opinion.","I think you're right."]},
-  {g:"Widersprechen", items:["I see your point, but I can't agree with you on that.","I'm afraid I have to disagree.","I feel I must disagree."]},
-  {g:"Zweifeln", items:["I must admit I'm not sure.","I doubt it.","I find that very hard to believe.","Do you really think so?"]}
-];
-
-const TOPICS = [
-  {a:"IT", q:"Should companies let employees use their own devices for work?",
-   must:["Nenn zwei Vorteile und zwei Nachteile","Sag klar, wofür du dich entscheidest","Bring ein Beispiel aus deinem Umfeld"]},
-  {a:"IT", q:"Is artificial intelligence a threat to jobs in IT?",
-   must:["Unterscheide kurzfristig und langfristig","Nenn einen Beruf, der sich ändert","Schließ mit deiner eigenen Einschätzung"]},
-  {a:"IT", q:"How important is data protection for a company today?",
-   must:["Nenn ein konkretes Risiko","Was kostet ein Datenleck eine Firma?","Beende mit einer Empfehlung"]},
-  {a:"IT", q:"Should software be developed in-house or outsourced?",
-   must:["Vergleich Kosten und Kontrolle","Nenn eine Situation für jede Variante","Triff eine klare Entscheidung"]},
-  {a:"IT", q:"What are the advantages and disadvantages of cloud computing for a medium-sized company?",
-   must:["Mindestens zwei Vorteile","Mindestens zwei Nachteile","Ein Satz mit einem Conditional"]},
-  {a:"IT", q:"Is remote work good for IT teams?",
-   must:["Aus Sicht der Firma und der Mitarbeiter","Nenn ein Problem und eine Lösung","Sag, was du selbst bevorzugst"]},
-
-  {a:"Management", q:"What makes a good manager?",
-   must:["Drei Eigenschaften mit Begründung","Ein Gegenbeispiel: was ein schlechter Manager tut","Struktur mit firstly, secondly"]},
-  {a:"Management", q:"Should companies pay bonuses based on performance?",
-   must:["Argument dafür","Argument dagegen","Deine Position am Ende"]},
-  {a:"Management", q:"Flat hierarchies or clear structures — what works better?",
-   must:["Definier beide kurz","Nenn je einen Betrieb, wo es passt","Benenne Vor- und Nachteile"]},
-  {a:"Management", q:"Is it better to promote from within or to hire externally?",
-   must:["Zwei Argumente pro Seite","Ein Satz mit If …, we would …","Klare Empfehlung"]},
-  {a:"Management", q:"How should a company deal with a bad review online?",
-   must:["Beschreib die Schritte der Reihe nach","Was sollte man nicht tun?","Nutz first, then, finally"]},
-
-  {a:"Cultural awareness", q:"What should a German businessperson know before doing business in the US?",
-   must:["Zwei konkrete Unterschiede","Ein möglicher Fettnapf","Warum das geschäftlich zählt"]},
-  {a:"Cultural awareness", q:"How does small talk differ between cultures?",
-   must:["Vergleich zwei Länder","Nenn ein Thema, das man meidet","Was heißt das für ein Meeting?"]},
-  {a:"Cultural awareness", q:"Should a company adapt its product to local markets or keep one global brand?",
-   must:["Ein Beispiel für jede Strategie","Kosten gegen Akzeptanz abwägen","Entscheide dich"]},
-  {a:"Cultural awareness", q:"What problems can arise in international teams, and how would you solve them?",
-   must:["Zwei typische Probleme","Für jedes eine Lösung","Ein Satz mit If we had …, we would …"]},
-
-  {a:"Describing trends", q:"How have online sales developed in Germany over the last five years?",
-   must:["Nutz rise, fall, level off","Adverbien: sharply, slightly, steadily","Nenn einen Grund für die Entwicklung"]},
-  {a:"Describing trends", q:"Describe how energy prices have changed and what that means for business.",
-   must:["Beschreib die Kurve in drei Schritten","Ein Satz mit whereas","Folgen für Firmen benennen"]},
-  {a:"Describing trends", q:"How has the job market for IT specialists developed?",
-   must:["Zahlen oder Größenordnungen nennen","a sharp rise / a slight fall benutzen","Prognose mit will have"]},
-  {a:"Describing trends", q:"Look at your own spending over the last year — describe the trend.",
-   must:["increase by und increase in richtig nutzen","Einen Vergleich mit twice as … as","Fazit in einem Satz"]},
-
-  {a:"Presentation", q:"Present your degree programme to a school leaver — two minutes.",
-   must:["Begrüßung und Überblick","Drei Punkte mit Übergängen","Schluss und Frage nach Fragen"]},
-  {a:"Presentation", q:"Present a software tool you use and explain why it is useful.",
-   must:["I have divided my talk into … parts","That brings me to my second point","Thank you for your attention"]},
-  {a:"Presentation", q:"Present your company or a company you know well.",
-   must:["Gründung, Größe, Geschäftsfeld","Eine Zahl nennen","Klare Struktur mit Übergängen"]},
-  {a:"Presentation", q:"Present the biggest challenge your industry will face in the next five years.",
-   must:["Problem klar benennen","Zwei mögliche Reaktionen","Prognose mit will have oder will be"]},
-
-  {a:"Retailing", q:"Will physical shops survive against online retail?",
-   must:["Argumente für beide Seiten","Ein konkretes Beispiel","Deine Prognose"]},
-  {a:"Franchising", q:"Would you rather start your own business or buy a franchise?",
-   must:["Je zwei Vor- und Nachteile","Ein Satz mit If I had …","Entscheidung mit Begründung"]},
-  {a:"European Union", q:"What are the benefits of the single European market for a German company?",
-   must:["Zwei konkrete Vorteile","Ein Nachteil oder Risiko","Beispiel Import/Export"]},
-  {a:"Banking", q:"Should cash be abolished?",
-   must:["Argument dafür und dagegen","Wer wäre benachteiligt?","Klare Position"]},
-  {a:"Marketing", q:"Is influencer marketing worth the money?",
-   must:["Vergleich mit klassischer Werbung","Ein Risiko benennen","Empfehlung für eine kleine Firma"]}
-];
-
-/* ============================================================
    STATE
    ============================================================ */
 const KEY = "dailyEnglish.v2";
 const BLANK = {
   topics:{},          // je Thema: {n: Runden, ok: Treffer, total: Aufgaben}
   texts:[],
-  spoken:{},          // je Sprechthema: Anzahl Runden
-  stats:{fixOk:0, fixN:0, trOk:0, trN:0, words:0, seconds:0, rounds:0, speakRounds:0, speakSeconds:0}
+  stats:{fixOk:0, fixN:0, trOk:0, trN:0, words:0, seconds:0, rounds:0}
 };
 
 function load(){
@@ -1747,54 +1150,6 @@ function startSession(mode, unitIdx){
   startClock();
   render();
 }
-/* ---------- Sprechen ---------- */
-let speakTimer = null;
-const PREP = 30, TALK = 120;
-
-function pickTopic(){
-  let best = 0, least = Infinity;
-  for(let i = 0; i < TOPICS.length; i++){
-    const n = S.spoken[TOPICS[i].q] || 0;
-    if(n < least){ least = n; best = i; }
-  }
-  return best;
-}
-function startSpeak(topicIdx){
-  const i = typeof topicIdx === "number" ? topicIdx : pickTopic();
-  ses = {mode:"speak", ti:i, topic:TOPICS[i], phase:"ready", left:PREP, checks:[false,false,false], t0:Date.now()};
-  view = "speak";
-  stopSpeak();
-  render();
-}
-function stopSpeak(){ if(speakTimer){ clearInterval(speakTimer); speakTimer = null; } }
-function runPhase(phase){
-  ses.phase = phase;
-  ses.left = phase === "prep" ? PREP : TALK;
-  render();
-  stopSpeak();
-  speakTimer = setInterval(() => {
-    ses.left--;
-    const t = $("bigTimer"), r = $("ringFill");
-    if(!t){ stopSpeak(); return; }
-    t.textContent = mmss(Math.max(0, ses.left));
-    if(r) r.style.width = Math.max(0, ses.left / (ses.phase === "prep" ? PREP : TALK) * 100) + "%";
-    if(ses.left <= 0){
-      stopSpeak();
-      if(ses.phase === "prep") runPhase("talk");
-      else { ses.phase = "check"; render(); }
-    }
-  }, 1000);
-}
-function finishSpeak(){
-  stopSpeak();
-  S.spoken[ses.topic.q] = (S.spoken[ses.topic.q] || 0) + 1;
-  S.stats.speakRounds += 1;
-  S.stats.speakSeconds += TALK;
-  save();
-  ses = null; view = "home"; render();
-  window.scrollTo({top:0, behavior:"instant"});
-}
-
 function startClock(){
   stopClock();
   tick = setInterval(() => {
@@ -1858,12 +1213,10 @@ function render(){
   rail.hidden = true; back.hidden = (view === "home"); clock.hidden = (view !== "session");
 
   const inSession = (view === "session" || view === "done") && ses;
-  tag.hidden = !(inSession || view === "speak");
+  tag.hidden = !inSession;
   if(inSession) tag.textContent = areaOf(ses.idx);
-  else if(view === "speak") tag.textContent = ses.topic.a;
 
   if(view === "home")        { title.textContent = "Daily English"; renderHome(main, dock); }
-  else if(view === "speak")  { title.textContent = "Sprechen"; renderSpeak(main, dock); }
   else if(view === "session"){ title.textContent = ses.u.t; renderRail(rail); renderSession(main, dock); }
   else if(view === "done")   { title.textContent = ses.u.t; renderDone(main, dock); }
   else if(view === "topics") { title.textContent = "Themen"; renderTopics(main, dock); }
@@ -1913,10 +1266,9 @@ function renderHome(main, dock){
   links.appendChild(rowlink("Meine Texte", S.texts.length ? S.texts.length + (S.texts.length === 1 ? " Text gespeichert" : " Texte gespeichert") : "noch nichts geschrieben", () => { view = "archive"; render(); }));
   main.appendChild(links);
 
-  if(S.stats.rounds > 0 || S.stats.speakRounds > 0){
+  if(S.stats.rounds > 0){
     const parts = [];
     if(S.stats.rounds) parts.push(S.stats.rounds + (S.stats.rounds === 1 ? " Runde" : " Runden") + " · " + S.stats.words + " Wörter geschrieben");
-    if(S.stats.speakRounds) parts.push(S.stats.speakRounds + "× gesprochen · " + Math.round(S.stats.speakSeconds/60) + " Min");
     const sum = document.createElement("p");
     sum.className = "small";
     sum.style.textAlign = "center";
@@ -1925,9 +1277,6 @@ function renderHome(main, dock){
   }
 
   dock.appendChild(btn("Start — 10 Minuten", "primary", () => startSession("full")));
-  const s = btn("Sprechen", "", () => startSpeak());
-  s.style.flex = "0 0 auto";
-  dock.appendChild(s);
 }
 
 function rowlink(title, sub, fn){
@@ -2178,102 +1527,6 @@ function renderDone(main, dock){
   dock.appendChild(b);
 }
 
-/* ---------- SPRECHEN ---------- */
-function renderSpeak(main, dock){
-  const t = ses.topic, ph = ses.phase;
-
-  const q = document.createElement("div");
-  q.className = "card raised stack tight";
-  q.innerHTML = `<span class="label accent">${esc(t.a)}</span><p class="en big">${esc(t.q)}</p>`;
-  main.appendChild(q);
-
-  if(ph === "ready"){
-    const c = document.createElement("div");
-    c.className = "card stack tight";
-    c.innerHTML = `<span class="label">So läuft's</span>
-      <p class="muted">30 Sekunden überlegen, dann <strong>zwei Minuten am Stück laut reden</strong> — so lang wie in der mündlichen Prüfung. Nichts aufschreiben, nur stichwortartig denken.</p>
-      <p class="small">Allein im Zimmer reicht. Es geht darum, dass dein Mund die Sätze baut, nicht dein Kopf.</p>`;
-    main.appendChild(c);
-  }
-
-  if(ph === "prep" || ph === "talk"){
-    const c = document.createElement("div");
-    c.className = "card";
-    c.innerHTML = `<span class="timerlabel">${ph === "prep" ? "Überlegen" : "Reden — nicht aufhören"}</span>
-      <span class="bigtimer ${ph === "prep" ? "prep" : ""}" id="bigTimer">${mmss(ses.left)}</span>
-      <div class="ring ${ph === "prep" ? "prep" : ""}"><i id="ringFill"></i></div>`;
-    main.appendChild(c);
-  }
-
-  if(ph !== "check"){
-    const m = document.createElement("div");
-    m.className = "card";
-    m.innerHTML = `<span class="label">Das muss vorkommen</span>
-      <ul class="checks">${t.must.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
-    main.appendChild(m);
-
-    const p = document.createElement("details");
-    p.className = "entry";
-    p.open = ph !== "talk";
-    p.innerHTML = `<summary><span class="etitle">Wendungen aus deiner Wordlist</span><span class="edate">${ORAL_PHRASES.reduce((a,g)=>a+g.items.length,0)}</span></summary>
-      <div class="ebody">${ORAL_PHRASES.map(g =>
-        `<div class="phgroup"><b>${esc(g.g)}</b>${g.items.map(s => `<span>${esc(s)}</span>`).join("")}</div>`).join("")}</div>`;
-    main.appendChild(p);
-  }
-
-  if(ph === "check"){
-    const c = document.createElement("div");
-    c.className = "card stack tight";
-    c.innerHTML = `<span class="label right">Zeit um</span><p class="muted">Ehrlich abhaken — nur für dich.</p>`;
-    main.appendChild(c);
-
-    const labels = ["Ich habe die vollen zwei Minuten geredet","Ich habe mindestens drei der Wendungen benutzt","Ich habe Vor- und Nachteile genannt"];
-    const box = document.createElement("div");
-    box.className = "selfcheck";
-    labels.forEach((lab, i) => {
-      const b = document.createElement("button");
-      b.className = ses.checks[i] ? "on" : "";
-      b.innerHTML = `<span class="box">✓</span><span>${esc(lab)}</span>`;
-      b.addEventListener("click", () => { ses.checks[i] = !ses.checks[i]; render(); });
-      box.appendChild(b);
-    });
-    main.appendChild(box);
-
-    const n = document.createElement("div");
-    n.className = "note";
-    n.innerHTML = `<b>Echte Prüfungsübung:</b> Der Knopf unten macht aus Claude einen Prüfer, der dir zu genau diesem Thema Rückfragen auf Englisch stellt. In der Claude-App die Spracheingabe nutzen — dann redest du wirklich.`;
-    main.appendChild(n);
-  }
-
-  if(ph === "ready")      dock.appendChild(btn("30 Sekunden überlegen", "primary", () => runPhase("prep")));
-  else if(ph === "prep")  dock.appendChild(btn("Ich rede jetzt", "primary", () => runPhase("talk")));
-  else if(ph === "talk")  dock.appendChild(btn("Fertig", "primary", () => { stopSpeak(); ses.phase = "check"; render(); }));
-  else {
-    dock.appendChild(btn("Als Prüfer mit Claude", "primary", () => {
-      copy(examinerPrompt(ses.topic), "Kopiert — in Claude einfügen");
-    }));
-    const b = btn("Fertig", "ghost", () => finishSpeak());
-    b.style.flex = "0 0 auto";
-    dock.appendChild(b);
-  }
-}
-
-function examinerPrompt(t){
-  return [
-    "Du bist mein Prüfer in einer mündlichen Business-English-Prüfung (HTW Berlin, Modul M3W, Niveau B2.2). Ich bin Deutscher.",
-    "",
-    "Thema: " + t.q,
-    "",
-    "So läuft es ab:",
-    "1) Stell mir die Frage oben auf Englisch und lass mich antworten.",
-    "2) Danach stellst du mir drei bis vier Rückfragen auf Englisch — eine davon kritisch, sodass ich widersprechen muss.",
-    "3) Bleib die ganze Zeit auf Englisch und antworte kurz, damit ich mehr rede als du.",
-    "4) Erst ganz am Ende, wenn ich „Auswertung\" schreibe: gib mir auf Deutsch die drei wichtigsten Sprachfehler, eine Note von 1 bis 10 für B2.2-Niveau und den einen Punkt, an dem ich als Nächstes arbeiten soll.",
-    "",
-    "Fang jetzt direkt mit der Frage an, ohne Vorrede."
-  ].join("\n");
-}
-
 /* ---------- TOPICS ---------- */
 function renderTopics(main, dock){
   const next = pickNext();
@@ -2418,7 +1671,7 @@ function renderBackup(main, dock){
   a.className = "card stack tight";
   a.innerHTML = `<span class="label accent">Sichern</span>
     <p class="muted">Dein Fortschritt liegt im Browser. Wenn du Browserdaten löschst, ist er weg — <strong>eine gesicherte Datei nicht</strong>, die liegt in deinen Downloads.</p>
-    <p class="small">Einmal im Monat reicht. Enthält Texte, Trefferquoten und Sprechrunden.</p>`;
+    <p class="small">Einmal im Monat reicht. Enthält Texte und Trefferquoten.</p>`;
   main.appendChild(a);
 
   if(canFile){
@@ -2491,7 +1744,7 @@ $("backBtn").addEventListener("click", () => {
   if(view === "session"){
     if(!confirm("Runde abbrechen? Der Fortschritt dieser Runde geht verloren.")) return;
   }
-  stopClock(); stopSpeak(); ses = null; view = "home"; render();
+  stopClock(); ses = null; view = "home"; render();
 });
 
 render();
