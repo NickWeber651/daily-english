@@ -1,6 +1,6 @@
 # Daily English
 
-Zehn Minuten Englisch am Tag: Grammatik, selbst schreiben, laut reden.
+Zwölf Minuten Englisch am Tag: Grammatik üben, Begriffe definieren, selbst schreiben.
 Gebaut für **Business English M3W** (HTW Berlin, Modul 7512, Niveau B2.2).
 
 **Benutzen:** Die Android-App unter [Releases](../../releases) installieren —
@@ -11,31 +11,44 @@ eigenständig, ohne Server.
 
 | | |
 |---|---|
-| Grammatikthemen | 47 |
-| Fehlersätze | 141 |
-| Übersetzungen | 141 |
-| Schreibaufgaben | 47 lang, 47 kurz |
-| Sprechthemen | 28 |
-| Wendungen | 282 fürs Schreiben, 19 fürs Sprechen |
+| Grammatikthemen | 26 |
+| Fehlersätze | 78 |
+| Übersetzungen | 78 |
+| Schreibaufgaben | 26 lang, 26 kurz |
+| Wendungen | 156 |
+| Begriffe zum Definieren | 60 |
+| Wortbildungs-Sätze | 56 |
 
-Alle zwölf englischen Zeitformen, Conditionals 1–3 und mixed, Passiv,
-Relativsätze, indirekte Rede — plus die typischen Fehler, die Deutsche
-im Englischen machen.
+Nur M3W-Stoff: Zeiten aktiv und passiv, Conditionals 1–3 und mixed,
+Relativsätze, Adjektiv/Adverb, Verbindungswörter und die Kursthemen
+Trends, Meetings, Meinung und Präsentation. Dazu der Wortschatz der Kursliste
+(Management Styles, Raising Finance, Customer Service, Meetings) in den
+Aufgabenarten der Klausur: Begriff definieren, Begriff zur Definition finden,
+Wortbildung.
+
+Essay und Lesetexte sind bewusst nicht in der App — die laufen im Chat mit Claude.
 
 ## Wie es funktioniert
 
 Kein Tagesplan, keine Serie. Du drückst **Start**, die App sucht das Thema aus:
 erst was du noch nie hattest, danach immer das, was am schlechtesten sitzt.
 
-**Start — 10 Minuten** führt durch vier Schritte: Regel lesen, in drei Sätzen
-den Fehler antippen, drei Sätze übersetzen, am Ende selbst einen Text schreiben.
+**Start — 12 Minuten** führt durch fünf Schritte: Regel lesen, in drei Sätzen
+den Fehler antippen, drei Sätze übersetzen, drei Wortschatz-Aufgaben lösen,
+am Ende selbst einen Text schreiben.
 
-**Sprechen** gibt dir ein Thema, 30 Sekunden zum Überlegen und zwei Minuten
-zum Reden — so lang wie in der mündlichen Prüfung.
+**Klausur-Mix — 5 Minuten** geht ohne Grammatikthema: zwei Begriffe definieren,
+zwei Begriffe zur Definition finden, zweimal Wortbildung, zwei Sätze übersetzen
+(Conditionals, Relativsätze und Passiv durcheinander). Was daneben ging, kommt
+in der nächsten Runde zuerst wieder. Unter *Themen* lässt sich jede Aufgabenart
+auch einzeln starten.
 
-Beide enden mit einem Knopf, der deinen Text bzw. das Thema samt fertiger
-Anweisung in die Zwischenablage legt. In Claude einfügen, und du bekommst
-Korrektur oder einen Prüfer, der dir Rückfragen stellt.
+Die Eingabefelder schalten Rechtschreibhilfe und Autokorrektur ab, soweit der
+Browser das zulässt — die Klausur wird auf Papier geschrieben.
+
+Am Ende legt ein Knopf deinen Text und deine Definitionen samt fertiger Anweisung in die Zwischenablage.
+In Claude einfügen, und du bekommst die Korrektur, deine wichtigsten Fehler und
+eine Regel für das nächste Mal.
 
 ## Wo der Fortschritt liegt
 
