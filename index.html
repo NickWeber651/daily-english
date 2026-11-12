@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Daily English — 10 Minuten</title>
+<title>Daily English</title>
 <style>
 /* ============================================================
    TOKENS
@@ -139,7 +139,7 @@ button,input,textarea{font:inherit; color:inherit}
 .seg{flex:1 1 0; min-width:0}
 .seg-bar{height:3px; border-radius:2px; background:var(--line-2); transition:background .25s}
 .seg-label{
-  display:block; margin-top:5px; font-size:.62rem; letter-spacing:.07em; text-transform:uppercase;
+  display:block; margin-top:5px; font-size:.56rem; letter-spacing:.03em; text-transform:uppercase;
   color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .seg.done .seg-bar{background:var(--accent)}
@@ -248,6 +248,21 @@ textarea{
 }
 textarea::placeholder{font-family:var(--sans); font-size:.92rem; color:var(--ink-3)}
 textarea:focus{border-color:var(--accent); outline:none; background:var(--sheet)}
+input.answer{
+  width:100%; background:var(--sheet-2); color:var(--ink);
+  border:1px solid var(--line-2); border-radius:var(--r-m);
+  padding:12px 13px; min-height:50px;
+  font-family:var(--serif); font-size:1.08rem;
+}
+input.answer::placeholder{font-family:var(--sans); font-size:.92rem; color:var(--ink-3)}
+input.answer:focus{border-color:var(--accent); outline:none; background:var(--sheet)}
+.gap{display:inline-block; min-width:4.5em; border-bottom:2px solid var(--accent); height:1.1em; vertical-align:baseline}
+.results{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+.results li{display:flex; gap:10px; align-items:flex-start; font-size:.9rem; color:var(--ink-2)}
+.results li b{flex:0 0 auto; width:1.2em; text-align:center}
+.results li.hit b{color:var(--right)}
+.results li.miss b{color:var(--wrong)}
+.results li small{display:block; color:var(--ink-3); font-size:.78rem}
 
 .meterrow{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:9px}
 .meter{flex:1 1 auto; height:4px; background:var(--sheet-3); border-radius:2px; overflow:hidden}
@@ -399,7 +414,7 @@ textarea:focus{border-color:var(--accent); outline:none; background:var(--sheet)
 "use strict";
 
 /* ============================================================
-   INHALT — 26 Einheiten, nur M3W-Stoff
+   INHALT — 26 Einheiten, nur M3W-Stoff (Wortschatz: siehe VOCAB und WORDFORM weiter unten)
    Grundlage: Kursprogramm „English for Business Computing" (Tenses active/passive,
    Adjective/Adverb, Conditional Clauses 1–3) und die Altklausuren SS18 und
    WiSe 2020/21 (Relativsätze, Conditionals, Übersetzen Deutsch → Englisch).
@@ -1018,13 +1033,388 @@ const UNITS = [
 ];
 
 /* ============================================================
+   WORTSCHATZ — Klausurteil „Definitions" und Wortbildung
+   Begriffe aus der Kurs-Wortliste (Management Styles, Raising Finance,
+   Customer Service, Meetings) und aus den Altklausuren.
+   w  Begriff          de  deutsche Bedeutung      pos Wortart
+   d  Definition (für „Begriff finden")           alt weitere gültige Antworten
+   m  Musterdefinition als ganzer Satz             k   was drin sein muss
+   ============================================================ */
+const VOCAB = [
+/* ---------- Raising Finance ---------- */
+{w:"collateral", de:"Sicherheit (für einen Kredit)", pos:"noun",
+ d:"property or another asset that a borrower promises to a lender in case the loan is not paid back",
+ m:"Collateral is an asset that a borrower promises to the bank in case the loan is not paid back.",
+ k:"Oberbegriff <b>asset / property</b> · wofür: falls der Kredit nicht zurückgezahlt wird"},
+{w:"mortgage", de:"Hypothek", pos:"noun",
+ d:"a long-term loan from a bank that is used to buy a house or a flat",
+ m:"A mortgage is a long-term loan that people take out to buy a house; the house is the security for the bank.",
+ k:"Oberbegriff <b>loan</b> · wofür: Haus oder Wohnung kaufen"},
+{w:"subsidy", de:"Subvention", pos:"noun",
+ d:"money that a government pays to a company or an industry to support it, for example to keep prices low",
+ m:"A subsidy is money that a government pays to a company or an industry in order to support it.",
+ k:"Oberbegriff <b>money</b> · von wem: Staat · wozu: unterstützen"},
+{w:"venture capital", de:"Risikokapital", pos:"noun",
+ d:"money that is invested in a new company with a high risk, usually in exchange for a share of the company",
+ m:"Venture capital is money that investors put into a new and risky company in exchange for a share of it.",
+ k:"Oberbegriff <b>money</b> · wohin: junge, riskante Firma · wofür: Anteil"},
+{w:"business angel", de:"privater Investor für Gründer", pos:"noun",
+ d:"a wealthy private person who invests their own money in a start-up",
+ m:"A business angel is a wealthy person who invests his or her own money in a start-up.",
+ k:"Oberbegriff <b>person</b> · was: investiert eigenes Geld in ein Start-up"},
+{w:"overdraft", alt:["overdraft facility"], de:"Überziehungskredit", pos:"noun",
+ d:"an agreement with a bank that allows you to take more money out of your account than there is in it",
+ m:"An overdraft is an agreement with a bank that allows you to spend more money than you have in your account.",
+ k:"Oberbegriff <b>agreement with a bank</b> · was: mehr abheben, als auf dem Konto ist"},
+{w:"dividend", de:"Dividende", pos:"noun",
+ d:"a part of a company's profit that is paid to its shareholders",
+ m:"A dividend is a part of the profit that a company pays to its shareholders.",
+ k:"Oberbegriff <b>part of the profit</b> · an wen: Aktionäre"},
+{w:"instalment", alt:["installment"], de:"Rate", pos:"noun",
+ d:"one of several regular payments that you make until a debt is paid off",
+ m:"An instalment is one of several regular payments that you make until a debt is paid off.",
+ k:"Oberbegriff <b>payment</b> · regelmäßig · bis die Schuld bezahlt ist"},
+{w:"interest", de:"Zinsen", pos:"noun",
+ d:"the extra money that you pay for borrowing money or receive for saving it",
+ m:"Interest is the extra money that you pay when you borrow money or that you receive when you save it.",
+ k:"Oberbegriff <b>extra money</b> · wofür: Geld leihen oder sparen"},
+{w:"loan shark", de:"Kredithai", pos:"noun",
+ d:"a person who lends money at extremely high interest rates, often illegally",
+ m:"A loan shark is a person who lends money at extremely high interest rates.",
+ k:"Oberbegriff <b>person</b> · verleiht Geld · zu sehr hohen Zinsen"},
+{w:"pawnbroker", de:"Pfandleiher", pos:"noun",
+ d:"a person who lends money in exchange for valuable objects, which can be sold if the money is not paid back",
+ m:"A pawnbroker is a person who lends money to people who leave a valuable object as security.",
+ k:"Oberbegriff <b>person</b> · verleiht Geld · gegen einen Wertgegenstand"},
+{w:"creditor", de:"Gläubiger", pos:"noun",
+ d:"a person or company that somebody owes money to",
+ m:"A creditor is a person or company that somebody owes money to.",
+ k:"Oberbegriff <b>person or company</b> · bekommt noch Geld (Gegenteil: debtor)"},
+{w:"debtor", de:"Schuldner", pos:"noun",
+ d:"a person or company that owes money to somebody",
+ m:"A debtor is a person or company that owes money to somebody.",
+ k:"Oberbegriff <b>person or company</b> · schuldet Geld (Gegenteil: creditor)"},
+{w:"assets", alt:["asset"], de:"Vermögenswerte", pos:"noun, plural",
+ d:"everything of value that a company owns, such as buildings, machines and money",
+ m:"Assets are all the things of value that a company owns, for example buildings, machines and money.",
+ k:"Oberbegriff <b>things of value</b> · die Firma besitzt sie (Gegenteil: liabilities)"},
+{w:"liabilities", alt:["liability"], de:"Verbindlichkeiten", pos:"noun, plural",
+ d:"all the money that a company owes to other people or companies",
+ m:"Liabilities are all the debts that a company has, that is, the money it owes to others.",
+ k:"Oberbegriff <b>debts / money</b> · die Firma schuldet es (Gegenteil: assets)"},
+{w:"bankruptcy", de:"Insolvenz, Bankrott", pos:"noun",
+ d:"the situation in which a person or company is officially unable to pay its debts",
+ m:"Bankruptcy is the situation in which a company is officially unable to pay its debts.",
+ k:"Oberbegriff <b>situation</b> · Schulden können nicht mehr bezahlt werden"},
+{w:"standing order", de:"Dauerauftrag", pos:"noun",
+ d:"an instruction to your bank to pay the same amount of money to somebody at regular intervals",
+ m:"A standing order is an instruction to your bank to pay a fixed amount to somebody every month.",
+ k:"Oberbegriff <b>instruction to the bank</b> · fester Betrag · regelmäßig"},
+{w:"direct debit", alt:["direct debiting"], de:"Lastschrift", pos:"noun",
+ d:"an arrangement that allows a company to take the money you owe straight from your bank account",
+ m:"A direct debit is an arrangement that allows a company to take money directly from your bank account.",
+ k:"Oberbegriff <b>arrangement</b> · die Firma bucht selbst vom Konto ab"},
+{w:"grant", alt:["government grant"], de:"Zuschuss, Fördergeld", pos:"noun",
+ d:"money that a government or organisation gives for a particular purpose and that does not have to be paid back",
+ m:"A grant is money that a government gives for a particular purpose and that does not have to be paid back.",
+ k:"Oberbegriff <b>money</b> · für einen bestimmten Zweck · muss nicht zurückgezahlt werden"},
+{w:"equity", de:"Eigenkapital", pos:"noun",
+ d:"the money that the owners or shareholders have put into a company, in contrast to borrowed money",
+ m:"Equity is the capital that belongs to the owners or shareholders of a company, not to the banks.",
+ k:"Oberbegriff <b>capital / money</b> · gehört den Eigentümern, nicht geliehen"},
+{w:"takeover", de:"Übernahme", pos:"noun",
+ d:"the act of gaining control of a company by buying most of its shares",
+ m:"A takeover is a situation in which one company gains control of another by buying most of its shares.",
+ k:"eine Firma übernimmt die Kontrolle · durch Kauf der Mehrheit der Aktien"},
+{w:"merger", de:"Fusion", pos:"noun",
+ d:"the joining of two companies into one new company",
+ m:"A merger is the joining of two companies that become one new company.",
+ k:"zwei Firmen · werden eine neue (kein Kauf wie beim takeover)"},
+{w:"return on investment", alt:["roi"], de:"Kapitalrendite", pos:"noun",
+ d:"the profit that an investor makes, compared with the amount of money that was invested",
+ m:"Return on investment is the profit that you make compared with the money that you invested.",
+ k:"Oberbegriff <b>profit</b> · im Verhältnis zum eingesetzten Geld"},
+{w:"principal", de:"Darlehensbetrag (ohne Zinsen)", pos:"noun",
+ d:"the original amount of money that is borrowed, without the interest",
+ m:"The principal is the original amount of money that somebody borrows, without the interest.",
+ k:"Oberbegriff <b>amount of money</b> · geliehen · ohne Zinsen"},
+{w:"overheads", alt:["overhead","overhead costs"], de:"Gemeinkosten, laufende Kosten", pos:"noun, plural",
+ d:"the regular costs of running a business, such as rent and electricity, that are not directly linked to a product",
+ m:"Overheads are the regular costs of running a business, such as rent, electricity and office salaries.",
+ k:"Oberbegriff <b>regular costs</b> · Beispiele: Miete, Strom"},
+{w:"withdrawal", de:"Abhebung", pos:"noun",
+ d:"the act of taking money out of a bank account",
+ m:"A withdrawal is the act of taking money out of your bank account.",
+ k:"Geld · vom Konto herunternehmen"},
+{w:"shares", alt:["share","stocks","stock"], de:"Aktien, Anteile", pos:"noun, plural",
+ d:"the equal parts into which the ownership of a company is divided and which people can buy",
+ m:"Shares are the equal parts into which a company is divided and which investors can buy.",
+ k:"Oberbegriff <b>parts of a company</b> · man kann sie kaufen"},
+{w:"cash flow", alt:["cashflow"], de:"Cashflow, Geldfluss", pos:"noun",
+ d:"the movement of money into and out of a business",
+ m:"Cash flow is the money that comes into a business and goes out of it.",
+ k:"Oberbegriff <b>movement of money</b> · in die Firma hinein und hinaus"},
+{w:"warranty", alt:["guarantee"], de:"Garantie", pos:"noun",
+ d:"a written promise from a company to repair or replace a product if it breaks within a certain time",
+ m:"A warranty is a written promise that a company will repair or replace a product if it breaks within a certain time.",
+ k:"Oberbegriff <b>written promise</b> · reparieren oder ersetzen · innerhalb einer Frist"},
+
+/* ---------- Customer Service ---------- */
+{w:"refund", de:"Rückerstattung", pos:"noun",
+ d:"money that is paid back to a customer, for example because a product was faulty",
+ m:"A refund is money that a company pays back to a customer, for example because the product was faulty.",
+ k:"Oberbegriff <b>money</b> · wird dem Kunden zurückgezahlt"},
+{w:"compensation", de:"Entschädigung", pos:"noun",
+ d:"money or something else that a customer receives because a company has caused a loss or a problem",
+ m:"Compensation is money that a customer receives because the company has caused a problem or a loss.",
+ k:"Oberbegriff <b>money</b> · weil die Firma einen Schaden verursacht hat"},
+{w:"customer loyalty", alt:["loyalty"], de:"Kundentreue", pos:"noun",
+ d:"the tendency of customers to keep buying from the same company instead of changing to a competitor",
+ m:"Customer loyalty means that customers keep buying from the same company and do not change to a competitor.",
+ k:"Kunden bleiben · kaufen immer wieder bei derselben Firma"},
+{w:"rapport", de:"gutes Verhältnis, Draht", pos:"noun",
+ d:"a friendly relationship in which people understand each other well",
+ m:"Rapport is a friendly relationship in which two people understand each other well.",
+ k:"Oberbegriff <b>relationship</b> · freundlich · man versteht sich"},
+{w:"proof of purchase", alt:["receipt"], de:"Kaufbeleg", pos:"noun",
+ d:"a document, such as a receipt, which shows that you bought a product",
+ m:"A proof of purchase is a document, for example a receipt, which shows that you bought a product.",
+ k:"Oberbegriff <b>document</b> · zeigt, dass man etwas gekauft hat"},
+{w:"outsourcing", alt:["outsource"], de:"Auslagerung", pos:"noun",
+ d:"the practice of paying another company to do work that was done inside your own company before",
+ m:"Outsourcing means that a company pays another company to do work that it used to do itself.",
+ k:"Arbeit · macht jetzt eine andere Firma · gegen Bezahlung"},
+{w:"downturn", de:"Abschwung", pos:"noun",
+ d:"a period in which business activity or the economy becomes weaker",
+ m:"A downturn is a period in which the economy or a business becomes weaker.",
+ k:"Oberbegriff <b>period</b> · Wirtschaft oder Geschäft wird schwächer"},
+{w:"no-frills airline", alt:["budget airline","low-cost airline","no frills airline"], de:"Billigflieger", pos:"noun",
+ d:"an airline that offers low prices because it provides only the basic service without any extras",
+ m:"A no-frills airline is an airline that offers cheap flights because it provides only the basic service.",
+ k:"Oberbegriff <b>airline</b> · billig · nur Grundleistung, keine Extras"},
+{w:"lip service", de:"Lippenbekenntnis", pos:"noun",
+ d:"support that somebody expresses in words but does not show in actions",
+ m:"If a company pays lip service to good service, it says that service is important but does nothing for it.",
+ k:"nur Worte · keine Taten (fester Ausdruck: <b>to pay lip service to</b>)"},
+{w:"replacement", de:"Ersatz", pos:"noun",
+ d:"a new product that a customer gets instead of a faulty one",
+ m:"A replacement is a new product that a customer receives instead of a faulty one.",
+ k:"Oberbegriff <b>new product</b> · statt des defekten"},
+{w:"complaint", de:"Beschwerde", pos:"noun",
+ d:"a statement in which a customer says that he or she is not satisfied with a product or service",
+ m:"A complaint is a statement in which a customer says that he or she is not satisfied with a product or service.",
+ k:"Oberbegriff <b>statement</b> · Kunde ist unzufrieden"},
+
+/* ---------- Management Styles ---------- */
+{w:"workforce", de:"Belegschaft", pos:"noun",
+ d:"all the people who work for a company",
+ m:"The workforce is all the people who work for a company.",
+ k:"Oberbegriff <b>all the people</b> · arbeiten für eine Firma"},
+{w:"role model", de:"Vorbild", pos:"noun",
+ d:"a person whose behaviour other people admire and try to copy",
+ m:"A role model is a person whose behaviour other people admire and try to copy.",
+ k:"Oberbegriff <b>person</b> · andere bewundern und kopieren das Verhalten"},
+{w:"mediator", de:"Vermittler, Schlichter", pos:"noun",
+ d:"a person who helps two sides to end a disagreement",
+ m:"A mediator is a person who helps two sides to end a disagreement.",
+ k:"Oberbegriff <b>person</b> · hilft zwei Seiten · Streit beenden"},
+{w:"deadline", de:"Frist, Abgabetermin", pos:"noun",
+ d:"the date or time by which a piece of work must be finished",
+ m:"A deadline is the date by which a piece of work must be finished.",
+ k:"Oberbegriff <b>date / time</b> · bis dahin muss die Arbeit fertig sein"},
+{w:"delegate", alt:["delegating"], de:"delegieren, übertragen", pos:"verb",
+ d:"to give part of your work or responsibility to somebody else, usually to somebody in a lower position",
+ m:"To delegate means to give part of your work or responsibility to somebody else.",
+ k:"Arbeit oder Verantwortung · an andere abgeben"},
+{w:"autocratic", de:"autokratisch, alleinbestimmend", pos:"adjective",
+ d:"describes a manager who makes all the decisions alone and expects people to obey",
+ m:"An autocratic manager is a manager who makes all the decisions alone and expects the staff to obey.",
+ k:"entscheidet allein · erwartet Gehorsam (Gegenteil: democratic)"},
+{w:"laissez-faire", alt:["laissez faire"], de:"gewähren lassend", pos:"adjective",
+ d:"describes a management style in which the manager lets employees work with very little control",
+ m:"A laissez-faire manager is a manager who lets employees work on their own with very little control.",
+ k:"lässt die Mitarbeiter machen · kaum Kontrolle (Gegenteil: directive)"},
+{w:"selling point", de:"Verkaufsargument", pos:"noun",
+ d:"a feature of a product that makes people want to buy it",
+ m:"A selling point is a feature of a product that makes people want to buy it.",
+ k:"Oberbegriff <b>feature of a product</b> · deshalb kaufen es die Leute"},
+{w:"launch", de:"Markteinführung", pos:"noun",
+ d:"the introduction of a new product to the market",
+ m:"A launch is the introduction of a new product to the market.",
+ k:"Oberbegriff <b>introduction</b> · neues Produkt · auf den Markt"},
+{w:"predecessor", de:"Vorgänger(in)", pos:"noun",
+ d:"a person who had a job or position before the person who has it now",
+ m:"A predecessor is the person who had a job before the person who has it now.",
+ k:"Oberbegriff <b>person</b> · hatte die Stelle vorher"},
+{w:"stereotype", de:"Klischee, Stereotyp", pos:"noun",
+ d:"a fixed and simplified idea of what a group of people is like, which is often not true",
+ m:"A stereotype is a fixed idea of what a group of people is like, which is often not true.",
+ k:"Oberbegriff <b>fixed idea</b> · über eine Gruppe · oft falsch"},
+{w:"negotiation", alt:["negotiations"], de:"Verhandlung", pos:"noun",
+ d:"a formal discussion in which two sides try to reach an agreement",
+ m:"A negotiation is a formal discussion in which two sides try to reach an agreement.",
+ k:"Oberbegriff <b>discussion</b> · zwei Seiten · Ziel: Einigung"},
+
+/* ---------- Meetings ---------- */
+{w:"minutes", alt:["the minutes"], de:"Protokoll", pos:"noun, plural",
+ d:"the written record of what was said and decided at a meeting",
+ m:"The minutes are the written record of what was said and decided at a meeting.",
+ k:"Oberbegriff <b>written record</b> · was im Meeting gesagt und entschieden wurde"},
+{w:"agenda", de:"Tagesordnung", pos:"noun",
+ d:"the list of points that are going to be discussed at a meeting",
+ m:"An agenda is a list of the points that are going to be discussed at a meeting.",
+ k:"Oberbegriff <b>list</b> · Punkte, die im Meeting besprochen werden"},
+{w:"chairperson", alt:["chair","chairman","chairwoman"], de:"Vorsitzende(r), Sitzungsleitung", pos:"noun",
+ d:"the person who leads a meeting",
+ m:"A chairperson is the person who leads a meeting and makes sure that people stick to the agenda.",
+ k:"Oberbegriff <b>person</b> · leitet das Meeting"},
+{w:"abstention", de:"Enthaltung", pos:"noun",
+ d:"the decision not to vote either for or against something",
+ m:"An abstention is the decision not to vote for or against a proposal.",
+ k:"weder dafür noch dagegen stimmen"},
+{w:"consensus", de:"Konsens, Einigkeit", pos:"noun",
+ d:"an opinion or decision that everybody in a group agrees with",
+ m:"A consensus is a decision or opinion that all members of a group agree with.",
+ k:"Oberbegriff <b>decision / opinion</b> · alle stimmen zu"},
+{w:"digression", de:"Abschweifung", pos:"noun",
+ d:"a part of a discussion that moves away from the main subject",
+ m:"A digression is a part of a discussion that moves away from the main subject.",
+ k:"Teil der Diskussion · führt vom Thema weg"},
+{w:"casting vote", de:"entscheidende Stimme", pos:"noun",
+ d:"the deciding vote of the chairperson when both sides have the same number of votes",
+ m:"A casting vote is the vote of the chairperson that decides when both sides have the same number of votes.",
+ k:"Oberbegriff <b>vote</b> · der Sitzungsleitung · entscheidet bei Gleichstand"},
+{w:"any other business", alt:["aob"], de:"Sonstiges (letzter Tagesordnungspunkt)", pos:"noun",
+ d:"the last item on an agenda, for topics that are not on the list",
+ m:"Any other business is the last item on an agenda, where people can raise points that are not on the list.",
+ k:"letzter Punkt der Tagesordnung · für alles, was nicht auf der Liste steht"}
+];
+
+/* Wortbildung: s Satz mit Lücke (___), b Ausgangswort, a gültige Antworten, why Erklärung */
+const WORDFORM = [
+{s:"Good managers show ___ for the needs of their staff.", b:"considerate", a:["consideration"],
+ why:"Nach <b>show</b> fehlt ein Nomen: <b>consideration</b>. Das Adjektiv <b>considerate</b> stünde nach <b>be</b>."},
+{s:"It was very ___ of him to criticise her in front of the whole team.", b:"considerate", a:["inconsiderate"],
+ why:"Nach <b>was very</b> steht ein Adjektiv. Der Satz meint das Gegenteil, also Vorsilbe <b>in-</b>."},
+{s:"The two companies are in direct ___ with each other.", b:"compete", a:["competition"],
+ why:"Nach dem Adjektiv <b>direct</b> fehlt ein Nomen: <b>competition</b>."},
+{s:"Our prices are very ___, so we win many new customers.", b:"compete", a:["competitive"],
+ why:"Nach <b>are very</b> steht ein Adjektiv: <b>competitive</b>."},
+{s:"Our main ___ has just opened a branch in Berlin.", b:"compete", a:["competitor"],
+ why:"Gesucht ist die Firma, die etwas tut — Endung <b>-or</b> für den, der handelt."},
+{s:"She has the ___ to lead a large team.", b:"competent", a:["competence","competency"],
+ why:"Nach <b>the</b> fehlt ein Nomen: <b>competence</b>."},
+{s:"The new assistant was so ___ that he lost three important files.", b:"competent", a:["incompetent"],
+ why:"Adjektiv nach <b>was so</b>. Der Sinn ist negativ, also <b>in-</b>."},
+{s:"The final ___ will be taken by the board.", b:"decide", a:["decision"],
+ why:"Nach <b>the final</b> fehlt ein Nomen: <b>decision</b>."},
+{s:"A good leader is ___ and does not change her mind every day.", b:"decide", a:["decisive"],
+ why:"Nach <b>is</b> steht ein Adjektiv: <b>decisive</b> (entschlussfreudig)."},
+{s:"He is so ___ that he needs a week to choose a supplier.", b:"decide", a:["indecisive"],
+ why:"Adjektiv nach <b>is so</b>. Er kann sich nicht entscheiden, also <b>in-</b>."},
+{s:"The project was a great ___.", b:"succeed", a:["success"],
+ why:"Nach <b>a great</b> fehlt ein Nomen: <b>success</b>."},
+{s:"The launch was very ___; sales doubled in a month.", b:"succeed", a:["successful"],
+ why:"Nach <b>was very</b> steht ein Adjektiv: <b>successful</b> mit einem l am Ende."},
+{s:"The team ___ completed the project before the deadline.", b:"succeed", a:["successfully"],
+ why:"Das Wort beschreibt das Verb <b>completed</b>, also Adverb: <b>successfully</b>."},
+{s:"The plan failed: the company was ___ in raising the money.", b:"succeed", a:["unsuccessful"],
+ why:"Adjektiv nach <b>was</b>. Der Plan ist gescheitert, also <b>un-</b>."},
+{s:"The ___ has introduced a new subsidy for start-ups.", b:"govern", a:["government"],
+ why:"Nach <b>the</b> fehlt ein Nomen: <b>government</b> — mit n vor dem m."},
+{s:"Please read the contract ___ before you sign it.", b:"care", a:["carefully"],
+ why:"Das Wort beschreibt das Verb <b>read</b>, also Adverb: <b>carefully</b>."},
+{s:"The mistake happened because somebody was ___ with the figures.", b:"care", a:["careless"],
+ why:"Adjektiv nach <b>was</b>. Ohne Sorgfalt: Endung <b>-less</b>."},
+{s:"The customer made a ___ about the late delivery.", b:"complain", a:["complaint"],
+ why:"Nach <b>a</b> fehlt ein Nomen: <b>complaint</b> mit t. <b>complain</b> ist nur das Verb."},
+{s:"Passengers who lose their luggage receive ___ from the airline.", b:"compensate", a:["compensation"],
+ why:"Nach <b>receive</b> fehlt ein Nomen: <b>compensation</b>."},
+{s:"The product did not meet our ___.", b:"expect", a:["expectations","expectation"],
+ why:"Nach <b>our</b> fehlt ein Nomen: <b>expectations</b>, meist in der Mehrzahl."},
+{s:"A university degree is a ___ for this job.", b:"require", a:["requirement"],
+ why:"Nach <b>a</b> fehlt ein Nomen: <b>requirement</b>."},
+{s:"The shop sent me a ___ for the broken phone.", b:"replace", a:["replacement"],
+ why:"Nach <b>a</b> fehlt ein Nomen: <b>replacement</b>."},
+{s:"The ___ of the machines costs 2,000 euros a year.", b:"maintain", a:["maintenance"],
+ why:"Nach <b>the</b> fehlt ein Nomen: <b>maintenance</b> — die Schreibung ändert sich (ai → e)."},
+{s:"The start-up is looking for an ___ who can provide 300,000 euros.", b:"invest", a:["investor"],
+ why:"<b>who</b> zeigt: gesucht ist eine Person. Endung <b>-or</b>."},
+{s:"Buying shares is a risky ___.", b:"invest", a:["investment"],
+ why:"Nach <b>a risky</b> fehlt ein Nomen für die Sache: <b>investment</b>."},
+{s:"The ___ of cash from this ATM is free of charge.", b:"withdraw", a:["withdrawal"],
+ why:"Nach <b>the</b> fehlt ein Nomen: <b>withdrawal</b>."},
+{s:"The ___ of the loan will take ten years.", b:"repay", a:["repayment"],
+ why:"Nach <b>the</b> fehlt ein Nomen: <b>repayment</b>."},
+{s:"Small companies are especially ___ to cash-flow problems.", b:"vulnerability", a:["vulnerable"],
+ why:"Nach <b>are especially</b> steht ein Adjektiv: <b>vulnerable to</b>."},
+{s:"After losing its biggest customer, the firm went ___.", b:"bankruptcy", a:["bankrupt"],
+ why:"Fester Ausdruck <b>to go bankrupt</b> — nach <b>go</b> steht hier das Adjektiv."},
+{s:"The firm could not pay its debts and faced ___.", b:"bankrupt", a:["bankruptcy"],
+ why:"Nach <b>faced</b> fehlt ein Nomen: <b>bankruptcy</b>."},
+{s:"There were seven votes in favour, two against and one ___.", b:"abstain", a:["abstention"],
+ why:"Nach <b>one</b> fehlt ein Nomen: <b>abstention</b> — ai wird zu e."},
+{s:"The proposal met with everyone's ___.", b:"approve", a:["approval"],
+ why:"Nach <b>everyone's</b> fehlt ein Nomen: <b>approval</b>."},
+{s:"Mr Lee sends his ___; he cannot attend the meeting.", b:"apologize", a:["apologies","apology"],
+ why:"Nach <b>his</b> fehlt ein Nomen. Fester Ausdruck im Meeting: <b>to send your apologies</b>."},
+{s:"All ___ received the agenda in advance.", b:"participate", a:["participants"],
+ why:"Gesucht sind die Personen, in der Mehrzahl: <b>participants</b>."},
+{s:"The chairperson stopped the long ___ and returned to the agenda.", b:"digress", a:["digression"],
+ why:"Nach <b>the long</b> fehlt ein Nomen: <b>digression</b>."},
+{s:"Customer ___ is more important than winning new customers.", b:"loyal", a:["loyalty"],
+ why:"Das Wort ist das Subjekt des Satzes, also Nomen: <b>loyalty</b>."},
+{s:"The new software has improved the ___ of our customer service.", b:"efficient", a:["efficiency"],
+ why:"Nach <b>the</b> fehlt ein Nomen: <b>efficiency</b>."},
+{s:"Working from home gives employees more ___.", b:"flexible", a:["flexibility"],
+ why:"Nach <b>more</b> fehlt hier ein Nomen, weil <b>gives</b> ein Objekt braucht: <b>flexibility</b>."},
+{s:"Paying by card is very ___ for customers.", b:"convenience", a:["convenient"],
+ why:"Nach <b>is very</b> steht ein Adjektiv: <b>convenient</b>. <b>convenience</b> ist das Nomen."},
+{s:"Many small shops are ___ on cash payments.", b:"depend", a:["dependent"],
+ why:"Nach <b>are</b> steht ein Adjektiv: <b>dependent on</b>."},
+{s:"Our ___ on a single supplier is a risk.", b:"depend", a:["dependence","dependency"],
+ why:"Nach <b>our</b> fehlt ein Nomen: <b>dependence</b>."},
+{s:"Carrying a lot of cash can be ___.", b:"danger", a:["dangerous"],
+ why:"Nach <b>be</b> steht ein Adjektiv: <b>dangerous</b>."},
+{s:"A ___ receives money from the state every month.", b:"pension", a:["pensioner"],
+ why:"Gesucht ist die Person: Endung <b>-er</b>. <b>pension</b> ist das Geld."},
+{s:"The company needs ___ assets to pay its bills this month.", b:"liquidity", a:["liquid"],
+ why:"Vor dem Nomen <b>assets</b> steht ein Adjektiv: <b>liquid</b>."},
+{s:"It is ___ to promise delivery tomorrow if the goods are not in stock.", b:"responsible", a:["irresponsible"],
+ why:"Adjektiv nach <b>is</b>. Der Sinn ist negativ; vor r heißt die Vorsilbe <b>ir-</b>."},
+{s:"Every manager has to take ___ for the team's mistakes.", b:"responsible", a:["responsibility"],
+ why:"Nach <b>take</b> fehlt ein Nomen: <b>to take responsibility for</b>."},
+{s:"His desk is a mess; he is completely ___.", b:"organise", a:["disorganised","disorganized"],
+ why:"Adjektiv nach <b>is completely</b>. Unordnung: Vorsilbe <b>dis-</b>."},
+{s:"Her speech was a real ___ to the whole team.", b:"inspire", a:["inspiration"],
+ why:"Nach <b>a real</b> fehlt ein Nomen: <b>inspiration</b>."},
+{s:"A good negotiator needs tact and ___.", b:"diplomatic", a:["diplomacy"],
+ why:"Nach <b>tact and</b> fehlt ein zweites Nomen: <b>diplomacy</b>."},
+{s:"His ___ remarks cost the company an important customer.", b:"diplomatic", a:["undiplomatic"],
+ why:"Vor dem Nomen <b>remarks</b> steht ein Adjektiv. Der Sinn ist negativ, also <b>un-</b>."},
+{s:"It is ___ to change the plan every week.", b:"logic", a:["illogical"],
+ why:"Adjektiv nach <b>is</b>. Der Sinn ist negativ; vor l heißt die Vorsilbe <b>il-</b>."},
+{s:"Sales rose ___ last year, by more than 30 per cent.", b:"considerable", a:["considerably"],
+ why:"Das Wort beschreibt das Verb <b>rose</b>, also Adverb: <b>considerably</b>."},
+{s:"There was a ___ fall in profits in March.", b:"dramatically", a:["dramatic"],
+ why:"Vor dem Nomen <b>fall</b> steht ein Adjektiv: <b>dramatic</b>."},
+{s:"Profits increased only ___, by one per cent.", b:"slight", a:["slightly"],
+ why:"Das Wort beschreibt das Verb <b>increased</b>, also Adverb: <b>slightly</b>."},
+{s:"The ___ of wealth takes many years.", b:"accumulate", a:["accumulation"],
+ why:"Nach <b>the</b> fehlt ein Nomen: <b>accumulation</b>."},
+{s:"The number of visitors has remained ___ since January.", b:"steadily", a:["steady"],
+ why:"Nach <b>remain</b> steht wie nach <b>be</b> ein Adjektiv: <b>steady</b>."}
+];
+
+/* ============================================================
    STATE
    ============================================================ */
 const KEY = "dailyEnglish.v2";
 const BLANK = {
   topics:{},          // je Thema: {n: Runden, ok: Treffer, total: Aufgaben}
   texts:[],
-  stats:{fixOk:0, fixN:0, trOk:0, trN:0, words:0, seconds:0, rounds:0}
+  vocab:{},           // je Wortschatz-Aufgabe: {n: wie oft, ok: Treffer, s: Treffer in Folge, l: letzter Versuch richtig (1/0)}
+  stats:{fixOk:0, fixN:0, trOk:0, trN:0, words:0, seconds:0, rounds:0, vocOk:0, vocN:0, vocRounds:0}
 };
 
 function load(){
@@ -1038,7 +1428,11 @@ function load(){
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 let S = load();
 
-const today = () => new Date().toISOString().slice(0,10);
+/* Datum nach Ortszeit — toISOString() rechnet in UTC und liefert kurz nach Mitternacht noch den Vortag */
+const today = () => {
+  const d = new Date(), p = n => String(n).padStart(2, "0");
+  return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+};
 
 /* Nächstes Thema: erst was du noch nie hattest, danach das, was am schlechtesten sitzt.
    Kein Kalender, kein Tageszähler — die App entscheidet, du drückst nur Start. */
@@ -1053,6 +1447,79 @@ function pickNext(){
     if(score < bestScore){ bestScore = score; best = i; }
   }
   return best;
+}
+
+/* ============================================================
+   WORTSCHATZ-AUSWAHL
+   Vier Aufgabenarten: def (Begriff definieren), find (Begriff zur Definition),
+   wf (Wortbildung), tr (Übersetzen gemischt: Conditionals, Relativsätze, Passiv).
+   Reihenfolge: erst was zuletzt daneben ging, dann Neues, dann was am wenigsten sitzt.
+   ============================================================ */
+const VKIND = {
+  def:  {label:"Definieren",       pre:"d:"},
+  find: {label:"Begriff finden",   pre:"f:"},
+  wf:   {label:"Wortbildung",      pre:"w:"},
+  tr:   {label:"Übersetzen gemischt", pre:"t:"}
+};
+const MIX_UNITS = /Conditional|Relativs|Passiv|unless/;
+
+function vocabItems(kind){
+  if(kind === "def" || kind === "find")
+    return VOCAB.map(v => ({kind, id: VKIND[kind].pre + v.w, word: v.w, v}));
+  if(kind === "wf")
+    return WORDFORM.map(x => ({kind, id: "w:" + x.b + ">" + x.a[0], x}));
+  const out = [];
+  UNITS.forEach(u => { if(MIX_UNITS.test(u.t)) u.tr.forEach(t => out.push({kind, id: "t:" + t.de, t, unit: u.t})); });
+  return out;
+}
+function vscore(id){
+  const st = S.vocab[id];
+  if(!st) return 1;              // neu
+  if(st.l === 0) return 0;       // zuletzt daneben: kommt zuerst wieder
+  return 2 + (st.s || 1);        // sitzt: je länger die Serie, desto später
+}
+function shuffled(a){
+  const r = a.slice();
+  for(let i = r.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; }
+  return r;
+}
+/* spec: [["def",1],["find",1],…] — ein Begriff kommt in einer Runde nie doppelt vor */
+function buildRound(spec){
+  const used = new Set(), round = [];
+  spec.forEach(([kind, n]) => {
+    const pool = shuffled(vocabItems(kind)).sort((a, b) => vscore(a.id) - vscore(b.id));
+    let got = 0;
+    for(const it of pool){
+      if(got >= n) break;
+      if(it.word && used.has(it.word)) continue;
+      if(it.word) used.add(it.word);
+      round.push(it); got++;
+    }
+  });
+  return round;
+}
+/* Antwort vergleichen: Groß/Klein, Artikel, „to", Bindestriche und Satzzeichen zählen nicht */
+function norm(t){
+  return String(t).toLowerCase().replace(/[-‐–]/g, " ").replace(/[^a-z' ]/g, " ")
+    .replace(/\s+/g, " ").trim().replace(/^(a|an|the|to) /, "");
+}
+function accepts(it, answer){
+  const a = norm(answer);
+  if(!a) return false;
+  if(it.kind === "wf") return it.x.a.some(x => norm(x) === a);   // hier zählt die genaue Form
+  const sg = x => x.replace(/s$/, "");                            // Einzahl oder Mehrzahl ist beim Begriff egal
+  return [it.v.w].concat(it.v.alt || []).some(x => sg(norm(x)) === sg(a));
+}
+function vocabLabel(it){
+  if(it.kind === "wf") return it.x.b.toUpperCase() + " → " + it.x.a[0];
+  if(it.kind === "tr") return it.t.en;
+  return it.v.w + " — " + it.v.de;
+}
+function kindStat(kind){
+  let n = 0, ok = 0, seen = 0;
+  const items = vocabItems(kind);
+  items.forEach(it => { const st = S.vocab[it.id]; if(st){ n += st.n; ok += st.ok; seen++; } });
+  return {n, ok, seen, all: items.length};
 }
 
 let view = "home";
@@ -1105,7 +1572,16 @@ function corrected(item){
 }
 
 /* Prompt für den Claude-Check */
-function claudePrompt(u, prompt, text){
+function defLines(defs){
+  return [
+    "Diese Begriffe habe ich auf Englisch definiert (Klausurteil „Definitions“, ein einzelnes Synonym zählt dort nicht):",
+    "---"
+  ].concat(defs.map(d => d.w + ": " + d.x.trim())).concat(["---"]);
+}
+const DEF_ASK = "DEFINITIONEN — je Begriff eine Zeile: trifft meine Definition den Kern (ja / halb / nein), mein Satz korrigiert, in max. 10 Wörtern warum.";
+
+function claudePrompt(u, prompt, text, defs){
+  const hasDefs = defs && defs.length;
   return [
     "Du bist mein Englisch-Trainer. Ich bin Deutscher, Level B1–B2, und bereite mich auf eine Business-English-Prüfung (M3W) vor.",
     "",
@@ -1116,15 +1592,31 @@ function claudePrompt(u, prompt, text){
     "---",
     text.trim(),
     "---",
-    "",
-    "Antworte auf Deutsch, genau in diesen vier Punkten, kurz:",
+    ""
+  ].concat(hasDefs ? defLines(defs).concat([""]) : []).concat([
+    "Antworte auf Deutsch, genau in diesen " + (hasDefs ? "fünf" : "vier") + " Punkten, kurz:",
     "1) KORRIGIERT — mein Text sauber korrigiert.",
     "2) DIE 3 WICHTIGSTEN FEHLER — je eine Zeile: falsch → richtig, dahinter in max. 10 Wörtern warum.",
     "3) KLINGT UNENGLISCH — eine Stelle, die grammatisch okay ist, aber kein Muttersprachler so sagen würde, plus bessere Version.",
-    "4) MORGEN ACHTEN AUF — die eine Regel, die mir am meisten bringt.",
+    "4) MORGEN ACHTEN AUF — die eine Regel, die mir am meisten bringt."
+  ]).concat(hasDefs ? ["5) " + DEF_ASK] : []).concat([
     "",
     "Kein Lob, keine Einleitung, keine Zusammenfassung."
-  ].join("\n");
+  ]).join("\n");
+}
+/* Nur Definitionen, ohne Schreibtext */
+function defsPrompt(defs){
+  return [
+    "Du bist mein Englisch-Trainer. Ich bin Deutscher, Level B1–B2, und bereite mich auf eine Business-English-Prüfung (M3W) vor.",
+    ""
+  ].concat(defLines(defs)).concat([
+    "",
+    "Antworte auf Deutsch, kurz:",
+    "1) " + DEF_ASK,
+    "2) MORGEN ACHTEN AUF — der eine Sprachfehler, der sich durchzieht.",
+    "",
+    "Kein Lob, keine Einleitung, keine Zusammenfassung."
+  ]).join("\n");
 }
 
 /* ============================================================
@@ -1134,8 +1626,11 @@ const STEPS = [
   {k:"rule",  label:"Regel"},
   {k:"fix",   label:"Fehler"},
   {k:"trans", label:"Übersetzen"},
+  {k:"vocab", label:"Wörter"},
   {k:"write", label:"Schreiben"}
 ];
+const DAILY_VOCAB = [["def",1],["find",1],["wf",1]];
+const MIX_ROUND   = [["def",2],["find",2],["wf",2],["tr",2]];
 
 function startSession(mode, unitIdx){
   const idx = (typeof unitIdx === "number" ? unitIdx : pickNext()) % UNITS.length;
@@ -1144,11 +1639,44 @@ function startSession(mode, unitIdx){
     step: mode === "short" ? "write" : "rule",
     fi:0, ti:0, fixOk:0, trOk:0,
     sel:null, shown:false,
+    vq: mode === "full" ? buildRound(DAILY_VOCAB) : [], vi:0, vres:[], defs:[],
     text:"", t0:Date.now(), wt0:null
   };
   view = "session";
   startClock();
   render();
+}
+/* Runde ohne Grammatikthema: nur Wortschatz-Aufgaben. kind = eine Aufgabenart, sonst der Mix. */
+function startVocab(kind){
+  ses = {
+    mode:"vocab", idx:null, u:null, step:"vocab",
+    vq: buildRound(kind ? [[kind, 6]] : MIX_ROUND), vi:0, vres:[], defs:[],
+    vkind: kind || null,
+    sel:null, shown:false, answer:"",
+    text:"", t0:Date.now(), wt0:null
+  };
+  view = "session";
+  startClock();
+  render();
+}
+const vocOkCount = () => ses.vres.filter(r => r.ok).length;
+function advVocab(ok){
+  const it = ses.vq[ses.vi];
+  if(it.kind === "def" && (ses.answer || "").trim()) ses.defs.push({w: it.v.w, x: ses.answer});
+  ses.vres.push({id: it.id, kind: it.kind, ok: !!ok, label: vocabLabel(it)});
+  ses.answer = ""; ses.shown = false; ses.vok = null;
+  if(ses.vi === ses.vq.length - 1){
+    if(ses.mode === "vocab") finishSession(); else nextStep();
+  } else { ses.vi++; render(); window.scrollTo({top:0, behavior:"instant"}); }
+}
+function commitVocab(){
+  ses.vres.forEach(r => {
+    const st = S.vocab[r.id] || {n:0, ok:0, s:0, l:0};
+    st.n += 1;
+    if(r.ok){ st.ok += 1; st.s += 1; st.l = 1; } else { st.s = 0; st.l = 0; }
+    S.vocab[r.id] = st;
+    S.stats.vocN += 1; if(r.ok) S.stats.vocOk += 1;
+  });
 }
 function startClock(){
   stopClock();
@@ -1161,10 +1689,11 @@ function startClock(){
 function stopClock(){ if(tick){ clearInterval(tick); tick = null; } }
 
 function nextStep(){
-  const order = ["rule","fix","trans","write"];
-  const i = order.indexOf(ses.step);
-  ses.step = order[i+1];
-  ses.sel = null; ses.shown = false;
+  const order = ["rule","fix","trans","vocab","write"];
+  let i = order.indexOf(ses.step) + 1;
+  if(order[i] === "vocab" && !ses.vq.length) i++;
+  ses.step = order[i];
+  ses.sel = null; ses.shown = false; ses.answer = "";
   if(ses.step === "write") ses.wt0 = Date.now();
   render();
   window.scrollTo({top:0, behavior:"instant"});
@@ -1174,6 +1703,19 @@ function finishSession(){
   const secs = Math.floor((Date.now() - ses.t0)/1000);
   const w = words(ses.text);
   const d = today();
+
+  commitVocab();
+  if(ses.mode === "vocab"){
+    S.stats.seconds += secs;
+    S.stats.vocRounds += 1;
+    save();
+    ses.secs = secs; ses.wcount = 0;
+    stopClock();
+    view = "done";
+    render();
+    window.scrollTo({top:0, behavior:"instant"});
+    return;
+  }
 
   S.stats.words += w;
   S.stats.seconds += secs;
@@ -1214,11 +1756,13 @@ function render(){
 
   const inSession = (view === "session" || view === "done") && ses;
   tag.hidden = !inSession;
-  if(inSession) tag.textContent = areaOf(ses.idx);
+  const vocabOnly = inSession && ses.mode === "vocab";
+  const sesTitle = !inSession ? "" : vocabOnly ? (ses.vkind ? VKIND[ses.vkind].label : "Klausur-Mix") : ses.u.t;
+  if(inSession) tag.textContent = vocabOnly ? "Wortschatz" : areaOf(ses.idx);
 
   if(view === "home")        { title.textContent = "Daily English"; renderHome(main, dock); }
-  else if(view === "session"){ title.textContent = ses.u.t; renderRail(rail); renderSession(main, dock); }
-  else if(view === "done")   { title.textContent = ses.u.t; renderDone(main, dock); }
+  else if(view === "session"){ title.textContent = sesTitle; renderRail(rail); renderSession(main, dock); }
+  else if(view === "done")   { title.textContent = sesTitle; renderDone(main, dock); }
   else if(view === "topics") { title.textContent = "Themen"; renderTopics(main, dock); }
   else if(view === "archive"){ title.textContent = "Meine Texte"; renderArchive(main, dock); }
   else if(view === "backup") { title.textContent = "Sicherung"; renderBackup(main, dock); }
@@ -1226,7 +1770,7 @@ function render(){
 }
 
 function renderRail(rail){
-  if(ses.mode === "short") return;
+  if(ses.mode !== "full") return;
   rail.hidden = false;
   const cur = STEPS.findIndex(s => s.k === ses.step);
   rail.innerHTML = STEPS.map((s,i) =>
@@ -1256,19 +1800,21 @@ function renderHome(main, dock){
       <h1>${esc(u.t)}</h1>
       <p class="muted">${esc(u.g)}</p>
     </div>
-    <p class="small">Regel ansehen · Fehler finden · übersetzen · selbst schreiben. Die App sucht das Thema aus — du drückst nur Start.</p>`;
+    <p class="small">Regel ansehen · Fehler finden · übersetzen · drei Wortschatz-Aufgaben · selbst schreiben. Die App sucht das Thema aus — du drückst nur Start.</p>`;
   main.appendChild(hero);
 
   const links = document.createElement("div");
   links.className = "stack tight";
+  links.appendChild(rowlink("Klausur-Mix", "5 Minuten: definieren, Begriff finden, Wortbildung, übersetzen", () => startVocab()));
   links.appendChild(rowlink("Nur schreiben", "3 Minuten, direkt zum Schreibteil", () => startSession("short")));
   links.appendChild(rowlink("Themen", "Lieber selbst eins aussuchen", () => { view = "topics"; render(); }));
   links.appendChild(rowlink("Meine Texte", S.texts.length ? S.texts.length + (S.texts.length === 1 ? " Text gespeichert" : " Texte gespeichert") : "noch nichts geschrieben", () => { view = "archive"; render(); }));
   main.appendChild(links);
 
-  if(S.stats.rounds > 0){
+  if(S.stats.rounds > 0 || S.stats.vocN > 0){
     const parts = [];
     if(S.stats.rounds) parts.push(S.stats.rounds + (S.stats.rounds === 1 ? " Runde" : " Runden") + " · " + S.stats.words + " Wörter geschrieben");
+    if(S.stats.vocN) parts.push("Wortschatz " + Math.round(S.stats.vocOk / S.stats.vocN * 100) + " % richtig");
     const sum = document.createElement("p");
     sum.className = "small";
     sum.style.textAlign = "center";
@@ -1276,7 +1822,7 @@ function renderHome(main, dock){
     main.appendChild(sum);
   }
 
-  dock.appendChild(btn("Start — 10 Minuten", "primary", () => startSession("full")));
+  dock.appendChild(btn("Start — 12 Minuten", "primary", () => startSession("full")));
 }
 
 function rowlink(title, sub, fn){
@@ -1292,6 +1838,7 @@ function renderSession(main, dock){
   if(ses.step === "rule")  return renderRule(main, dock);
   if(ses.step === "fix")   return renderFix(main, dock);
   if(ses.step === "trans") return renderTrans(main, dock);
+  if(ses.step === "vocab") return renderVocab(main, dock);
   if(ses.step === "write") return renderWrite(main, dock);
 }
 
@@ -1400,6 +1947,7 @@ function renderTrans(main, dock){
   ta.placeholder = "Deine englische Version …";
   ta.value = ses.answer || "";
   ta.readOnly = ses.shown;
+  noAuto(ta);
   ta.addEventListener("input", () => { ses.answer = ta.value; });
   main.appendChild(ta);
 
@@ -1433,6 +1981,121 @@ function advTrans(ok){
   else { ses.ti++; render(); window.scrollTo({top:0,behavior:"instant"}); }
 }
 
+/* Die Klausur ist auf Papier: Rechtschreibhilfe und Autokorrektur aus, soweit der Browser das zulässt */
+function noAuto(el){
+  el.setAttribute("spellcheck", "false");
+  el.setAttribute("autocorrect", "off");
+  el.setAttribute("autocomplete", "off");
+  if(el.tagName === "INPUT") el.setAttribute("autocapitalize", "off");
+}
+
+/* ---------- WORTSCHATZ ---------- */
+function renderVocab(main, dock){
+  const it = ses.vq[ses.vi];
+  const lastItem = ses.vi === ses.vq.length - 1;
+  const nextLabel = !lastItem ? "Nächste Aufgabe" : ses.mode === "vocab" ? "Fertig" : "Weiter zum Schreiben";
+
+  const head = document.createElement("div");
+  head.className = "stack tight";
+  const hint = {
+    def:  "Schreib einen ganzen Satz auf Englisch. Ein einzelnes Synonym zählt in der Klausur nicht. Muster: Oberbegriff + that/who …",
+    find: "Welcher Begriff ist gemeint? Achte auf die Wortart.",
+    wf:   "Bilde aus dem Wort in Großbuchstaben das Wort, das in die Lücke passt. Erst die Wortart klären, dann schreiben.",
+    tr:   "Schreib den Satz auf Englisch. Überleg zuerst, welche Form verlangt ist: welcher Conditional, Relativsatz oder Passiv?"
+  }[it.kind];
+  head.innerHTML = `<span class="label accent">${esc(VKIND[it.kind].label)} · ${ses.vi + 1} von ${ses.vq.length}</span>
+    <p class="muted">${esc(hint)}</p>`;
+  main.appendChild(head);
+
+  const card = document.createElement("div");
+  card.className = "card";
+  if(it.kind === "def"){
+    card.innerHTML = `<span class="label">Define in English</span>
+      <p class="en big">${esc(it.v.pos === "verb" ? "to " + it.v.w : it.v.w)}</p>
+      <p class="small">${esc(it.v.pos)}</p>`;
+  } else if(it.kind === "find"){
+    card.innerHTML = `<span class="label">Which term is defined? · ${esc(it.v.pos)}</span>
+      <p class="en">${esc(it.v.d)}</p>`;
+  } else if(it.kind === "wf"){
+    const parts = it.x.s.split("___");
+    const mid = ses.shown ? `<span class="ins">${esc(it.x.a[0])}</span>` : `<span class="gap"></span>`;
+    card.innerHTML = `<span class="label">Word formation</span>
+      <p class="en">${esc(parts[0])}${mid}${esc(parts[1] || "")}</p>
+      <p class="small" style="margin-top:8px">Ausgangswort: <strong style="letter-spacing:.06em">${esc(it.x.b.toUpperCase())}</strong></p>`;
+  } else {
+    card.innerHTML = `<span class="label">Deutsch</span><p class="de" style="font-size:1.05rem;font-weight:600">${esc(it.t.de)}</p>`;
+  }
+  main.appendChild(card);
+
+  const long = it.kind === "def" || it.kind === "tr";
+  const field = document.createElement(long ? "textarea" : "input");
+  if(long){ field.rows = 3; } else { field.type = "text"; field.className = "answer"; field.enterKeyHint = "done"; }
+  field.placeholder = it.kind === "def" ? "A … is a … that …" : it.kind === "tr" ? "Deine englische Version …" : "Deine Antwort …";
+  field.value = ses.answer || "";
+  field.readOnly = ses.shown;
+  noAuto(field);
+  main.appendChild(field);
+
+  /* --- selbst einschätzen: Definition und Übersetzung --- */
+  if(long){
+    field.addEventListener("input", () => { ses.answer = field.value; });
+    if(!ses.shown){
+      dock.appendChild(btn("Lösung zeigen", "primary", () => { ses.shown = true; render(); }));
+      return;
+    }
+    const rev = document.createElement("div");
+    rev.className = "card marked stack tight";
+    rev.innerHTML = it.kind === "def"
+      ? `<span class="label right">Musterdefinition</span>
+         <p class="en">${esc(it.v.m)}</p>
+         <p class="muted" style="margin-top:8px"><strong>Muss drin sein:</strong> ${it.v.k}</p>
+         <p class="small">Deutsch: ${esc(it.v.de)}</p>`
+      : `<span class="label right">Musterlösung</span>
+         <p class="en">${esc(it.t.en)}</p>
+         <p class="muted" style="margin-top:8px">${it.t.tip}</p>
+         <p class="small">Aus dem Thema: ${esc(it.unit)}</p>`;
+    main.appendChild(rev);
+
+    const q = document.createElement("p");
+    q.className = "small";
+    q.style.textAlign = "center";
+    q.textContent = it.kind === "def" ? "Ehrlich sein — stand der Kern in deinem Satz?" : "Ehrlich sein — hattest du das?";
+    main.appendChild(q);
+
+    dock.appendChild(btn("Daneben", "no", () => advVocab(false)));
+    dock.appendChild(btn("Hatte ich", "ok", () => advVocab(true)));
+    return;
+  }
+
+  /* --- automatisch geprüft: Begriff finden und Wortbildung --- */
+  if(!ses.shown){
+    const check = () => {
+      if(!field.value.trim()) return;
+      ses.answer = field.value;
+      ses.vok = accepts(it, field.value);
+      ses.shown = true; render();
+    };
+    const b = btn("Prüfen", "primary", check);
+    b.disabled = !field.value.trim();
+    field.addEventListener("input", () => { ses.answer = field.value; b.disabled = !field.value.trim(); });
+    field.addEventListener("keydown", e => { if(e.key === "Enter"){ e.preventDefault(); check(); } });
+    dock.appendChild(b);
+    return;
+  }
+  const hit = ses.vok;
+  const right = it.kind === "wf" ? it.x.a[0] : it.v.w;
+  const rev = document.createElement("div");
+  rev.className = "card stack tight";
+  rev.style.borderColor = hit ? "var(--right)" : "var(--line)";
+  rev.innerHTML = `<span class="label ${hit ? "right" : "wrong"}">${hit ? "Richtig" : "Gesucht war"}</span>
+    <p class="en">${hit ? "" : `<span class="strike">${esc(ses.answer.trim())}</span> `}<span class="ins">${esc(right)}</span></p>` +
+    (it.kind === "wf"
+      ? `<p class="muted" style="margin-top:8px">${it.x.why}</p>`
+      : `<p class="muted" style="margin-top:8px">Deutsch: ${esc(it.v.de)}</p>`);
+  main.appendChild(rev);
+  dock.appendChild(btn(nextLabel, "primary", () => advVocab(hit)));
+}
+
 function renderWrite(main, dock){
   const u = ses.u;
   const short = ses.mode === "short";
@@ -1457,6 +2120,7 @@ function renderWrite(main, dock){
   ta.rows = short ? 6 : 9;
   ta.placeholder = "Write in English …";
   ta.value = ses.text;
+  noAuto(ta);
   main.appendChild(ta);
 
   const row = document.createElement("div");
@@ -1486,7 +2150,49 @@ function renderWrite(main, dock){
 }
 
 /* ---------- DONE ---------- */
+function resultList(){
+  const c = document.createElement("div");
+  c.className = "card stack tight";
+  c.innerHTML = `<span class="label">Wortschatz in dieser Runde</span>
+    <ul class="results">${ses.vres.map(r =>
+      `<li class="${r.ok ? "hit" : "miss"}"><b>${r.ok ? "✓" : "✗"}</b><span>${esc(r.label)}<small>${esc(VKIND[r.kind].label)}${r.ok ? "" : " · kommt beim nächsten Mal wieder"}</small></span></li>`
+    ).join("")}</ul>`;
+  return c;
+}
+function defsNote(){
+  const n = document.createElement("div");
+  n.className = "note";
+  n.innerHTML = `<b>Definitionen prüfen lassen:</b> Der Knopf unten kopiert deine Definitionen mit einer fertigen Anweisung. In Claude einfügen — du siehst, ob der Kern getroffen ist und wo die Sprache hakt.`;
+  return n;
+}
+
+function renderDoneVocab(main, dock){
+  const hero = document.createElement("div");
+  hero.className = "hero";
+  hero.innerHTML = `
+    <div class="stack tight">
+      <span class="label accent">Geschafft</span>
+      <h1>${esc(ses.vkind ? VKIND[ses.vkind].label : "Klausur-Mix")}</h1>
+    </div>
+    <div class="streakrow">
+      <div class="stat hot"><b>${vocOkCount()}/${ses.vres.length}</b><span>Richtig</span></div>
+      <div class="stat"><b>${mmss(ses.secs)}</b><span>Gebraucht</span></div>
+    </div>`;
+  main.appendChild(hero);
+  main.appendChild(resultList());
+
+  const home = () => { ses = null; view = "home"; render(); window.scrollTo({top:0,behavior:"instant"}); };
+  if(ses.defs.length){
+    main.appendChild(defsNote());
+    dock.appendChild(btn("Für Claude kopieren", "primary", () => copy(defsPrompt(ses.defs), "Kopiert — in Claude einfügen")));
+    const b = btn("Fertig", "ghost", home);
+    b.style.flex = "0 0 auto";
+    dock.appendChild(b);
+  } else dock.appendChild(btn("Zum Start", "primary", home));
+}
+
 function renderDone(main, dock){
+  if(ses.mode === "vocab") return renderDoneVocab(main, dock);
   const u = ses.u, short = ses.mode === "short";
 
   const hero = document.createElement("div");
@@ -1501,8 +2207,15 @@ function renderDone(main, dock){
       <div class="stat"><b>${ses.wcount}</b><span>Wörter</span></div>
       <div class="stat"><b>${mmss(ses.secs)}</b><span>Gebraucht</span></div>
     </div>
-    ${short ? "" : `<p class="muted">Fehler gefunden: <strong>${ses.fixOk} von ${u.fix.length}</strong> · Übersetzt: <strong>${ses.trOk} von ${u.tr.length}</strong></p>`}`;
+    ${short ? "" : `<p class="muted">Fehler gefunden: <strong>${ses.fixOk} von ${u.fix.length}</strong> · Übersetzt: <strong>${ses.trOk} von ${u.tr.length}</strong>${ses.vres.length ? ` · Wortschatz: <strong>${vocOkCount()} von ${ses.vres.length}</strong>` : ""}</p>`}`;
   main.appendChild(hero);
+  if(ses.vres.length) main.appendChild(resultList());
+
+  if(ses.wcount === 0 && ses.defs.length){
+    main.appendChild(defsNote());
+    dock.appendChild(btn("Für Claude kopieren", "primary", () => copy(defsPrompt(ses.defs), "Kopiert — in Claude einfügen")));
+  }
+  const canCopy = ses.wcount > 0 || ses.defs.length > 0;
 
   if(ses.wcount > 0){
     const c = document.createElement("div");
@@ -1513,17 +2226,17 @@ function renderDone(main, dock){
 
     const n = document.createElement("div");
     n.className = "note";
-    n.innerHTML = `<b>Korrektur holen:</b> Der Knopf unten kopiert deinen Text zusammen mit einer fertigen Anweisung. In die Claude-App einfügen, abschicken — du bekommst Korrektur, die drei wichtigsten Fehler und eine Regel für morgen. Dauert eine Minute.`;
+    n.innerHTML = `<b>Korrektur holen:</b> Der Knopf unten kopiert deinen Text${ses.defs.length ? " und deine Definition" : ""} zusammen mit einer fertigen Anweisung. In die Claude-App einfügen, abschicken — du bekommst Korrektur, die drei wichtigsten Fehler und eine Regel für morgen. Dauert eine Minute.`;
     main.appendChild(n);
 
     dock.appendChild(btn("Für Claude kopieren", "primary", () => {
-      copy(claudePrompt(u, short ? u.wr.short : u.wr.p, ses.text), "Kopiert — in Claude einfügen");
+      copy(claudePrompt(u, short ? u.wr.short : u.wr.p, ses.text, ses.defs), "Kopiert — in Claude einfügen");
     }));
   }
-  const b = btn(ses.wcount > 0 ? "Fertig" : "Zum Start", ses.wcount > 0 ? "ghost" : "primary", () => {
+  const b = btn(canCopy ? "Fertig" : "Zum Start", canCopy ? "ghost" : "primary", () => {
     ses = null; view = "home"; render(); window.scrollTo({top:0,behavior:"instant"});
   });
-  if(ses.wcount > 0) b.style.flex = "0 0 auto";
+  if(canCopy) b.style.flex = "0 0 auto";
   dock.appendChild(b);
 }
 
@@ -1557,6 +2270,28 @@ function renderTopics(main, dock){
       wrap.appendChild(b);
     }
   });
+  /* Wortschatz: eine Zeile je Aufgabenart, Tipp startet sechs Aufgaben dieser Art */
+  const vh = document.createElement("div");
+  vh.className = "blockhead";
+  vh.textContent = "Wortschatz & Klausurteile";
+  wrap.appendChild(vh);
+  const vsub = {
+    def:  "Begriffe in einem ganzen Satz erklären",
+    find: "Zur Definition den Begriff nennen",
+    wf:   "Aus dem Ausgangswort die passende Wortart bilden",
+    tr:   "Conditionals, Relativsätze und Passiv durcheinander"
+  };
+  Object.keys(VKIND).forEach(kind => {
+    const st = kindStat(kind);
+    const pct = st.n ? Math.round(st.ok / st.n * 100) : null;
+    const cls = pct === null ? "" : pct >= 80 ? "good" : pct >= 55 ? "mid" : "low";
+    const b = document.createElement("button");
+    b.className = "topic";
+    b.innerHTML = `<span class="tt">${esc(VKIND[kind].label)}<small>${esc(vsub[kind])} · ${st.seen} von ${st.all} gesehen</small></span>` +
+      `<span class="str ${cls}">${pct === null ? "neu" : pct + "%"}</span>`;
+    b.addEventListener("click", () => startVocab(kind));
+    wrap.appendChild(b);
+  });
   main.appendChild(wrap);
 
   if(S.stats.fixN + S.stats.trN > 0){
@@ -1573,7 +2308,7 @@ function renderTopics(main, dock){
   bk.style.fontSize = ".82rem";
   main.appendChild(bk);
 
-  if(S.stats.rounds > 0){
+  if(S.stats.rounds > 0 || S.stats.vocN > 0){
     const reset = btn("Alles zurücksetzen", "ghost", () => {
       if(confirm("Wirklich alles löschen — Statistik und alle gespeicherten Texte?")){
         S = structuredClone(BLANK); save(); view = "home"; render();
