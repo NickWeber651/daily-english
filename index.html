@@ -1407,6 +1407,100 @@ const WORDFORM = [
 ];
 
 /* ============================================================
+   FOKUSSÄTZE aus dem Writing-Drill (Chat mit Claude)
+   Je Runde ein Satz pro aktivem Muster. Nach jedem Drill: FOCUS.active
+   auf den neuen Fokus setzen und Sätze nachfüllen.
+   m  Muster   de  deutscher Satz   en  Musterlösung
+   tip  worauf du achten sollst      own  Satz aus deinem eigenen Drill
+   ============================================================ */
+const FOCUS = {
+  drill: 6,
+  active: ["pron", "vorbau", "verb"],
+  patterns: {
+    pron:   {name:"Pronomen",          check:"Tut es etwas → <b>they</b>. Nach Verb oder Präposition → <b>them</b>. Vor einem Nomen → <b>their</b>."},
+    vorbau: {name:"Subjekt nach Vorbau", check:"Nach dem Vorbau bis zum Komma kommt zuerst das Subjekt, dann das Verb. Probe: Vorbau abdecken, der Rest ist ein ganzer Satz."},
+    verb:   {name:"Verbform",          check:"Nach <b>to, can, should, must, will</b> die Grundform. <b>-ing</b> nur nach einer Präposition (of, in, about) oder mit <b>be</b> davor."}
+  },
+  items: [
+/* ---------- Pronomen ---------- */
+{m:"pron", own:true, de:"Die Mitarbeiter sind unzufrieden, weil ihr Gehalt zu niedrig ist.",
+ en:"The employees are unhappy because their wages are too low.",
+ tip:"„ihr Gehalt“ — vor dem Nomen <b>their</b>. In Drill 5 stand hier <i>they wages</i>."},
+{m:"pron", own:true, de:"Ein Manager ist erfolgreich, wenn er seinen Mitarbeitern zuhört und ihnen Verantwortung gibt.",
+ en:"A manager is successful when he listens to his employees and gives them responsibility.",
+ tip:"„ihnen“ nach dem Verb <b>give</b> → <b>them</b>. In Drill 5 stand hier <i>gives they</i>."},
+{m:"pron", own:true, de:"Ihre Meinung (die der Gründer) ist nicht wichtig, weil die Bank das Risiko trägt.",
+ en:"Their opinion is not important because the bank has the risk.",
+ tip:"„Ihre Meinung“ — vor dem Nomen <b>their</b>. In Drill 5 stand hier erst <i>Our</i>, dann <i>They opinion</i>."},
+{m:"pron", de:"Die Kunden sind wütend, weil die Firma ihre Beschwerden ignoriert.",
+ en:"The customers are angry because the company ignores their complaints.",
+ tip:"Wessen Beschwerden? Die der Kunden → <b>their</b> + Nomen."},
+{m:"pron", de:"Wenn Mitarbeiter Fehler machen, sollte der Manager mit ihnen sprechen.",
+ en:"If employees make mistakes, the manager should talk to them.",
+ tip:"Nach der Präposition <b>to</b> → <b>them</b>."},
+{m:"pron", de:"Viele Gründer wissen nicht, wie sie ihr Geld planen sollen.",
+ en:"Many founders do not know how they should plan their money.",
+ tip:"„sie“ tut etwas → <b>they</b>. „ihr Geld“ → <b>their</b> + Nomen. Beide in einem Satz."},
+{m:"pron", de:"Die Bank gibt den Studenten einen Kredit, aber sie verlangt hohe Zinsen von ihnen.",
+ en:"The bank gives the students a loan, but it charges them high interest.",
+ tip:"Die Bank ist eine Sache → <b>it</b>. Die Studenten nach dem Verb → <b>them</b>."},
+{m:"pron", de:"Wenn Kunden ein Problem haben, sollte die Firma ihnen sofort helfen.",
+ en:"If customers have a problem, the company should help them immediately.",
+ tip:"<b>should help them</b>: erst das Verb, dann das Pronomen. Nicht <i>should them help</i>."},
+/* ---------- Subjekt nach Vorbau ---------- */
+{m:"vorbau", own:true, de:"In vielen Firmen arbeiten die Mitarbeiter von zu Hause.",
+ en:"In many companies, employees work from home.",
+ tip:"Wer arbeitet? Die Mitarbeiter → Subjekt direkt nach dem Komma. In Drill 5 stand hier <i>work the employees</i>."},
+{m:"vorbau", own:true, de:"Für kleine Firmen ist Online-Werbung oft günstiger als Fernsehwerbung.",
+ en:"For small companies, online advertising is often cheaper than TV advertising.",
+ tip:"Was ist günstiger? Die Online-Werbung → Subjekt. Vergleich mit <b>than</b>, ohne <i>as</i>."},
+{m:"vorbau", own:true, de:"Für junge Menschen ist ein Kredit oft gefährlich, weil sie die Zinsen nicht verstehen.",
+ en:"For young people, a loan is often dangerous because they do not understand interest rates.",
+ tip:"Was ist gefährlich? Der Kredit → Subjekt. <b>For young people</b> hat eine Präposition, ist also nie das Subjekt."},
+{m:"vorbau", de:"In vielen Ländern zahlen die Menschen noch mit Bargeld.",
+ en:"In many countries, people still pay with cash.",
+ tip:"Vorbau abdecken: <b>people still pay with cash</b> ist ein ganzer Satz."},
+{m:"vorbau", de:"Für kleine Firmen ist ein Kredit oft die einzige Möglichkeit.",
+ en:"For small companies, a loan is often the only option.",
+ tip:"Zahl-Probe: „sind Kredite“ — das Verb ändert sich mit, also ist der Kredit das Subjekt."},
+{m:"vorbau", de:"Nach einer schlechten Erfahrung kaufen viele Kunden bei einer anderen Marke.",
+ en:"After a bad experience, many customers buy from another brand.",
+ tip:"Wer kauft? Viele Kunden → Subjekt vor <b>buy</b>."},
+{m:"vorbau", de:"In meinem Essay möchte ich die Vor- und Nachteile diskutieren.",
+ en:"In my essay, I would like to discuss the advantages and disadvantages.",
+ tip:"Nach dem Vorbau <b>I</b>, dann <b>would like to</b>. Nicht <i>would like I</i>."},
+{m:"vorbau", de:"Deshalb sind viele Mitarbeiter unzufrieden.",
+ en:"Therefore, many employees are unhappy.",
+ tip:"Auch nach <b>Therefore,</b> kommt zuerst das Subjekt. Nicht <i>Therefore are many employees</i>."},
+/* ---------- Verbform ---------- */
+{m:"verb", own:true, de:"Viele Menschen träumen davon, ein Unternehmen zu gründen.",
+ en:"Many people dream of starting a business.",
+ tip:"Nach der Präposition <b>of</b> → <b>-ing</b>. In Drill 5 stand hier <i>dream about to establishing</i>."},
+{m:"verb", own:true, de:"Ist es eine gute Idee, einen Kredit aufzunehmen?",
+ en:"Is it a good idea to take out a loan?",
+ tip:"Nach <b>to</b> die Grundform: <b>to take</b>. In Drill 5 stand hier <i>to taking</i>."},
+{m:"verb", own:true, de:"In vielen Firmen treffen die Manager alle Entscheidungen allein.",
+ en:"In many companies, managers make all decisions alone.",
+ tip:"Eine <b>-ing</b>-Form allein ist kein Verb. In Drill 5 stand hier <i>managers taking</i>."},
+{m:"verb", own:true, de:"Das ist gut, weil die Leute jetzt ein Haus kaufen können.",
+ en:"This is good because people can buy a house now.",
+ tip:"Nach <b>can</b> die Grundform: <b>can buy</b>. Im Essay vom 12.11. stand hier <i>can buying</i>."},
+{m:"verb", de:"Viele junge Menschen wollen ein eigenes Unternehmen gründen.",
+ en:"Many young people want to start their own business.",
+ tip:"<b>want to</b> + Grundform."},
+{m:"verb", de:"Die Firma sollte schneller auf Beschwerden antworten.",
+ en:"The company should answer complaints faster.",
+ tip:"Nach <b>should</b> die Grundform, ohne <i>to</i>."},
+{m:"verb", de:"Er hat Angst davor, sein Haus zu verlieren.",
+ en:"He is afraid of losing his house.",
+ tip:"Nach der Präposition <b>of</b> → <b>losing</b>. Zum Vergleich: <i>He wants to lose</i> — nach <b>to</b> Grundform."},
+{m:"verb", de:"Es ist schwer, ohne Eigenkapital einen Kredit zu bekommen.",
+ en:"It is difficult to get a loan without equity.",
+ tip:"<b>difficult to</b> + Grundform: <b>to get</b>."}
+  ]
+};
+
+/* ============================================================
    STATE
    ============================================================ */
 const KEY = "dailyEnglish.v2";
@@ -1459,7 +1553,8 @@ const VKIND = {
   def:  {label:"Definieren",       pre:"d:"},
   find: {label:"Begriff finden",   pre:"f:"},
   wf:   {label:"Wortbildung",      pre:"w:"},
-  tr:   {label:"Übersetzen gemischt", pre:"t:"}
+  tr:   {label:"Übersetzen gemischt", pre:"t:"},
+  fs:   {label:"Fokussätze",       pre:"s:"}
 };
 const MIX_UNITS = /Conditional|Relativs|Passiv|unless/;
 
@@ -1468,6 +1563,8 @@ function vocabItems(kind){
     return VOCAB.map(v => ({kind, id: VKIND[kind].pre + v.w, word: v.w, v}));
   if(kind === "wf")
     return WORDFORM.map(x => ({kind, id: "w:" + x.b + ">" + x.a[0], x}));
+  if(kind === "fs")
+    return FOCUS.items.filter(f => FOCUS.active.includes(f.m)).map(f => ({kind, id: "s:" + f.de, f}));
   const out = [];
   UNITS.forEach(u => { if(MIX_UNITS.test(u.t)) u.tr.forEach(t => out.push({kind, id: "t:" + t.de, t, unit: u.t})); });
   return out;
@@ -1483,11 +1580,15 @@ function shuffled(a){
   for(let i = r.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; }
   return r;
 }
-/* spec: [["def",1],["find",1],…] — ein Begriff kommt in einer Runde nie doppelt vor */
+/* spec: [["def",1],["find",1],…] — ein Begriff kommt in einer Runde nie doppelt vor.
+   Bei "fs" engt ein dritter Wert auf ein Muster ein: ["fs",1,"pron"] */
 function buildRound(spec){
   const used = new Set(), round = [];
-  spec.forEach(([kind, n]) => {
-    const pool = shuffled(vocabItems(kind)).sort((a, b) => vscore(a.id) - vscore(b.id));
+  spec.forEach(([kind, n, m]) => {
+    const items = vocabItems(kind).filter(it => !m || it.f.m === m);
+    /* eigene Sätze aus dem Drill kommen vor fremden neuen Sätzen dran */
+    const key = it => vscore(it.id) - (it.f && it.f.own && !S.vocab[it.id] ? 0.5 : 0);
+    const pool = shuffled(items).sort((a, b) => key(a) - key(b));
     let got = 0;
     for(const it of pool){
       if(got >= n) break;
@@ -1513,6 +1614,7 @@ function accepts(it, answer){
 function vocabLabel(it){
   if(it.kind === "wf") return it.x.b.toUpperCase() + " → " + it.x.a[0];
   if(it.kind === "tr") return it.t.en;
+  if(it.kind === "fs") return it.f.en;
   return it.v.w + " — " + it.v.de;
 }
 function kindStat(kind){
@@ -1626,9 +1728,11 @@ const STEPS = [
   {k:"rule",  label:"Regel"},
   {k:"fix",   label:"Fehler"},
   {k:"trans", label:"Übersetzen"},
+  {k:"focus", label:"Sätze"},
   {k:"vocab", label:"Wörter"},
   {k:"write", label:"Schreiben"}
 ];
+const DAILY_FOCUS = () => FOCUS.active.map(m => ["fs", 1, m]);
 const DAILY_VOCAB = [["def",1],["find",1],["wf",1]];
 const MIX_ROUND   = [["def",2],["find",2],["wf",2],["tr",2]];
 
@@ -1639,7 +1743,7 @@ function startSession(mode, unitIdx){
     step: mode === "short" ? "write" : "rule",
     fi:0, ti:0, fixOk:0, trOk:0,
     sel:null, shown:false,
-    vq: mode === "full" ? buildRound(DAILY_VOCAB) : [], vi:0, vres:[], defs:[],
+    vq: mode === "full" ? buildRound(DAILY_FOCUS().concat(DAILY_VOCAB)) : [], vi:0, vres:[], defs:[],
     text:"", t0:Date.now(), wt0:null
   };
   view = "session";
@@ -1667,7 +1771,11 @@ function advVocab(ok){
   ses.answer = ""; ses.shown = false; ses.vok = null;
   if(ses.vi === ses.vq.length - 1){
     if(ses.mode === "vocab") finishSession(); else nextStep();
-  } else { ses.vi++; render(); window.scrollTo({top:0, behavior:"instant"}); }
+  } else {
+    ses.vi++;
+    if(ses.step === "focus" && ses.vq[ses.vi].kind !== "fs") ses.step = "vocab";
+    render(); window.scrollTo({top:0, behavior:"instant"});
+  }
 }
 function commitVocab(){
   ses.vres.forEach(r => {
@@ -1689,9 +1797,11 @@ function startClock(){
 function stopClock(){ if(tick){ clearInterval(tick); tick = null; } }
 
 function nextStep(){
-  const order = ["rule","fix","trans","vocab","write"];
+  const order = ["rule","fix","trans","focus","vocab","write"];
   let i = order.indexOf(ses.step) + 1;
-  if(order[i] === "vocab" && !ses.vq.length) i++;
+  const hasFs = ses.vq.length && ses.vq[0].kind === "fs";
+  if(order[i] === "focus" && !hasFs) i++;
+  if(order[i] === "vocab" && (!ses.vq.length || hasFs && ses.vq.every(it => it.kind === "fs"))) i++;
   ses.step = order[i];
   ses.sel = null; ses.shown = false; ses.answer = "";
   if(ses.step === "write") ses.wt0 = Date.now();
@@ -1800,7 +1910,7 @@ function renderHome(main, dock){
       <h1>${esc(u.t)}</h1>
       <p class="muted">${esc(u.g)}</p>
     </div>
-    <p class="small">Regel ansehen · Fehler finden · übersetzen · drei Wortschatz-Aufgaben · selbst schreiben. Die App sucht das Thema aus — du drückst nur Start.</p>`;
+    <p class="small">Regel ansehen · Fehler finden · übersetzen · drei Fokussätze aus dem Writing-Drill · drei Wortschatz-Aufgaben · selbst schreiben. Die App sucht das Thema aus — du drückst nur Start.</p>`;
   main.appendChild(hero);
 
   const links = document.createElement("div");
@@ -1822,7 +1932,7 @@ function renderHome(main, dock){
     main.appendChild(sum);
   }
 
-  dock.appendChild(btn("Start — 12 Minuten", "primary", () => startSession("full")));
+  dock.appendChild(btn("Start — 15 Minuten", "primary", () => startSession("full")));
 }
 
 function rowlink(title, sub, fn){
@@ -1838,7 +1948,7 @@ function renderSession(main, dock){
   if(ses.step === "rule")  return renderRule(main, dock);
   if(ses.step === "fix")   return renderFix(main, dock);
   if(ses.step === "trans") return renderTrans(main, dock);
-  if(ses.step === "vocab") return renderVocab(main, dock);
+  if(ses.step === "vocab" || ses.step === "focus") return renderVocab(main, dock);
   if(ses.step === "write") return renderWrite(main, dock);
 }
 
@@ -1994,6 +2104,7 @@ function renderVocab(main, dock){
   const it = ses.vq[ses.vi];
   const lastItem = ses.vi === ses.vq.length - 1;
   const nextLabel = !lastItem ? "Nächste Aufgabe" : ses.mode === "vocab" ? "Fertig" : "Weiter zum Schreiben";
+  /* Sätze und Wörter teilen sich eine Warteschlange, ses.step zeigt, in welchem Teil du bist */
 
   const head = document.createElement("div");
   head.className = "stack tight";
@@ -2001,10 +2112,18 @@ function renderVocab(main, dock){
     def:  "Schreib einen ganzen Satz auf Englisch. Ein einzelnes Synonym zählt in der Klausur nicht. Muster: Oberbegriff + that/who …",
     find: "Welcher Begriff ist gemeint? Achte auf die Wortart.",
     wf:   "Bilde aus dem Wort in Großbuchstaben das Wort, das in die Lücke passt. Erst die Wortart klären, dann schreiben.",
-    tr:   "Schreib den Satz auf Englisch. Überleg zuerst, welche Form verlangt ist: welcher Conditional, Relativsatz oder Passiv?"
+    tr:   "Schreib den Satz auf Englisch. Überleg zuerst, welche Form verlangt ist: welcher Conditional, Relativsatz oder Passiv?",
+    fs:   ""
   }[it.kind];
-  head.innerHTML = `<span class="label accent">${esc(VKIND[it.kind].label)} · ${ses.vi + 1} von ${ses.vq.length}</span>
-    <p class="muted">${esc(hint)}</p>`;
+  if(it.kind === "fs"){
+    const fsQ = ses.vq.filter(x => x.kind === "fs"), pat = FOCUS.patterns[it.f.m];
+    head.innerHTML = `<span class="label accent">Fokus Drill ${FOCUS.drill} · ${esc(pat.name)} · ${fsQ.indexOf(it) + 1} von ${fsQ.length}</span>
+      <p class="muted">Schreib den Satz auf Englisch. Fehlende Wörter auf Deutsch in Klammern. Vor dem Aufdecken einmal nur auf das Muster lesen: ${pat.check}</p>`;
+  } else {
+    const n = ses.vq.filter(x => x.kind !== "fs"), off = ses.vq.length - n.length;
+    head.innerHTML = `<span class="label accent">${esc(VKIND[it.kind].label)} · ${ses.vi - off + 1} von ${n.length}</span>
+      <p class="muted">${esc(hint)}</p>`;
+  }
   main.appendChild(head);
 
   const card = document.createElement("div");
@@ -2023,14 +2142,14 @@ function renderVocab(main, dock){
       <p class="en">${esc(parts[0])}${mid}${esc(parts[1] || "")}</p>
       <p class="small" style="margin-top:8px">Ausgangswort: <strong style="letter-spacing:.06em">${esc(it.x.b.toUpperCase())}</strong></p>`;
   } else {
-    card.innerHTML = `<span class="label">Deutsch</span><p class="de" style="font-size:1.05rem;font-weight:600">${esc(it.t.de)}</p>`;
+    card.innerHTML = `<span class="label">Deutsch</span><p class="de" style="font-size:1.05rem;font-weight:600">${esc(it.kind === "fs" ? it.f.de : it.t.de)}</p>`;
   }
   main.appendChild(card);
 
-  const long = it.kind === "def" || it.kind === "tr";
+  const long = it.kind === "def" || it.kind === "tr" || it.kind === "fs";
   const field = document.createElement(long ? "textarea" : "input");
   if(long){ field.rows = 3; } else { field.type = "text"; field.className = "answer"; field.enterKeyHint = "done"; }
-  field.placeholder = it.kind === "def" ? "A … is a … that …" : it.kind === "tr" ? "Deine englische Version …" : "Deine Antwort …";
+  field.placeholder = it.kind === "def" ? "A … is a … that …" : (it.kind === "tr" || it.kind === "fs") ? "Deine englische Version …" : "Deine Antwort …";
   field.value = ses.answer || "";
   field.readOnly = ses.shown;
   noAuto(field);
@@ -2050,6 +2169,11 @@ function renderVocab(main, dock){
          <p class="en">${esc(it.v.m)}</p>
          <p class="muted" style="margin-top:8px"><strong>Muss drin sein:</strong> ${it.v.k}</p>
          <p class="small">Deutsch: ${esc(it.v.de)}</p>`
+      : it.kind === "fs"
+      ? `<span class="label right">Musterlösung</span>
+         <p class="en">${esc(it.f.en)}</p>
+         <p class="muted" style="margin-top:8px">${it.f.tip}</p>
+         <p class="small">${it.f.own ? "Dein Satz aus dem Drill · " : ""}Muster: ${esc(FOCUS.patterns[it.f.m].name)}</p>`
       : `<span class="label right">Musterlösung</span>
          <p class="en">${esc(it.t.en)}</p>
          <p class="muted" style="margin-top:8px">${it.t.tip}</p>
@@ -2059,7 +2183,8 @@ function renderVocab(main, dock){
     const q = document.createElement("p");
     q.className = "small";
     q.style.textAlign = "center";
-    q.textContent = it.kind === "def" ? "Ehrlich sein — stand der Kern in deinem Satz?" : "Ehrlich sein — hattest du das?";
+    q.textContent = it.kind === "def" ? "Ehrlich sein — stand der Kern in deinem Satz?"
+      : it.kind === "fs" ? "Ehrlich sein — saß das Muster? Andere Fehler zählen hier nicht." : "Ehrlich sein — hattest du das?";
     main.appendChild(q);
 
     dock.appendChild(btn("Daneben", "no", () => advVocab(false)));
@@ -2153,7 +2278,7 @@ function renderWrite(main, dock){
 function resultList(){
   const c = document.createElement("div");
   c.className = "card stack tight";
-  c.innerHTML = `<span class="label">Wortschatz in dieser Runde</span>
+  c.innerHTML = `<span class="label">${ses.vres.some(r => r.kind === "fs") ? "Sätze und Wortschatz" : "Wortschatz"} in dieser Runde</span>
     <ul class="results">${ses.vres.map(r =>
       `<li class="${r.ok ? "hit" : "miss"}"><b>${r.ok ? "✓" : "✗"}</b><span>${esc(r.label)}<small>${esc(VKIND[r.kind].label)}${r.ok ? "" : " · kommt beim nächsten Mal wieder"}</small></span></li>`
     ).join("")}</ul>`;
@@ -2279,7 +2404,8 @@ function renderTopics(main, dock){
     def:  "Begriffe in einem ganzen Satz erklären",
     find: "Zur Definition den Begriff nennen",
     wf:   "Aus dem Ausgangswort die passende Wortart bilden",
-    tr:   "Conditionals, Relativsätze und Passiv durcheinander"
+    tr:   "Conditionals, Relativsätze und Passiv durcheinander",
+    fs:   "Fokus Drill " + FOCUS.drill + ": " + FOCUS.active.map(m => FOCUS.patterns[m].name).join(", ")
   };
   Object.keys(VKIND).forEach(kind => {
     const st = kindStat(kind);

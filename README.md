@@ -1,6 +1,6 @@
 # Daily English
 
-Zwölf Minuten Englisch am Tag: Grammatik üben, Begriffe definieren, selbst schreiben.
+Fünfzehn Minuten Englisch am Tag: Grammatik üben, Sätze bauen, Begriffe definieren, selbst schreiben.
 Gebaut für **Business English M3W** (HTW Berlin, Modul 7512, Niveau B2.2).
 
 **Benutzen:** Die Android-App unter [Releases](../../releases) installieren —
@@ -18,6 +18,7 @@ eigenständig, ohne Server.
 | Wendungen | 156 |
 | Begriffe zum Definieren | 60 |
 | Wortbildungs-Sätze | 56 |
+| Fokussätze aus dem Writing-Drill | 24 |
 
 Nur M3W-Stoff: Zeiten aktiv und passiv, Conditionals 1–3 und mixed,
 Relativsätze, Adjektiv/Adverb, Verbindungswörter und die Kursthemen
@@ -33,9 +34,15 @@ Essay und Lesetexte sind bewusst nicht in der App — die laufen im Chat mit Cla
 Kein Tagesplan, keine Serie. Du drückst **Start**, die App sucht das Thema aus:
 erst was du noch nie hattest, danach immer das, was am schlechtesten sitzt.
 
-**Start — 12 Minuten** führt durch fünf Schritte: Regel lesen, in drei Sätzen
-den Fehler antippen, drei Sätze übersetzen, drei Wortschatz-Aufgaben lösen,
-am Ende selbst einen Text schreiben.
+**Start — 15 Minuten** führt durch sechs Schritte: Regel lesen, in drei Sätzen
+den Fehler antippen, drei Sätze übersetzen, drei Fokussätze bauen, drei
+Wortschatz-Aufgaben lösen, am Ende selbst einen Text schreiben.
+
+**Fokussätze** kommen aus dem Writing-Drill im Chat: je ein deutscher Satz pro
+aktuellem Fokusmuster (gerade Pronomen, Subjekt nach Vorbau, Verbform), frei
+übersetzen, dann mit der Musterlösung vergleichen. Gezählt wird nur, ob das
+Muster saß. Eigene Sätze aus dem Drill kommen zuerst, Verpasstes kommt wieder.
+Nach jedem Drill werden `FOCUS.active` und die Sätze in `index.html` angepasst.
 
 **Klausur-Mix — 5 Minuten** geht ohne Grammatikthema: zwei Begriffe definieren,
 zwei Begriffe zur Definition finden, zweimal Wortbildung, zwei Sätze übersetzen
